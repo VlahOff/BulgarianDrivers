@@ -21,6 +21,8 @@ html:focus-within {
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #3c3836;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }

@@ -1,0 +1,36 @@
+.press {
+  height: 360px;
+}
+
+.title {
+  color: white;
+  margin: 2rem 0;
+  font-size: 36px;
+  text-align: center;
+}
+
+.quotes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.quote {
+  font-style: italic;
+  font-weight: 200;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.mark {
+  font-size: 3rem;
+  margin-right: 2rem;
+}
+
+.author {
+  color: white;
+  text-align: right;
+}

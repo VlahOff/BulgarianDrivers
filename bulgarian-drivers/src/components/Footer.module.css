@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+  background-color: #1d2021;
+}
+
+.logo {
+  width: 200px;
+}
+
+.copy {
+  color: white;
+  font-size: 18px;
+}
