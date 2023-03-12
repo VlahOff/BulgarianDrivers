@@ -1,0 +1,13 @@
+.card {
+  background-color: #A89884;
+  color: white;
+  padding: 2rem;
+  border-radius: 3px;
+  box-shadow:
+    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.061),
+    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.061),
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.06),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.068),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.095),
+    100px 100px 80px rgba(0, 0, 0, 0.15);
+}

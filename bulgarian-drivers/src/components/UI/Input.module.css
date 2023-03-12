@@ -1,0 +1,29 @@
+.input-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.label {
+  flex: 1 1 100%;
+}
+
+.input {
+  color: white;
+  flex: 1 1 100%;
+  border: none;
+  background-color: #A89884;
+  border-bottom: 2px #fabd2f solid;
+  height: 2rem;
+  padding: 1rem 0.5rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 40rem #A89884 inset;
+}

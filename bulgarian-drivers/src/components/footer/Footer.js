@@ -1,6 +1,6 @@
 import styles from './Footer.module.css';
 
-import logo from '../assets/bg-drivers-logo-white.png';
+import logo from '../../assets/bg-drivers-logo-white.png';
 
 const Footer = () => {
   return (
