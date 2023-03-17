@@ -19,7 +19,7 @@
 }
 
 .input.error {
-  background-color: #ff9f94;
+  background-color: rgba(255, 193, 186, 0.3);
   border-bottom: 2px #fb4934 solid;
 }
 

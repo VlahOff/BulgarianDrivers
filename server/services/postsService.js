@@ -10,13 +10,10 @@ async function createPost(carNumber, title, comment, rating, userId) {
         carNumber: carNumber
       });
 
-      console.log(car);
     } catch (error) {
       console.log(error.message);
     }
   }
-
-  console.log(car);
 
   const post = await Post.create({
     carNumber: carNumber,
@@ -28,8 +25,6 @@ async function createPost(carNumber, title, comment, rating, userId) {
 
   car.posts.push(post._id);
   car.save();
-
-  console.log(post);
 }
 
 module.exports = {
