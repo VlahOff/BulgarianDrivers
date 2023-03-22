@@ -47,7 +47,4 @@
   background-color: #FE8019;
   transition: background-color linear 300ms;
   box-shadow: 0 8px 8px 0 #88000025, 0 8px 8px 0 #00000004;
-  transform: translate(0px, 5px);
-  -webkit-transform: translate(0px, 5px);
-  -moz-transform: translate(0px, 5px);
 }

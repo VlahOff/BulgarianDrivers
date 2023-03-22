@@ -1,4 +1,3 @@
-import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import RouterOutlet from './RouterOutlet';
 
@@ -11,7 +10,6 @@ function App() {
       <main className={styles.main}>
         <RouterOutlet />
       </main>
-      <Footer />
     </>
   );
 }

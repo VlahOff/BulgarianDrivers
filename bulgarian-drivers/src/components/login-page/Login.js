@@ -1,4 +1,7 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import AuthContext from '../../contexts/authContext';
+import { useForm } from '../../hooks/useForm';
+import { validateEmail } from '../../utils/emailValidation';
 
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -6,75 +9,46 @@ import Input from '../UI/Input';
 
 import styles from './Login.module.css';
 
-const defaultState = {
-  email: '',
-  emailValid: null,
-  password: '',
-  passwordValid: null
-};
-
-const formReducer = (state, action) => {
-  if (action.type === 'EMAIL_INPUT') {
-    return { ...state, email: action.val, emailValid: action.val.trim().includes('@') };
-  }
-  if (action.type === 'EMAIL_VALIDATE') {
-    return { ...state, email: state.email, emailValid: state.email.trim().includes('@') };
-  }
-  if (action.type === 'PASSWORD_INPUT') {
-    return { ...state, password: action.val, passwordValid: action.val.trim().length >= 6 };
-  }
-  if (action.type === 'PASSWORD_VALIDATE') {
-    return { ...state, password: state.password, passwordValid: state.password.trim().length >= 6 };
-  }
-
-  return defaultState;
-};
-
 const Login = () => {
-  const [formState, dispatchForm] = useReducer(formReducer, defaultState);
+  const authCtx = useContext(AuthContext);
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+    email: '',
+    emailValid: null,
+    password: '',
+    passwordValid: null
+  }, authCtx.onLoginSubmit);
+
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    setIsFormValid(formState.emailValid && formState.passwordValid);
-  }, [formState]);
+    setIsFormValid(values.emailValid && values.passwordValid);
+  }, [values]);
 
-  const emailChangeHandler = (event) => {
-    dispatchForm({ type: 'EMAIL_INPUT', val: event.target.value });
+
+  const emailValidation = (event) => {
+    blurHandler(event.target.id, validateEmail(event.target.value));
   };
 
-  const emailValidationHandler = () => {
-    dispatchForm({ type: 'EMAIL_VALIDATE' });
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchForm({ type: 'PASSWORD_INPUT', val: event.target.value });
-  };
-
-  const passwordValidationHandler = () => {
-    dispatchForm({ type: 'PASSWORD_VALIDATE' });
-  };
-
-  const formSubmitHandler = (event) => {
-    event.preventDefault();
-
-    console.log(formState);
+  const passwordValidation = (event) => {
+    //TODO: Add password validation
+    blurHandler(event.target.id, event.target.value.trim().length >= 3);
   };
 
   return (
     <Card className={styles.card}>
       <h2 className={styles.title}>Login</h2>
-      <form className={styles.form} onSubmit={formSubmitHandler}>
+      <form className={styles.form} onSubmit={submitHandler}>
         <Input
           className={styles.input}
           label={'E-mail'}
           input={{
             id: 'email',
-            type: 'email',
-            onChange: emailChangeHandler,
-            onBlur: emailValidationHandler,
-            value: formState.email
+            type: 'text',
+            onChange: changeHandler,
+            onBlur: emailValidation,
+            value: values.email
           }}
-          error={formState.emailValid}
+          error={values.emailValid}
         />
         <Input
           className={styles.input}
@@ -82,11 +56,11 @@ const Login = () => {
           input={{
             id: 'password',
             type: 'password',
-            onChange: passwordChangeHandler,
-            onBlur: passwordValidationHandler,
-            value: formState.password
+            onChange: changeHandler,
+            onBlur: passwordValidation,
+            value: values.password
           }}
-          error={formState.passwordValid}
+          error={values.passwordValid}
         />
         <Button type="submit" disabled={!isFormValid}>Login</Button>
       </form>
