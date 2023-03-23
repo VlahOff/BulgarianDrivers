@@ -1,5 +1,7 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { login, logout, register } from '../services/authService';
 
 const AuthContext = createContext({
@@ -11,21 +13,12 @@ const AuthContext = createContext({
 
 export const AuthProvider = (props) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-
-  }, []);
+  const [user, setUser] = useLocalStorage('userData', undefined);
 
   const onLoginSubmit = async (data) => {
     const response = await login({ email: data.email, password: data.password });
 
     setUser(response);
-    localStorage.setItem('userData', JSON.stringify(response));
     navigate('/');
   };
 
@@ -37,13 +30,12 @@ export const AuthProvider = (props) => {
     });
 
     setUser(response);
-    localStorage.setItem('userData', JSON.stringify(response));
     navigate('/');
   };
 
-  const onLogout = () => {
-    logout();
-    localStorage.removeItem('userData');
+  const onLogout = async () => {
+    await logout();
+    setUser(undefined);
     navigate('/');
   };
 
