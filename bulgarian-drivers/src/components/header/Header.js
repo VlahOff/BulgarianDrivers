@@ -1,9 +1,12 @@
-import styles from './Header.module.css';
+import { useContext } from 'react';
 
+import AuthContext from '../../contexts/authContext';
+import LinkTo from '../UI/LinkTo';
+
+import styles from './Header.module.css';
 import logo from '../../assets/bg-drivers-logo-white.png';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import AuthContext from '../../contexts/authContext';
+import Button from '../UI/Button';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
@@ -17,20 +20,20 @@ const Header = () => {
           </Link>
         </div>
         <ul className={styles.links}>
-          <li><Link to="/" className={styles.link}>Home</Link></li>
-          <li><Link to="/posts" className={styles.link}>Posts</Link></li>
+          <li><LinkTo to="/" className={styles.link}>Home</LinkTo></li>
+          <li><LinkTo to="/posts" className={styles.link}>Posts</LinkTo></li>
           {!authCtx.user ?
             <>
-              <li><Link to="/login" className={styles.link}>Log In</Link></li>
-              <li><Link to="/register" className={styles.link}>Register</Link></li>
+              <li><LinkTo to="/login" className={styles.link}>Log In</LinkTo></li>
+              <li><LinkTo to="/register" className={styles.link}>Register</LinkTo></li>
             </>
             :
             <>
-              <li><Link to="/profile" className={styles.link}>{authCtx.user.username} <i className="fa-regular fa-user"></i></Link></li>
-              <li><button className={styles.link} onClick={authCtx.onLogout}>Logout</button></li>
+              <li><LinkTo to="/profile" className={styles.link}>{authCtx.user.username} <i className="fa-regular fa-user"></i></LinkTo></li>
+              <li><Button onClick={authCtx.onLogout}>Logout</Button></li>
             </>
           }
-          <li><Link to="/search" className={styles.link}><i className="fa-solid fa-magnifying-glass"></i></Link></li>
+          <li><LinkTo to="/search" className={styles.link}><i className="fa-solid fa-magnifying-glass"></i></LinkTo></li>
         </ul>
       </nav>
     </header>

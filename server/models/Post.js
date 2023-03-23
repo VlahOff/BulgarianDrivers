@@ -4,8 +4,9 @@ const postSchema = new Schema({
   carNumber: { type: String, required: true },
   title: { type: String, required: true },
   post: { type: String, required: true },
-  rating: { type: Number, required: true },
+  // rating: { type: Number, required: true },
   createdOn: { type: Date, default: Date.now },
+  updatedOn: { type: Date, default: Date.now },
   owner: { type: ObjectId, ref: 'User' }
 });
 
