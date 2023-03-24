@@ -1,32 +1,49 @@
 const Post = require('../models/Post');
 const Car = require('../models/Car');
 
-async function createPost(carNumber, title, comment, rating, userId) {
+async function getCar(carId) {
+  const car = await Car.findById(carId).lean();
+
+  return car;
+}
+
+async function getCarList() {
+  const list = await Car.find({}).sort({ updatedOn: -1 }).lean();
+
+  return list;
+}
+
+async function getPosts(carId) {
+  const posts = await Post.find({ carId: carId }).lean();
+
+  return posts;
+}
+
+async function createPost(carNumber, title, post, username, userId) {
   let car = await Car.findOne({ carNumber: carNumber }).exec();
 
   if (!car) {
-    try {
-      car = await Car.create({
-        carNumber: carNumber
-      });
-
-    } catch (error) {
-      console.log(error.message);
-    }
+    car = await Car.create({ carNumber });
   }
 
-  const post = await Post.create({
+  const postData = await Post.create({
     carNumber: carNumber,
+    carId: car._id,
     title: title,
-    post: comment,
-    rating: rating,
+    post: post,
+    username: username,
     owner: userId
   });
 
-  car.posts.push(post._id);
+  car.updatedOn = Date.now();
+  car.posts.push(postData._id);
   car.save();
+  return postData;
 }
 
 module.exports = {
-  createPost
+  getCar,
+  getCarList,
+  createPost,
+  getPosts
 };

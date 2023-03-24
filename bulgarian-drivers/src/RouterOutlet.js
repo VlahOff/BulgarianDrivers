@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import CreatePost from './components/createPost-page/CreatePost';
-import HomePage from './components/home-page/HomePage';
-import Login from './components/login-page/Login';
-import Posts from './components/posts-page/Posts';
-import Register from './components/register-page/Register';
+import CreatePost from './components/createPost/CreatePost';
+import HomePage from './components/home/HomePage';
+import Login from './components/login/Login';
+import PostDetails from './components/postDetails/PostDetails';
+import Posts from './components/posts/Posts';
+import Register from './components/register/Register';
 
 const RouterOutlet = () => {
   return (
@@ -12,8 +13,9 @@ const RouterOutlet = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/posts" element={<Posts />} />
       <Route path="/create-post" element={<CreatePost />} />
+      <Route path="/posts" element={<Posts />} />
+      <Route path="/posts/:id" element={<PostDetails />} />
     </Routes>
   );
 };

@@ -1,6 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import PostsContext from '../../contexts/postsContext';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useForm } from '../../hooks/useForm';
+import * as postService from '../../services/postsService';
+
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
@@ -8,7 +11,14 @@ import Textarea from '../UI/Textarea';
 import classes from './CreatePost.module.css';
 
 const CreatePost = (props) => {
-  const postsCtx = useContext(PostsContext);
+  const navigate = useNavigate();
+
+  const onCreatePostHandler = async (data) => {
+    await postService.createPost(data);
+
+    navigate('/posts');
+  };
+
   const { values, changeHandler, blurHandler, submitHandler } = useForm({
     carNumber: '',
     carNumberValid: null,
@@ -16,7 +26,7 @@ const CreatePost = (props) => {
     titleValid: null,
     post: '',
     postValid: null,
-  }, postsCtx.onCreatePostHandler);
+  }, onCreatePostHandler);
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -30,7 +40,7 @@ const CreatePost = (props) => {
   };
 
   const isNotEmpty = (event) => {
-    blurHandler(event.target.id, event.target.value.trim().length > 1);
+    blurHandler(event.target.id, event.target.value.trim().length >= 10);
   };
 
   return (

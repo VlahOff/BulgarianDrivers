@@ -25,7 +25,7 @@ const HowItWorksSection = () => {
         <Step
           img={step3}
           alt="Step 3"
-          description={'3. Add a rating'}
+          description={'3. Add a title'}
         />
         <Step
           img={step4}

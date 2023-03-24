@@ -1,6 +1,7 @@
 .card {
   width: 400px;
   margin: 160px auto 0 auto;
+  padding: 2rem;
 }
 
 .title {

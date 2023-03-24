@@ -1,0 +1,28 @@
+.card {
+  margin: 120px auto;
+  width: 800px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #504945;
+}
+
+.header {
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #282828;
+}
+
+.title {
+  font-weight: 400;
+}
+
+.number {
+  font-weight: bold;
+}
+
+.posts-list {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
