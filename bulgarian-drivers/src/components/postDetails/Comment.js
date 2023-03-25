@@ -1,6 +1,6 @@
-import classes from './Comment.module.css';
-import Button from '../UI/Button';
 import { transformDate } from '../../utils/dateTransformer';
+import Button from '../UI/Button';
+import classes from './Comment.module.css';
 
 const Comment = (props) => {
   const post = props.post;
@@ -26,7 +26,7 @@ const Comment = (props) => {
         </div>
         <footer className={classes.footer}>
           <div className={classes.actions}>
-            {props.user.userId === post.owner &&
+            {props.user?.userId === post.owner &&
               <>
                 <Button onClick={selectPost}>Edit</Button>
                 <Button onClick={deletePost}>Delete</Button>

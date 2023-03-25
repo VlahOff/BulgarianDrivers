@@ -1,12 +1,12 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import AuthContext from '../../contexts/authContext';
 import LinkTo from '../UI/LinkTo';
-
-import styles from './Header.module.css';
-import logo from '../../assets/bg-drivers-logo-white.png';
-import { Link } from 'react-router-dom';
 import Button from '../UI/Button';
+
+import logo from '../../assets/bg-drivers-logo-white.png';
+import styles from './Header.module.css';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);

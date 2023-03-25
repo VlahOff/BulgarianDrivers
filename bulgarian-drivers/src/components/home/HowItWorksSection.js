@@ -6,6 +6,7 @@ import step3 from '../../assets/step-3.jpg';
 import step4 from '../../assets/step-4.jpg';
 import step5 from '../../assets/step-5.jpg';
 import Step from './Step';
+import LinkTo from '../UI/LinkTo';
 
 const HowItWorksSection = () => {
   return (
@@ -15,7 +16,7 @@ const HowItWorksSection = () => {
         <Step
           img={step1}
           alt="Step 1"
-          description={'1. Click Make a post'}
+          description={<LinkTo to="/create-post">1. Make a post</LinkTo>}
         />
         <Step
           img={step2}

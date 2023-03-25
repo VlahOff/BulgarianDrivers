@@ -1,11 +1,14 @@
-import Button from '../UI/Button';
-import Modal from '../UI/Modal';
-import Input from '../UI/Input';
-import classes from './EditCommentModal.module.css';
-import { useForm } from '../../hooks/useForm';
-import Textarea from '../UI/Textarea';
 import { useEffect, useState } from 'react';
+
 import * as postService from '../../services/postsService';
+import { useForm } from '../../hooks/useForm';
+
+import Button from '../UI/Button';
+import Input from '../UI/Input';
+import Modal from '../UI/Modal';
+import Textarea from '../UI/Textarea';
+
+import classes from './EditCommentModal.module.css';
 
 const EditCommentModal = (props) => {
   const { values, changeHandler, blurHandler, submitHandler } = useForm({

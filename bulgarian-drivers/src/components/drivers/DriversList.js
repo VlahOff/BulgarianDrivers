@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import * as postService from '../../services/postsService';
 
 import Driver from './Driver';
-
 import Card from '../UI/Card';
 import LinkTo from '../UI/LinkTo';
+
 import classes from './DriversList.module.css';
 
 const DriversList = () => {

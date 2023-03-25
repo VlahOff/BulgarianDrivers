@@ -8,6 +8,7 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
 import Textarea from '../UI/Textarea';
+
 import classes from './CreatePost.module.css';
 
 const CreatePost = (props) => {

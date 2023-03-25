@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import AuthContext from '../../contexts/authContext';
 import * as postService from '../../services/postsService';
+
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import AddCommentModal from './AddCommentModal';
 import Comment from './Comment';
 import EditCommentModal from './EditCommentModal';
+
 import classes from './PostDetails.module.css';
 
 const PostDetails = (props) => {
