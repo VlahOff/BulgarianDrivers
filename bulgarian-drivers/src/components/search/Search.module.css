@@ -1,0 +1,63 @@
+.card {
+  margin: 120px auto;
+  width: 500px;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+input.input {
+  margin: 0;
+}
+
+.results {
+  background-color: #928374;
+  border-radius: 4px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.result-link {
+  text-decoration: none;
+  color: white;
+}
+
+.result {
+  background-color: #928374;
+  padding: 0.5rem;
+  text-align: center;
+  transition: background-color linear 200ms;
+  border-bottom: 1px solid #555;
+}
+
+.result:last-child {
+  border: none;
+}
+
+.result:hover {
+  background-color: #fe8019;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

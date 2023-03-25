@@ -14,6 +14,12 @@ export const getCarList = async () => {
   return response;
 };
 
+export const searchCarList = async (query) => {
+  const response = await fetchApi.get(`${BASE_URL}/searchCarList?search=${query}`);
+
+  return response;
+};
+
 export const getPosts = async (carId) => {
   const response = await fetchApi.get(`${BASE_URL}/posts?carId=${carId}`);
 

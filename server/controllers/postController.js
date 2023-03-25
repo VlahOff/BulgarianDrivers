@@ -1,10 +1,10 @@
 const { isUser } = require('../middlewares/guards');
-const { createPost, getCarList, getPosts, getCar, editPost, deletePost } = require('../services/postsService');
+const { createPost, getCarList, getPosts, getCar, editPost, deletePost, searchCarList } = require('../services/postsService');
 const errorParser = require('../utils/errorParser');
 
 const postController = require('express').Router();
 
-const plateReg = /^[A-Z]{1,2} [0-9]{4} [A-Z]{2}$/;
+const plateReg = /^[A-Z]{1,2}[0-9]{4}[A-Z]{2}$/;
 
 postController.get('/car', async (req, res) => {
   try {
@@ -23,6 +23,20 @@ postController.get('/carList', async (req, res) => {
     const list = await getCarList();
 
     res.status(200).json(list);
+  } catch (error) {
+    res.status(400).json({
+      message: errorParser(error)
+    });
+  }
+});
+
+postController.get('/searchCarList', async (req, res) => {
+  try {
+    const searchQuery = req.query.search;
+
+    const result = await searchCarList(searchQuery);
+
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       message: errorParser(error)

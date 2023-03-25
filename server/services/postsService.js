@@ -13,6 +13,12 @@ async function getCarList() {
   return list;
 }
 
+async function searchCarList(query) {
+  const result = await Car.find({ 'carNumber': { '$regex': query, '$options': 'i' } });
+
+  return result;
+}
+
 async function getPosts(carId) {
   const posts = await Post.find({ carId: carId }).lean();
 
@@ -57,6 +63,7 @@ async function deletePost(postId) {
 }
 
 module.exports = {
+  searchCarList,
   getCar,
   getCarList,
   getPosts,

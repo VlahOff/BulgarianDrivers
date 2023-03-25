@@ -5,12 +5,14 @@ import Login from './components/login/Login';
 import PostDetails from './components/postDetails/PostDetails';
 import DriversList from './components/drivers/DriversList';
 import Register from './components/register/Register';
+import Search from './components/search/Search';
 
 const RouterOutlet = () => {
   return (
     <Routes>
       <Route path="*" element={<h1>404 page not found</h1>} />
       <Route path="/" element={<HomePage />} />
+      <Route path="/search" element={<Search />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/create-post" element={<CreatePost />} />

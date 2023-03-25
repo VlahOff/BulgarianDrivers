@@ -6,7 +6,9 @@ const Input = React.forwardRef((props, ref) => {
 
   return (
     <div className={styles['input-wrapper']}>
-      <label className={styles.label} htmlFor={props.input.id}>{props.label}</label>
+      {props.label &&
+        <label className={styles.label} htmlFor={props.input.id}>{props.label}</label>
+      }
       <input className={input} ref={ref} {...props.input} />
     </div>
   );

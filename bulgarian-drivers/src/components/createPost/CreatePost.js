@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
 import * as postService from '../../services/postsService';
+import { validateLicensePlate } from '../../utils/licensePlateValidation';
 
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -36,8 +37,7 @@ const CreatePost = (props) => {
   }, [values]);
 
   const validatePlateNum = (event) => {
-    const licensePlateReg = /^[A-Z]{1,2} [0-9]{4} [A-Z]{2}$/;
-    blurHandler(event.target.id, licensePlateReg.test(event.target.value.trim()));
+    blurHandler(event.target.id, validateLicensePlate(event.target.value));
   };
 
   const isNotEmpty = (event) => {
@@ -58,7 +58,7 @@ const CreatePost = (props) => {
             onBlur: validatePlateNum,
             value: values.carNumber,
             autoFocus: true,
-            placeholder: 'CB 1234 MB'
+            placeholder: 'CB1234MB'
           }}
           error={values.carNumberValid}
         />
