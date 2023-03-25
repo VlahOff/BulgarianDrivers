@@ -29,3 +29,19 @@ export const createPost = async (data) => {
 
   return response;
 };
+
+export const editPost = async (data, carNumber, postId) => {
+  const response = await fetchApi.put(`${BASE_URL}/posts?postId=${postId}`, {
+    carNumber: carNumber,
+    title: data.title,
+    post: data.post,
+  });
+
+  return response;
+};
+
+export const deletePost = async (postId) => {
+  const response = await fetchApi.delete(`${BASE_URL}/posts?postId=${postId}`);
+
+  return response;
+};

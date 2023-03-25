@@ -41,9 +41,26 @@ async function createPost(carNumber, title, post, username, userId) {
   return postData;
 }
 
+async function editPost(title, post, postId) {
+  const postDb = await Post.findById({ _id: postId });
+
+  postDb.title = title;
+  postDb.post = post;
+  postDb.updatedOn = Date.now();
+  postDb.save();
+
+  return postDb;
+}
+
+async function deletePost(postId) {
+  return Post.findByIdAndRemove(postId);
+}
+
 module.exports = {
   getCar,
   getCarList,
+  getPosts,
   createPost,
-  getPosts
+  editPost,
+  deletePost
 };

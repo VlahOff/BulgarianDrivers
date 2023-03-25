@@ -21,7 +21,7 @@ const Header = () => {
         </div>
         <ul className={styles.links}>
           <li><LinkTo to="/" className={styles.link}>Home</LinkTo></li>
-          <li><LinkTo to="/posts" className={styles.link}>Posts</LinkTo></li>
+          <li><LinkTo to="/drivers" className={styles.link}>Drivers</LinkTo></li>
           {!authCtx.user ?
             <>
               <li><LinkTo to="/login" className={styles.link}>Log In</LinkTo></li>

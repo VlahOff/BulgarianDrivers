@@ -1,5 +1,5 @@
 .card {
-  margin: 120px auto;
+  margin: 120px auto 0 auto;
   width: 800px;
   border-radius: 4px;
   overflow: hidden;
@@ -7,6 +7,8 @@
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   background-color: #282828;

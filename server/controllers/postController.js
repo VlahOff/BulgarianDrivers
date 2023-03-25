@@ -1,4 +1,5 @@
-const { createPost, getCarList, getPosts, getCar } = require('../services/postsService');
+const { isUser } = require('../middlewares/guards');
+const { createPost, getCarList, getPosts, getCar, editPost, deletePost } = require('../services/postsService');
 const errorParser = require('../utils/errorParser');
 
 const postController = require('express').Router();
@@ -41,7 +42,7 @@ postController.get('/posts', async (req, res) => {
   }
 });
 
-postController.post('/posts', async (req, res) => {
+postController.post('/posts', isUser(), async (req, res) => {
   try {
     const carNumber = req.body.carNumber;
     const title = req.body.title;
@@ -56,7 +57,7 @@ postController.post('/posts', async (req, res) => {
     if (post.trim().length < 10) {
       throw new Error('POST_TOO_SHORT');
     }
-    
+
     const postData = await createPost(carNumber, title, post, req.user.username, req.user.userId);
 
     res.status(200).json(postData);
@@ -67,12 +68,48 @@ postController.post('/posts', async (req, res) => {
   }
 });
 
-postController.put('/posts', (req, res) => {
+postController.put('/posts', isUser(), async (req, res) => {
+  try {
+    const postId = req.query.postId;
+    const title = req.body.title;
+    const post = req.body.post;
 
+    if (!postId.trim()) {
+      throw new Error('NO_POST_ID');
+    }
+    if (title.trim().length < 10) {
+      throw new Error('TITLE_TOO_SHORT');
+    }
+    if (post.trim().length < 10) {
+      throw new Error('POST_TOO_SHORT');
+    }
+
+    const editedPost = await editPost(title, post, postId);
+
+    res.status(200).json(editedPost);
+  } catch (error) {
+    res.status(400).json({
+      message: errorParser(error)
+    });
+  }
 });
 
-postController.delete('/posts', (req, res) => {
+postController.delete('/posts', isUser(), async (req, res) => {
+  try {
+    const postId = req.query.postId;
 
+    if (!postId.trim()) {
+      throw new Error('NO_POST_ID');
+    }
+
+    await deletePost(postId);
+
+    res.status(200).json({ message: 'Done' });
+  } catch (error) {
+    res.status(400).json({
+      message: errorParser(error)
+    });
+  }
 });
 
 module.exports = postController;

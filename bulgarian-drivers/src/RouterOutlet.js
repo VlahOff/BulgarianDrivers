@@ -3,7 +3,7 @@ import CreatePost from './components/createPost/CreatePost';
 import HomePage from './components/home/HomePage';
 import Login from './components/login/Login';
 import PostDetails from './components/postDetails/PostDetails';
-import Posts from './components/posts/Posts';
+import DriversList from './components/drivers/DriversList';
 import Register from './components/register/Register';
 
 const RouterOutlet = () => {
@@ -14,8 +14,8 @@ const RouterOutlet = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/create-post" element={<CreatePost />} />
-      <Route path="/posts" element={<Posts />} />
-      <Route path="/posts/:id" element={<PostDetails />} />
+      <Route path="/drivers" element={<DriversList />} />
+      <Route path="/drivers/:id" element={<PostDetails />} />
     </Routes>
   );
 };

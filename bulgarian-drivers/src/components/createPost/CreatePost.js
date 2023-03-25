@@ -16,7 +16,7 @@ const CreatePost = (props) => {
   const onCreatePostHandler = async (data) => {
     await postService.createPost(data);
 
-    navigate('/posts');
+    navigate('/drivers');
   };
 
   const { values, changeHandler, blurHandler, submitHandler } = useForm({

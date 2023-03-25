@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import * as postService from '../../services/postsService';
 
-import Post from './Post';
+import Driver from './Driver';
 
 import Card from '../UI/Card';
 import LinkTo from '../UI/LinkTo';
-import classes from './Posts.module.css';
+import classes from './DriversList.module.css';
 
-const Posts = () => {
+const DriversList = () => {
   const [carList, setCarList] = useState([]);
 
   useEffect(() => {
@@ -22,21 +22,21 @@ const Posts = () => {
   return (
     <Card className={classes.card}>
       <header className={classes.header}>
-        <h2 className={classes.title}>Recent posts</h2>
+        <h2 className={classes.title}>Recent</h2>
         <LinkTo to="/create-post">Create a post</LinkTo>
       </header>
       <ul className={classes.posts}>
         {carList.map(p => {
           return <Link
             key={p._id}
-            to={`/posts/${p._id}`}
+            to={`/drivers/${p._id}`}
             className={classes.link}
           >
-            <Post
+            <Driver
               className={classes.post}
               carNumber={p.carNumber}
               updatedOn={p.updatedOn}
-              posts={p.posts.length}
+              comments={p.posts.length}
             />
           </Link>;
         })}
@@ -45,4 +45,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default DriversList;
