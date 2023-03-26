@@ -7,6 +7,7 @@ import Button from '../UI/Button';
 
 import logo from '../../assets/bg-drivers-logo-white.png';
 import styles from './Header.module.css';
+import NavLinkTo from '../UI/NavLinkTo';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
@@ -20,20 +21,20 @@ const Header = () => {
           </Link>
         </div>
         <ul className={styles.links}>
-          <li><LinkTo to="/" className={styles.link}>Home</LinkTo></li>
-          <li><LinkTo to="/drivers" className={styles.link}>Drivers</LinkTo></li>
+          <li><NavLinkTo to="/">Home</NavLinkTo></li>
+          <li><NavLinkTo to="/drivers" className={styles.link}>Drivers</NavLinkTo></li>
           {!authCtx.user ?
             <>
-              <li><LinkTo to="/login" className={styles.link}>Log In</LinkTo></li>
-              <li><LinkTo to="/register" className={styles.link}>Register</LinkTo></li>
+              <li><NavLinkTo to="/login" className={styles.link}>Log In</NavLinkTo></li>
+              <li><NavLinkTo to="/register" className={styles.link}>Register</NavLinkTo></li>
             </>
             :
             <>
-              <li><LinkTo to="/profile" className={styles.link}><span>{authCtx.user.username}</span> <i className="fa-regular fa-user"></i></LinkTo></li>
+              <li><NavLinkTo to="/profile" className={styles.link}><span>{authCtx.user.username}</span> <i className="fa-regular fa-user"></i></NavLinkTo></li>
               <li><Button onClick={authCtx.onLogout}>Logout</Button></li>
             </>
           }
-          <li><LinkTo to="/search" className={styles.link}><i className="fa-solid fa-magnifying-glass"></i></LinkTo></li>
+          <li><NavLinkTo to="/search" className={styles.link}><i className="fa-solid fa-magnifying-glass"></i></NavLinkTo></li>
         </ul>
       </nav>
     </header>
