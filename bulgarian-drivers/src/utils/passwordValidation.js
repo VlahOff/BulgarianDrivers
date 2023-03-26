@@ -1,4 +1,4 @@
 export const validatePassword = (password) => {
-  const emailReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-  return emailReg.test(password.trim());
+  const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  return passwordReg.test(password.trim());
 };

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/authContext';
 import { useForm } from '../../hooks/useForm';
 import { validateEmail } from '../../utils/emailValidation';
+import { validatePassword } from '../../utils/passwordValidation';
 
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -31,8 +32,7 @@ const Login = () => {
   };
 
   const passwordValidation = (event) => {
-    //TODO: Add password validation
-    blurHandler(event.target.id, event.target.value.trim().length >= 3);
+    blurHandler(event.target.id, validatePassword(event.target.value));
   };
 
   return (

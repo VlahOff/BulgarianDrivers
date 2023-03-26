@@ -1,8 +1,9 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { login, logout, register } from '../services/authService';
+import { ErrorContext } from './errorContext';
 
 const AuthContext = createContext({
   onLoginSubmit: () => { },
@@ -12,11 +13,17 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = (props) => {
+  const errorCtx = useContext(ErrorContext);
   const navigate = useNavigate();
   const [user, setUser] = useLocalStorage('userData', undefined);
 
   const onLoginSubmit = async (data) => {
     const response = await login({ email: data.email, password: data.password });
+    
+    if (response.message) {
+      errorCtx.setErrorMessage(response.message);
+      return;
+    }
 
     setUser(response);
     navigate('/');
@@ -28,6 +35,11 @@ export const AuthProvider = (props) => {
       username: data.username,
       password: data.password
     });
+
+    if (response.message) {
+      errorCtx.setErrorMessage(response.message);
+      return;
+    }
 
     setUser(response);
     navigate('/');
