@@ -10,8 +10,8 @@ const Comment = (props) => {
     props.editPost(post);
   };
 
-  const deletePost = () => {
-    props.removePost(post._id);
+  const deletionConfirm = () => {
+    props.deletionConfirm(post);
   };
 
   return (
@@ -29,7 +29,7 @@ const Comment = (props) => {
             {props.user?.userId === post.owner &&
               <>
                 <Button onClick={selectPost}>Edit</Button>
-                <Button onClick={deletePost}>Delete</Button>
+                <Button onClick={deletionConfirm}>Delete</Button>
               </>
             }
           </div>
