@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import AuthContext from '../../contexts/authContext';
 import * as postService from '../../services/postsService';
@@ -7,15 +7,16 @@ import * as postService from '../../services/postsService';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import AddCommentModal from './AddCommentModal';
+import Comment from './Comment';
 import DeleteCommentModal from './DeleteCommentModal';
 import EditCommentModal from './EditCommentModal';
-import Comment from './Comment';
 
 import classes from './PostDetails.module.css';
 
 const PostDetails = (props) => {
   const { id } = useParams();
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [car, setCar] = useState({});
   const [comments, setComments] = useState([]);
@@ -43,7 +44,12 @@ const PostDetails = (props) => {
   };
 
   const toggleAddModal = () => {
-    setIsAddModalOpen(state => !state);
+    if (authCtx.user) {
+      setIsAddModalOpen(state => !state);
+      return;
+    }
+
+    navigate('/login');
   };
 
   const addEditedPost = (post) => {
@@ -67,7 +73,7 @@ const PostDetails = (props) => {
     setComments(state => {
       const oldState = [...state];
       const newState = oldState
-      .filter(p => p._id !== selectedPost._id);
+        .filter(p => p._id !== selectedPost._id);
 
       return [...newState];
     });

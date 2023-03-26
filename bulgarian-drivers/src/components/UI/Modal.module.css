@@ -18,3 +18,15 @@
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
 }
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+
+  to {
+    opacity: 1;
+    top: 50%;
+  }
+}
