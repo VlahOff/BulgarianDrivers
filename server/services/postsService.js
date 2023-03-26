@@ -20,7 +20,7 @@ async function searchCarList(query) {
 }
 
 async function getPosts(carId) {
-  const posts = await Post.find({ carId: carId }).lean();
+  const posts = await Post.find({ carId: carId }).sort({ updatedOn: -1 }).lean();
 
   return posts;
 }
