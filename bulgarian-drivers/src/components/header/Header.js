@@ -29,7 +29,7 @@ const Header = () => {
             </>
             :
             <>
-              <li><LinkTo to="/profile" className={styles.link}>{authCtx.user.username} <i className="fa-regular fa-user"></i></LinkTo></li>
+              <li><LinkTo to="/profile" className={styles.link}><span>{authCtx.user.username}</span> <i className="fa-regular fa-user"></i></LinkTo></li>
               <li><Button onClick={authCtx.onLogout}>Logout</Button></li>
             </>
           }

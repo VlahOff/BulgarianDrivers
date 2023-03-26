@@ -20,7 +20,13 @@
   margin: 0 auto;
 }
 
-.navigation .logo-container .logo {
+.logo-container {
+  margin: 0;
+  padding: 0;
+  width: 220px;
+}
+
+img.logo {
   height: 100%;
   width: 100%;
   object-fit: contain;
