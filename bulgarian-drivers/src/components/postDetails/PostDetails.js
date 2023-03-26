@@ -7,9 +7,9 @@ import PostsContext from '../../contexts/postsContext';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import AddCommentModal from './AddCommentModal';
-import Comment from './Comment';
-import DeleteCommentModal from './DeleteCommentModal';
-import EditCommentModal from './EditCommentModal';
+import Comment from '../shared/Comment';
+import DeleteCommentModal from '../shared/DeleteCommentModal';
+import EditCommentModal from '../shared/EditCommentModal';
 
 import classes from './PostDetails.module.css';
 

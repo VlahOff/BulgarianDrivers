@@ -12,6 +12,13 @@
   padding-bottom: 0.5rem;
 }
 
+.title {
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .comment-wrapper {
   padding: 1rem 0;
 }

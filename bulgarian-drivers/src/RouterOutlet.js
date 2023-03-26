@@ -9,6 +9,7 @@ import HomePage from './components/home/HomePage';
 import Login from './components/login/Login';
 import PostDetails from './components/postDetails/PostDetails';
 import Profile from './components/profile/Profile';
+import UserPosts from './components/profile/UserPosts';
 import Register from './components/register/Register';
 import Search from './components/search/Search';
 import ProtectedRoute from './components/UI/ProtectedRoute';
@@ -33,6 +34,11 @@ const RouterOutlet = () => {
       <Route path="/profile" element={
         <ProtectedRoute user={user}>
           <Profile />
+        </ProtectedRoute>
+      } />
+      <Route path="/user-posts" element={
+        <ProtectedRoute user={user}>
+          <UserPosts />
         </ProtectedRoute>
       } />
     </Routes>

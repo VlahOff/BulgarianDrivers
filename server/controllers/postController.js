@@ -1,5 +1,5 @@
 const { isUser } = require('../middlewares/guards');
-const { createPost, getCarList, getPosts, getCar, editPost, deletePost, searchCarList } = require('../services/postsService');
+const { createPost, getCarList, getPosts, getCar, editPost, deletePost, searchCarList, getUserPosts } = require('../services/postsService');
 const errorParser = require('../utils/errorParser');
 
 const postController = require('express').Router();
@@ -37,6 +37,19 @@ postController.get('/searchCarList', async (req, res) => {
     const result = await searchCarList(searchQuery);
 
     res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: errorParser(error)
+    });
+  }
+});
+
+postController.get('/userPosts', isUser(), async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const userPosts = await getUserPosts(userId);
+
+    res.status(200).json(userPosts);
   } catch (error) {
     res.status(400).json({
       message: errorParser(error)

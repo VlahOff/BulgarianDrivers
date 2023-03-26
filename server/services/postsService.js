@@ -19,6 +19,12 @@ async function searchCarList(query) {
   return result;
 }
 
+async function getUserPosts(userId) {
+  const result = await Post.find({ owner: userId }).sort({ updatedOn: -1 }).lean();
+
+  return result;
+}
+
 async function getPosts(carId) {
   const posts = await Post.find({ carId: carId }).sort({ updatedOn: -1 }).lean();
 
@@ -49,6 +55,10 @@ async function createPost(carNumber, title, post, username, userId) {
 
 async function editPost(title, post, postId) {
   const postDb = await Post.findById({ _id: postId });
+  const carDb = await Car.findById({ _id: postDb.carId });
+
+  carDb.updatedOn = Date.now();
+  carDb.save();
 
   postDb.title = title;
   postDb.post = post;
@@ -64,13 +74,14 @@ async function deletePost(postId) {
 
   car.posts = car.posts
     .filter(p => p.toString() !== post._id.toString());
-    
+
   car.save();
   return post;
 }
 
 module.exports = {
   searchCarList,
+  getUserPosts,
   getCar,
   getCarList,
   getPosts,

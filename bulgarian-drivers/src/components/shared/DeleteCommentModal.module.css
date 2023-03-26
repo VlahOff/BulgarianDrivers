@@ -8,6 +8,14 @@
   justify-content: space-evenly;
 }
 
+.actions button:first-child {
+  background-color: crimson;
+}
+
+.actions button:last-child {
+  background-color: #282828;
+}
+
 .actions button {
   width: 100px;
 }

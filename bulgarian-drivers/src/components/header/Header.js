@@ -2,12 +2,11 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../contexts/authContext';
-import LinkTo from '../UI/LinkTo';
 import Button from '../UI/Button';
+import NavLinkTo from '../UI/NavLinkTo';
 
 import logo from '../../assets/bg-drivers-logo-white.png';
 import styles from './Header.module.css';
-import NavLinkTo from '../UI/NavLinkTo';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);

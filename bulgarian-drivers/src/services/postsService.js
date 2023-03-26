@@ -20,6 +20,12 @@ export const searchCarList = async (query) => {
   return response;
 };
 
+export const getUserPosts = async () => {
+  const response = await fetchApi.get(`${BASE_URL}/userPosts`);
+
+  return response;
+};
+
 export const getPosts = async (carId) => {
   const response = await fetchApi.get(`${BASE_URL}/posts?carId=${carId}`);
 

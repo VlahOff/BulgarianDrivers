@@ -14,6 +14,7 @@ const PostsContext = createContext({
   toggleEditModal: () => { },
   toggleDeleteModal: () => { },
   loadCommentsForDriver: () => { },
+  loadUserComments: () => { },
   addNewPost: () => { },
   editPost: () => { },
   removePost: () => { }
@@ -41,6 +42,11 @@ export const PostsProvider = (props) => {
       });
   }, []);
 
+  const loadUserComments = useCallback(() => {
+    postService.getUserPosts()
+      .then(data => setComments(data));
+  }, []);
+
   const addNewPost = (data) => {
     postService.createPost({
       carNumber: car.carNumber,
@@ -62,7 +68,7 @@ export const PostsProvider = (props) => {
   };
 
   const editPost = async (data) => {
-    const editedPost = await postService.editPost(data, car.carNumber, selectedPost._id);
+    const editedPost = await postService.editPost(data, selectedPost.carNumber, selectedPost._id);
     setComments(state => {
       const newState = state.filter(p => p._id !== selectedPost._id);
 
@@ -105,6 +111,7 @@ export const PostsProvider = (props) => {
       toggleEditModal,
       toggleDeleteModal,
       loadCommentsForDriver,
+      loadUserComments,
       addNewPost,
       editPost,
       removePost,

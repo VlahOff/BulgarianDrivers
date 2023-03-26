@@ -1,16 +1,37 @@
-import { useContext } from 'react';
-import { ErrorContext } from '../../contexts/errorContext';
+import { useState } from 'react';
+
 import Button from '../UI/Button';
+import Card from '../UI/Card';
+import LinkTo from '../UI/LinkTo';
+import DeleteProfileModal from './DeleteProfileModal';
+
 import classes from './Profile.module.css';
 
 const Profile = (props) => {
-  const { toggle } = useContext(ErrorContext);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const toggleDeleteModal = () => {
+    setIsDeleteModalOpen(s => !s);
+  };
 
   return (
-    <div className={classes.main}>
-      <h1>Profile</h1>
-      <Button onClick={toggle}>Test</Button>
-    </div>
+    <>
+      {isDeleteModalOpen && <DeleteProfileModal
+        closeModal={toggleDeleteModal}
+      />}
+      <Card className={classes.card}>
+        <div className={classes['user-data']}>
+          <h2 className={classes.username}>Welcome kurcho!</h2>
+          <p className={classes.email}>dimitarvlahov24@icloud.com</p>
+        </div>
+        <div className={classes['actions-bg']}>
+          <div className={classes.actions}>
+            <LinkTo to="/user-posts" >Your posts</LinkTo>
+            <Button onClick={toggleDeleteModal}>Delete account</Button>
+          </div>
+        </div>
+      </Card>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import PostsContext from '../../contexts/postsContext';
 import { transformDate } from '../../utils/dateTransformer';
+
 import Button from '../UI/Button';
 import classes from './Comment.module.css';
 
@@ -14,7 +15,7 @@ const Comment = (props) => {
     <li className={classes.post}>
       <article>
         <header className={classes['post-header']}>
-          <h3>{post.title}</h3>
+          <h3 className={classes.title}>{post.title}</h3>
           <p>{post.username}</p>
         </header>
         <div className={classes['comment-wrapper']}>
