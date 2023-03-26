@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AuthContext from '../../contexts/authContext';
 
-import * as authService from '../../services/authService';
 import { validatePassword } from '../../utils/passwordValidation';
 
 import Button from '../UI/Button';
@@ -10,6 +10,7 @@ import Modal from '../UI/Modal';
 import classes from './DeleteProfileModal.module.css';
 
 const DeleteProfileModal = (props) => {
+  const authCtx = useContext(AuthContext);
   const [password, setPassword] = useState({
     password: '',
     passwordValid: null
@@ -27,10 +28,9 @@ const DeleteProfileModal = (props) => {
     });
   };
 
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     if (password.passwordValid) {
-      authService.deleteAccount({ password: password });
-      return;
+      authCtx.onAccountDeletion(password.password);
     }
   };
 
