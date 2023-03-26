@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { login, logout, register } from '../services/authService';
-import { ErrorContext } from './errorContext';
+import ErrorContext from './errorContext';
 
 const AuthContext = createContext({
   onLoginSubmit: () => { },

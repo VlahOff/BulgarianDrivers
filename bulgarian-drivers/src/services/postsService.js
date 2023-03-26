@@ -1,6 +1,6 @@
 import { fetchApi } from './fetchApi';
 
-const BASE_URL = 'http://localhost:3030/api/';
+const BASE_URL = 'http://localhost:3030/api';
 
 export const getCar = async (carId) => {
   const response = await fetchApi.get(`${BASE_URL}/car?carId=${carId}`);

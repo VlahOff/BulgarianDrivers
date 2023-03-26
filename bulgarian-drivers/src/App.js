@@ -3,8 +3,8 @@ import RouterOutlet from './RouterOutlet';
 
 import classes from './App.module.css';
 import { useContext } from 'react';
-import { ErrorContext } from './contexts/errorContext';
 import ErrorBanner from './components/UI/ErrorBanner';
+import ErrorContext from './contexts/errorContext';
 
 function App() {
   const errorCtx = useContext(ErrorContext);

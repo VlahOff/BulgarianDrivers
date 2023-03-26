@@ -1,29 +1,26 @@
+import { useContext } from 'react';
+
+import PostsContext from '../../contexts/postsContext';
 import Button from '../UI/Button';
 import Modal from '../UI/Modal';
 import classes from './DeleteCommentModal.module.css';
 
 const DeleteCommentModal = (props) => {
-  const deletePost = () => {
-    props.removePost();
-  };
-
-  const cancelDeletion = () => {
-    props.closeDeleteModal();
-  };
+  const postsCtx = useContext(PostsContext);
 
   return (
     <Modal
-      onClose={cancelDeletion}
+      onClose={postsCtx.toggleDeleteModal}
       className={classes.modal}
     >
       <h2 className={classes.title}>Are you sure you want to delete your comment?</h2>
       <div className={classes.actions}>
         <Button
-          onClick={deletePost}
+          onClick={postsCtx.removePost}
           className={classes.button}
         >Yes</Button>
         <Button
-          onClick={cancelDeletion}
+          onClick={postsCtx.toggleDeleteModal}
           className={classes.button}
         >No</Button>
       </div>

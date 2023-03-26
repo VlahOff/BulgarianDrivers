@@ -1,13 +1,13 @@
 import { createContext, useState } from 'react';
 
-export const ErrorContext = createContext({
+const ErrorContext = createContext({
   message: '',
   isOpen: false,
   toggle: () => { },
   setErrorMessage: () => { }
 });
 
-const ErrorProvider = (props) => {
+export const ErrorProvider = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -73,4 +73,4 @@ const ErrorProvider = (props) => {
   </ErrorContext.Provider>;
 };
 
-export default ErrorProvider;
+export default ErrorContext;

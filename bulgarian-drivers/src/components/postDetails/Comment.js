@@ -1,18 +1,14 @@
+import { useContext } from 'react';
+
+import PostsContext from '../../contexts/postsContext';
 import { transformDate } from '../../utils/dateTransformer';
 import Button from '../UI/Button';
 import classes from './Comment.module.css';
 
 const Comment = (props) => {
+  const postsCtx = useContext(PostsContext);
   const post = props.post;
   const date = transformDate(post.updatedOn);
-
-  const selectPost = () => {
-    props.editPost(post);
-  };
-
-  const deletionConfirm = () => {
-    props.deletionConfirm(post);
-  };
 
   return (
     <li className={classes.post}>
@@ -28,8 +24,12 @@ const Comment = (props) => {
           <div className={classes.actions}>
             {props.user?.userId === post.owner &&
               <>
-                <Button onClick={selectPost}>Edit</Button>
-                <Button onClick={deletionConfirm}>Delete</Button>
+                <Button
+                  onClick={() => postsCtx.toggleEditModal(post)}
+                >Edit</Button>
+                <Button
+                  onClick={() => postsCtx.toggleDeleteModal(post)}
+                >Delete</Button>
               </>
             }
           </div>

@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import AuthContext from '../../contexts/authContext';
-import * as postService from '../../services/postsService';
+import PostsContext from '../../contexts/postsContext';
 
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -15,101 +15,26 @@ import classes from './PostDetails.module.css';
 
 const PostDetails = (props) => {
   const { id } = useParams();
-  const authCtx = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const [car, setCar] = useState({});
-  const [comments, setComments] = useState([]);
-
-  const [selectedPost, setSelectedPost] = useState({});
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+  const {
+    car,
+    comments,
+    isAddModalOpen,
+    isEditModalOpen,
+    isDeleteModalOpen,
+    toggleAddModal,
+    loadCommentsForDriver
+  } = useContext(PostsContext);
 
   useEffect(() => {
-    Promise.all([
-      postService.getCar(id),
-      postService.getPosts(id)
-    ])
-      .then(([car, comments]) => {
-        setCar(car);
-        setComments(comments);
-      });
-
-  }, [id]);
-
-  const addNewPost = (post) => {
-    setComments(state => [...state, post]);
-    toggleAddModal();
-  };
-
-  const toggleAddModal = () => {
-    if (authCtx.user) {
-      setIsAddModalOpen(state => !state);
-      return;
-    }
-
-    navigate('/login');
-  };
-
-  const addEditedPost = (post) => {
-    setComments(state => {
-      const oldState = [...state];
-      const newState = oldState.filter(p => p._id !== post._id);
-
-      return [...newState, post];
-    });
-
-    toggleEditModal();
-    setSelectedPost({});
-  };
-
-  const toggleEditModal = (post) => {
-    setSelectedPost(post);
-    setIsEditModalOpen(state => !state);
-  };
-
-  const removePost = () => {
-    setComments(state => {
-      const oldState = [...state];
-      const newState = oldState
-        .filter(p => p._id !== selectedPost._id);
-
-      return [...newState];
-    });
-
-    postService.deletePost(selectedPost._id);
-    closeDeleteModal();
-  };
-
-  const deletionConfirm = (post) => {
-    setSelectedPost(post);
-    setIsDeleteModalOpen(true);
-  };
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-    setSelectedPost({});
-  };
+    loadCommentsForDriver(id);
+  }, [loadCommentsForDriver, id]);
 
   return (
     <>
-      {isAddModalOpen && <AddCommentModal
-        car={car}
-        toggleModal={toggleAddModal}
-        addNewPost={addNewPost}
-      />
-      }
-      {isEditModalOpen && <EditCommentModal
-        car={car}
-        postForEdit={selectedPost}
-        toggleModal={toggleEditModal}
-        addEditedPost={addEditedPost}
-      />}
-      {isDeleteModalOpen && <DeleteCommentModal
-        closeDeleteModal={closeDeleteModal}
-        removePost={removePost}
-      />}
+      {isAddModalOpen && <AddCommentModal />}
+      {isEditModalOpen && <EditCommentModal />}
+      {isDeleteModalOpen && <DeleteCommentModal />}
       <Card className={classes.card}>
         <header className={classes.header}>
           <h1 className={classes.title}>Comments about:
@@ -121,9 +46,7 @@ const PostDetails = (props) => {
           {comments.map(c => {
             return <Comment
               key={c._id}
-              user={authCtx.user}
-              editPost={toggleEditModal}
-              deletionConfirm={deletionConfirm}
+              user={user}
               post={c}
             />;
           })}

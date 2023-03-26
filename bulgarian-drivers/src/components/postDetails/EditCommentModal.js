@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
-import * as postService from '../../services/postsService';
 import { useForm } from '../../hooks/useForm';
+import PostsContext from '../../contexts/postsContext';
 
 import Button from '../UI/Button';
 import Input from '../UI/Input';
@@ -11,12 +11,13 @@ import Textarea from '../UI/Textarea';
 import classes from './EditCommentModal.module.css';
 
 const EditCommentModal = (props) => {
+  const postsCtx = useContext(PostsContext);
   const { values, changeHandler, blurHandler, submitHandler } = useForm({
-    title: props.postForEdit.title,
+    title: postsCtx.selectedPost.title,
     titleValid: true,
-    post: props.postForEdit.post,
+    post: postsCtx.selectedPost.post,
     postValid: true
-  }, onSubmit);
+  }, postsCtx.editPost);
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
@@ -27,13 +28,8 @@ const EditCommentModal = (props) => {
     blurHandler(event.target.id, event.target.value.trim().length >= 10);
   };
 
-  function onSubmit(data) {
-    postService.editPost(data, props.postForEdit.carNumber, props.postForEdit._id)
-      .then(data => props.addEditedPost(data));
-  };
-
   return (
-    <Modal onClose={props.toggleModal}>
+    <Modal onClose={postsCtx.toggleEditModal}>
       <h2 className={classes.title}>Edit post</h2>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input

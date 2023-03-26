@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
-
-import * as postServices from '../../services/postsService';
 
 import Button from '../UI/Button';
 import Input from '../UI/Input';
@@ -11,12 +10,14 @@ import Textarea from '../UI/Textarea';
 import classes from './AddCommentModal.module.css';
 
 const AddCommentModal = (props) => {
+  const postsCtx = useContext(PostsContext);
+
   const { values, changeHandler, blurHandler, submitHandler } = useForm({
     title: '',
     titleValid: null,
     post: '',
     postValid: null
-  }, onSubmit);
+  }, postsCtx.addNewPost);
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -28,17 +29,8 @@ const AddCommentModal = (props) => {
     blurHandler(event.target.id, event.target.value.trim().length >= 10);
   };
 
-  function onSubmit() {
-    postServices.createPost({
-      carNumber: props.car.carNumber,
-      title: values.title,
-      post: values.post,
-    })
-      .then(res => props.addNewPost(res));
-  };
-
   return (
-    <Modal onClose={props.toggleModal}>
+    <Modal onClose={postsCtx.toggleAddModal}>
       <h2 className={classes.title}>Add post</h2>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input

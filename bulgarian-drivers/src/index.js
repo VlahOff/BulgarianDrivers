@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import { AuthProvider } from './contexts/authContext';
-import ErrorProvider from './contexts/errorContext';
+import { ErrorProvider } from './contexts/errorContext';
+import { PostsProvider } from './contexts/postsContext';
 
 import './index.css';
 
@@ -14,7 +15,9 @@ root.render(
     <BrowserRouter>
       <ErrorProvider>
         <AuthProvider>
-          <App />
+          <PostsProvider>
+            <App />
+          </PostsProvider>
         </AuthProvider>
       </ErrorProvider>
     </BrowserRouter>
