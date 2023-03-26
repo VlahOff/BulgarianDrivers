@@ -59,7 +59,14 @@ async function editPost(title, post, postId) {
 }
 
 async function deletePost(postId) {
-  return Post.findByIdAndRemove(postId);
+  const post = await Post.findByIdAndRemove(postId);
+  const car = await Car.findOne({ carNumber: post.carNumber });
+
+  car.posts = car.posts
+    .filter(p => p.toString() !== post._id.toString());
+    
+  car.save();
+  return post;
 }
 
 module.exports = {
