@@ -8,7 +8,11 @@ const Backdrop = () => {
 };
 
 const Loader = () => {
-  return <div className={classes['custom-loader']}></div>;
+  return (
+    <div className={classes.wrapper}>
+      <div className={classes['custom-loader']}></div>
+    </div>
+  );
 };
 
 const portal = document.getElementById('overlays');

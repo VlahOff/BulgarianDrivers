@@ -8,6 +8,14 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
+.wrapper {
+  position: absolute;
+  z-index: 210;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .custom-loader {
   width: 80px;
   height: 80px;
@@ -15,10 +23,6 @@
   border: 8px solid;
   border-color: #D65D0E #0000;
   animation: s1 1s infinite;
-  position: absolute;
-  z-index: 210;
-  top: 48%;
-  left: 48%;
 }
 
 @keyframes s1 {

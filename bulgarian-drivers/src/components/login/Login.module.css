@@ -20,3 +20,9 @@
   gap: 2rem;
   margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 720px) {
+  .card {
+    margin: 60px auto;
+  }
+}
