@@ -1,23 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import * as postService from '../../services/postsService';
-
-import Driver from './Driver';
+import PostsContext from '../../contexts/postsContext';
 import Card from '../UI/Card';
 import LinkTo from '../UI/LinkTo';
+import Driver from './Driver';
 
 import classes from './DriversList.module.css';
 
 const DriversList = () => {
-  const [carList, setCarList] = useState([]);
+  const { carList, loadCarList } = useContext(PostsContext);
 
   useEffect(() => {
-    postService.getCarList()
-      .then(setCarList)
-      .catch(err => console.log(err));
-      
-  }, []);
+    loadCarList();
+  }, [loadCarList]);
 
   return (
     <Card className={classes.card}>

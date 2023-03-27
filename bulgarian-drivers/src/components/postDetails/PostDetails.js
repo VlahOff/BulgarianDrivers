@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 import AuthContext from '../../contexts/authContext';
 import PostsContext from '../../contexts/postsContext';
 
-import Button from '../UI/Button';
-import Card from '../UI/Card';
-import AddCommentModal from './AddCommentModal';
 import Comment from '../shared/Comment';
 import DeleteCommentModal from '../shared/DeleteCommentModal';
 import EditCommentModal from '../shared/EditCommentModal';
+import Button from '../UI/Button';
+import Card from '../UI/Card';
+import AddCommentModal from './AddCommentModal';
 
 import classes from './PostDetails.module.css';
 
@@ -28,7 +28,7 @@ const PostDetails = (props) => {
 
   useEffect(() => {
     loadCommentsForDriver(id);
-  }, [loadCommentsForDriver, id]);
+  }, [id, loadCommentsForDriver]);
 
   return (
     <>

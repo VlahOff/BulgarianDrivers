@@ -5,14 +5,15 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { AuthProvider } from './contexts/authContext';
 import { ErrorProvider } from './contexts/errorContext';
+import { LoadingProvider } from './contexts/loadingContext';
 import { PostsProvider } from './contexts/postsContext';
 
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <LoadingProvider>
       <ErrorProvider>
         <AuthProvider>
           <PostsProvider>
@@ -20,6 +21,6 @@ root.render(
           </PostsProvider>
         </AuthProvider>
       </ErrorProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+    </LoadingProvider>
+  </BrowserRouter>
 );

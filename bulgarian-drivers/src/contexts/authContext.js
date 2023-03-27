@@ -2,7 +2,8 @@ import { createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { login, logout, register, deleteAccount } from '../services/authService';
+import { deleteAccount, login, logout, register } from '../services/authService';
+import { useLoadingContext } from './loadingContext';
 import ErrorContext from './errorContext';
 
 const AuthContext = createContext({
@@ -14,11 +15,13 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = (props) => {
-  const errorCtx = useContext(ErrorContext);
   const navigate = useNavigate();
+  const errorCtx = useContext(ErrorContext);
+  const [startLoading, stopLoading] = useLoadingContext();
   const [user, setUser] = useLocalStorage('userData', undefined);
 
   const onLoginSubmit = async (data) => {
+    startLoading();
     const response = await login({ email: data.email, password: data.password });
 
     if (response.message) {
@@ -27,10 +30,12 @@ export const AuthProvider = (props) => {
     }
 
     setUser(response);
+    stopLoading();
     navigate('/');
   };
 
   const onRegisterSubmit = async (data) => {
+    startLoading();
     const response = await register({
       email: data.email,
       username: data.username,
@@ -43,18 +48,23 @@ export const AuthProvider = (props) => {
     }
 
     setUser(response);
+    stopLoading();
     navigate('/');
   };
 
   const onLogout = async () => {
+    startLoading();
     await logout();
     setUser(undefined);
+    stopLoading();
     navigate('/');
   };
 
   const onAccountDeletion = async (password) => {
+    startLoading();
     await deleteAccount({ password: password });
     setUser(undefined);
+    stopLoading();
     navigate('/');
   };
 
