@@ -1,6 +1,6 @@
 import { fetchApi } from './fetchApi';
 
-const BASE_URL = 'http://localhost:3131/auth';
+const BASE_URL = process.env.REACT_APP_AUTH_BACKEND;
 
 export const login = (data) => {
   return fetchApi.post(`${BASE_URL}/login`, data);
