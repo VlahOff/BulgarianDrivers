@@ -1,6 +1,6 @@
 .card {
   margin: 120px auto;
-  width: 800px;
+  max-width: 800px;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -29,4 +29,10 @@
 
 .link:last-child {
   border: none;
+}
+
+@media screen and (max-width: 720px) {
+  .card {
+    margin: 30px auto;
+  }
 }

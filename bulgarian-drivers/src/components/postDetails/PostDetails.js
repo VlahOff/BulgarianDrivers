@@ -9,6 +9,7 @@ import DeleteCommentModal from '../shared/DeleteCommentModal';
 import EditCommentModal from '../shared/EditCommentModal';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
+import LinkTo from '../UI/LinkTo';
 import AddCommentModal from './AddCommentModal';
 
 import classes from './PostDetails.module.css';
@@ -37,6 +38,9 @@ const PostDetails = (props) => {
       {isDeleteModalOpen && <DeleteCommentModal />}
       <Card className={classes.card}>
         <header className={classes.header}>
+          <LinkTo to=".." relative="path">
+            <i className="fa-solid fa-chevron-left"></i> Back
+          </LinkTo>
           <h1 className={classes.title}>Comments about:
             <span className={classes.number}> {car.carNumber}</span>
           </h1>

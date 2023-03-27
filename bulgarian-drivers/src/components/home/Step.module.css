@@ -8,7 +8,7 @@
   height: 300px;
 }
 
-.step .img {
+.img {
   width: 200px;
   height: 200px;
   border-radius: 100%;
@@ -22,4 +22,16 @@
   color: white;
   font-size: 18px;
   font-weight: 500;
+}
+
+@media screen and (max-width:1290px) {
+  .step {
+    width: 200px;
+    height: 200px;
+  }
+
+  .img {
+    width: 120px;
+    height: 120px;
+  }
 }

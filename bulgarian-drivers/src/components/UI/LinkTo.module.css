@@ -1,4 +1,5 @@
 .link {
+  display: inline-block;
   text-decoration: none;
   color: white;
   background-color: #D65D0E;

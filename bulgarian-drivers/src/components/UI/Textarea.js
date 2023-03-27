@@ -11,7 +11,8 @@ const Textarea = (props) => {
         {...props.textarea}
         id={props.id}
         cols={props.cols || 30}
-        rows={props.rows || 10}></textarea>
+        rows={props.rows || 10}
+      ></textarea>
     </div>
   );
 };

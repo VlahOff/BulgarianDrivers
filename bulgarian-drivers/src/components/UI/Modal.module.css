@@ -9,11 +9,10 @@
 }
 
 .modal {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
   padding: 2rem;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;

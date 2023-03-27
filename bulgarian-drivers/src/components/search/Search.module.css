@@ -1,6 +1,6 @@
 .card {
   margin: 120px auto;
-  width: 500px;
+  max-width: 500px;
   padding: 2rem;
 }
 
@@ -60,4 +60,11 @@ input.input {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+@media screen and (max-width: 500px) {
+  .form {
+    align-items: stretch;
+    flex-direction: column;
+  }
 }

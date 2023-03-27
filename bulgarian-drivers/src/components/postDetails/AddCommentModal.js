@@ -31,7 +31,13 @@ const AddCommentModal = (props) => {
 
   return (
     <Modal onClose={postsCtx.toggleAddModal}>
-      <h2 className={classes.title}>Add post</h2>
+      <header className={classes.header}>
+        <div className={classes.cross}></div>
+        <h2 className={classes.title}>Add comment</h2>
+        <i className={`${classes.cross} fa-solid fa-xmark`}
+          onClick={postsCtx.toggleAddModal}
+        ></i>
+      </header>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
           label="Title"

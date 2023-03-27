@@ -1,7 +1,3 @@
-.press {
-  height: 400px;
-}
-
 .title {
   color: white;
   margin: 2rem 0;
@@ -14,7 +10,11 @@
   justify-content: space-evenly;
   gap: 10rem;
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 60px auto;
+}
+
+.card {
+  max-width: 400px;
 }
 
 .quote {
@@ -23,7 +23,6 @@
   font-size: 18px;
   color: white;
   margin-bottom: 1rem;
-  width: 400px;
 }
 
 .mark {
@@ -34,4 +33,21 @@
 .author {
   color: white;
   text-align: right;
+}
+
+@media screen and (max-width:1020px) {
+  .quote {
+    font-style: italic;
+    font-weight: 200;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width:860px) {
+  .quotes {
+    align-items: center;
+    flex-direction: column;
+  }
 }

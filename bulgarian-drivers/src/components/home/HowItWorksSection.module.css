@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 500px;
   background: linear-gradient(334deg, rgba(220, 55, 55, 0.45) 0%, rgba(59, 132, 134, 0.45) 47%, rgba(222, 94, 40, 0.45) 100%);
   background-size: 180% 180%;
   animation: gradient-animation 6s ease infinite;
@@ -21,7 +20,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   width: 90%;
+  margin-bottom: 60px;
 }
 
 @keyframes gradient-animation {
@@ -35,5 +36,11 @@
 
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@media screen and (max-width: 1136px) {
+  .steps {
+    justify-content: center;
   }
 }

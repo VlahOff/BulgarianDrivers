@@ -8,6 +8,7 @@ import { validatePassword } from '../../utils/passwordValidation';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
+import LinkTo from '../UI/LinkTo';
 
 import styles from './Login.module.css';
 
@@ -65,6 +66,7 @@ const Login = () => {
         />
         <Button type="submit" disabled={!isFormValid}>Login</Button>
       </form>
+      <p>Don't have an account? <LinkTo to="/register">Sign up.</LinkTo></p>
     </Card >
   );
 };

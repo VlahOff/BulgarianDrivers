@@ -49,7 +49,6 @@ const CreatePost = (props) => {
       <h2 className={classes.title}>Create post</h2>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
-          className={classes.input}
           label={'Car number'}
           input={{
             id: 'carNumber',
@@ -63,7 +62,6 @@ const CreatePost = (props) => {
           error={values.carNumberValid}
         />
         <Input
-          className={classes.input}
           label={'Title'}
           input={{
             id: 'title',

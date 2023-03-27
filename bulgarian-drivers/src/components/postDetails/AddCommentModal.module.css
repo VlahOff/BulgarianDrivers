@@ -1,3 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cross {
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.cross:hover {
+  color: crimson;
+}
+
 .title {
   text-align: center;
 }

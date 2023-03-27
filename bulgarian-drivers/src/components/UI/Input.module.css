@@ -9,7 +9,7 @@
 
 .input {
   color: white;
-  flex: 1 1 100%;
+  width: 100%;
   border: none;
   background-color: #c0b19f;
   border-bottom: 2px #fabd2f solid;
@@ -17,7 +17,6 @@
   border-top-left-radius: 3px;
   height: 2rem;
   padding: 1rem 0.5rem;
-  /* margin-bottom: 0.5rem; */
   outline: none;
 }
 

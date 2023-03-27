@@ -29,8 +29,14 @@ const EditCommentModal = (props) => {
   };
 
   return (
-    <Modal onClose={postsCtx.toggleEditModal}>
-      <h2 className={classes.title}>Edit post</h2>
+    <Modal onClose={postsCtx.toggleEditModal} className={classes.modal}>
+      <header className={classes.header}>
+        <div className={classes.cross}></div>
+        <h2 className={classes.title}>Edit comment</h2>
+        <i className={`${classes.cross} fa-solid fa-xmark`}
+          onClick={postsCtx.toggleEditModal}
+        ></i>
+      </header>
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
           label="Title"
