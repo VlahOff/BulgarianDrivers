@@ -33,7 +33,7 @@ REACT_APP_APP_BACKEND="https://better-lime-waders.cyclic.app/api"
   - Register
 - Drivers list
   - Comments about driver
-  - Add comment
+  - Add comment (Logged in)
   - Edit comment (creator)
   - Delete comment (creator)
 - Profile
