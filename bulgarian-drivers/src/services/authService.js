@@ -2,7 +2,7 @@ import { fetchApi } from './fetchApi';
 
 const BASE_URL = process.env.REACT_APP_AUTH_BACKEND;
 
-export const login = (data) => {
+export const login = async (data) => {
   return fetchApi.post(`${BASE_URL}/login`, data);
 };
 

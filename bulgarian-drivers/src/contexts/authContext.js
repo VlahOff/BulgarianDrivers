@@ -16,56 +16,69 @@ const AuthContext = createContext({
 
 export const AuthProvider = (props) => {
   const navigate = useNavigate();
-  const errorCtx = useContext(ErrorContext);
+  const { setErrorMessage } = useContext(ErrorContext);
   const [startLoading, stopLoading] = useLoadingContext();
   const [user, setUser] = useLocalStorage('userData', undefined);
 
   const onLoginSubmit = async (data) => {
     startLoading();
-    const response = await login({ email: data.email, password: data.password });
+    login({
+      email: data.email,
+      password: data.password
+    })
+      .then(response => {
+        if (response.message) {
+          setErrorMessage(response.message);
+          return;
+        }
 
-    if (response.message) {
-      errorCtx.setErrorMessage(response.message);
-      return;
-    }
-
-    setUser(response);
-    stopLoading();
-    navigate('/');
+        setUser(response);
+        navigate('/');
+      })
+      .catch(setErrorMessage)
+      .finally(stopLoading);
   };
 
   const onRegisterSubmit = async (data) => {
     startLoading();
-    const response = await register({
+    register({
       email: data.email,
       username: data.username,
       password: data.password
-    });
+    })
+      .then(response => {
+        if (response.message) {
+          setErrorMessage(response.message);
+          return;
+        }
 
-    if (response.message) {
-      errorCtx.setErrorMessage(response.message);
-      return;
-    }
-
-    setUser(response);
-    stopLoading();
-    navigate('/');
+        setUser(response);
+        navigate('/');
+      })
+      .catch(setErrorMessage)
+      .finally(stopLoading);
   };
 
   const onLogout = async () => {
     startLoading();
-    await logout();
-    setUser(undefined);
-    stopLoading();
-    navigate('/');
+    logout()
+      .then(() => {
+        setUser(undefined);
+        navigate('/');
+      })
+      .catch(setErrorMessage)
+      .finally(stopLoading);
   };
 
   const onAccountDeletion = async (password) => {
     startLoading();
-    await deleteAccount({ password: password });
-    setUser(undefined);
-    stopLoading();
-    navigate('/');
+    deleteAccount({ password: password })
+      .then(() => {
+        setUser(undefined);
+        navigate('/');
+      })
+      .catch(setErrorMessage)
+      .finally(stopLoading);
   };
 
   return <AuthContext.Provider
