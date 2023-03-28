@@ -13,13 +13,14 @@ import UserPosts from './components/profile/UserPosts';
 import Register from './components/register/Register';
 import Search from './components/search/Search';
 import ProtectedRoute from './components/UI/ProtectedRoute';
+import PageNotFound from './components/404page/PageNotFound';
 
 const RouterOutlet = () => {
   const { user } = useContext(AuthContext);
 
   return (
     <Routes>
-      <Route path="*" element={<h1>404 page not found</h1>} />
+      <Route path="*" element={<PageNotFound />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/search" element={<Search />} />
       <Route path="/create-post" element={

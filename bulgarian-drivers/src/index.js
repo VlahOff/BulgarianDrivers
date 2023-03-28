@@ -12,15 +12,17 @@ import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <LoadingProvider>
-      <ErrorProvider>
-        <AuthProvider>
-          <PostsProvider>
-            <App />
-          </PostsProvider>
-        </AuthProvider>
-      </ErrorProvider>
-    </LoadingProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <LoadingProvider>
+        <ErrorProvider>
+          <AuthProvider>
+            <PostsProvider>
+              <App />
+            </PostsProvider>
+          </AuthProvider>
+        </ErrorProvider>
+      </LoadingProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
