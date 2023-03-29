@@ -14,12 +14,15 @@ import classes from './AddCommentModal.module.css';
 const AddCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
 
-  const { values, changeHandler, submitHandler } = useForm({
-    title: '',
-    titleValid: null,
-    post: '',
-    postValid: null
-  }, postsCtx.addNewPost);
+  const { values, changeHandler, submitHandler } = useForm(
+    {
+      title: '',
+      titleValid: null,
+      post: '',
+      postValid: null,
+    },
+    postsCtx.addNewPost
+  );
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -40,7 +43,8 @@ const AddCommentModal = (props) => {
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Add comment</h2>
-        <i className={`${classes.cross} fa-solid fa-xmark`}
+        <i
+          className={`${classes.cross} fa-solid fa-xmark`}
           onClick={postsCtx.toggleAddModal}
         ></i>
       </header>
@@ -53,7 +57,7 @@ const AddCommentModal = (props) => {
             onChange: onTitleInput,
             onBlur: onTitleInput,
             value: values.title,
-            placeholder: 'Some title'
+            placeholder: 'Some title',
           }}
           error={values.titleValid}
           errorMessage="Input must be at least 10 characters long."
@@ -65,15 +69,14 @@ const AddCommentModal = (props) => {
             onChange: onCommentInput,
             onBlur: onCommentInput,
             value: values.post,
-            placeholder: 'Some description'
+            placeholder: 'Some description',
           }}
           error={values.postValid}
           errorMessage="Input must be at least 10 characters long."
         />
-        <Button
-          disabled={!isFormValid}
-          type="submit"
-        >Add</Button>
+        <Button disabled={!isFormValid} type="submit">
+          Add
+        </Button>
       </form>
     </Modal>
   );

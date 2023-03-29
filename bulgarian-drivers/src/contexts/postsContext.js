@@ -14,15 +14,15 @@ const PostsContext = createContext({
   isAddModalOpen: false,
   isEditModalOpen: false,
   isDeleteModalOpen: false,
-  toggleAddModal: () => { },
-  toggleEditModal: () => { },
-  toggleDeleteModal: () => { },
-  loadCarList: () => { },
-  loadCommentsForDriver: () => { },
-  loadUserComments: () => { },
-  addNewPost: () => { },
-  editPost: () => { },
-  removePost: () => { }
+  toggleAddModal: () => {},
+  toggleEditModal: () => {},
+  toggleDeleteModal: () => {},
+  loadCarList: () => {},
+  loadCommentsForDriver: () => {},
+  loadUserComments: () => {},
+  addNewPost: () => {},
+  editPost: () => {},
+  removePost: () => {},
 });
 
 export const PostsProvider = (props) => {
@@ -41,7 +41,8 @@ export const PostsProvider = (props) => {
 
   const loadCarList = useCallback(() => {
     startLoading();
-    postService.getCarList()
+    postService
+      .getCarList()
       .then(setCarList)
       .catch(setErrorMessage)
       .finally(() => {
@@ -49,26 +50,30 @@ export const PostsProvider = (props) => {
       });
   }, [setErrorMessage, startLoading, stopLoading]);
 
-  const loadCommentsForDriver = useCallback((driverId) => {
-    startLoading();
-    Promise.all([
-      postService.getCar(driverId),
-      postService.getPosts(driverId)
-    ])
-      .then(([car, comments]) => {
-        setCar(car);
-        setComments(comments);
-      })
-      .catch(setErrorMessage)
-      .finally(() => {
-        stopLoading();
-      });
-  }, [setErrorMessage, startLoading, stopLoading]);
+  const loadCommentsForDriver = useCallback(
+    (driverId) => {
+      startLoading();
+      Promise.all([
+        postService.getCar(driverId),
+        postService.getPosts(driverId),
+      ])
+        .then(([car, comments]) => {
+          setCar(car);
+          setComments(comments);
+        })
+        .catch(setErrorMessage)
+        .finally(() => {
+          stopLoading();
+        });
+    },
+    [setErrorMessage, startLoading, stopLoading]
+  );
 
   const loadUserComments = useCallback(() => {
     startLoading();
-    postService.getUserPosts()
-      .then(data => {
+    postService
+      .getUserPosts()
+      .then((data) => {
         setComments(data);
       })
       .catch(setErrorMessage)
@@ -79,13 +84,14 @@ export const PostsProvider = (props) => {
 
   const addNewPost = (data) => {
     startLoading();
-    postService.createPost({
-      carNumber: car.carNumber,
-      title: data.title,
-      post: data.post,
-    })
-      .then(post => {
-        setComments(state => [post, ...state]);
+    postService
+      .createPost({
+        carNumber: car.carNumber,
+        title: data.title,
+        post: data.post,
+      })
+      .then((post) => {
+        setComments((state) => [post, ...state]);
       })
       .catch(setErrorMessage)
       .finally(() => {
@@ -99,15 +105,16 @@ export const PostsProvider = (props) => {
       navigate('/login');
       return;
     }
-    setIsAddModalOpen(s => !s);
+    setIsAddModalOpen((s) => !s);
   };
 
   const editPost = async (data) => {
     startLoading();
-    postService.editPost(data, selectedPost.carNumber, selectedPost._id)
-      .then(editedPost => {
-        setComments(state => {
-          const newState = state.filter(p => p._id !== selectedPost._id);
+    postService
+      .editPost(data, selectedPost.carNumber, selectedPost._id)
+      .then((editedPost) => {
+        setComments((state) => {
+          const newState = state.filter((p) => p._id !== selectedPost._id);
 
           return [editedPost, ...newState];
         });
@@ -117,22 +124,22 @@ export const PostsProvider = (props) => {
         stopLoading();
         toggleEditModal();
       });
-
   };
 
   const toggleEditModal = (post) => {
     if (post?.carNumber) {
       setSelectedPost(post);
     }
-    setIsEditModalOpen(s => !s);
+    setIsEditModalOpen((s) => !s);
   };
 
   const removePost = () => {
     startLoading();
-    setComments(state => {
-      return state.filter(p => p._id !== selectedPost._id);
+    setComments((state) => {
+      return state.filter((p) => p._id !== selectedPost._id);
     });
-    postService.deletePost(selectedPost._id)
+    postService
+      .deletePost(selectedPost._id)
       .catch(setErrorMessage)
       .finally(() => {
         stopLoading();
@@ -144,31 +151,33 @@ export const PostsProvider = (props) => {
     if (post?.carNumber) {
       setSelectedPost(post);
     }
-    setIsDeleteModalOpen(s => !s);
+    setIsDeleteModalOpen((s) => !s);
   };
 
-  return <PostsContext.Provider
-    value={{
-      car,
-      carList,
-      comments,
-      selectedPost,
-      isAddModalOpen,
-      isEditModalOpen,
-      isDeleteModalOpen,
-      toggleAddModal,
-      toggleEditModal,
-      toggleDeleteModal,
-      loadCommentsForDriver,
-      loadCarList,
-      loadUserComments,
-      addNewPost,
-      editPost,
-      removePost,
-    }}
-  >
-    {props.children}
-  </PostsContext.Provider>;
+  return (
+    <PostsContext.Provider
+      value={{
+        car,
+        carList,
+        comments,
+        selectedPost,
+        isAddModalOpen,
+        isEditModalOpen,
+        isDeleteModalOpen,
+        toggleAddModal,
+        toggleEditModal,
+        toggleDeleteModal,
+        loadCommentsForDriver,
+        loadCarList,
+        loadUserComments,
+        addNewPost,
+        editPost,
+        removePost,
+      }}
+    >
+      {props.children}
+    </PostsContext.Provider>
+  );
 };
 
 export default PostsContext;

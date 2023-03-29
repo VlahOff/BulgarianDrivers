@@ -11,14 +11,14 @@ const Profile = (props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const toggleDeleteModal = () => {
-    setIsDeleteModalOpen(s => !s);
+    setIsDeleteModalOpen((s) => !s);
   };
 
   return (
     <>
-      {isDeleteModalOpen && <DeleteProfileModal
-        closeModal={toggleDeleteModal}
-      />}
+      {isDeleteModalOpen && (
+        <DeleteProfileModal closeModal={toggleDeleteModal} />
+      )}
       <Card className={classes.card}>
         <div className={classes['user-data']}>
           <h2 className={classes.username}>Welcome kurcho!</h2>
@@ -26,7 +26,7 @@ const Profile = (props) => {
         </div>
         <div className={classes['actions-bg']}>
           <div className={classes.actions}>
-            <LinkTo to="/user-posts" >Your posts</LinkTo>
+            <LinkTo to="/user-posts">Your posts</LinkTo>
             <Button onClick={toggleDeleteModal}>Delete account</Button>
           </div>
         </div>

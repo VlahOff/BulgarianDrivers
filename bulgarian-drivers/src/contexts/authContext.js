@@ -2,16 +2,21 @@ import { createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { deleteAccount, login, logout, register } from '../services/authService';
+import {
+  deleteAccount,
+  login,
+  logout,
+  register,
+} from '../services/authService';
 import { useLoadingContext } from './loadingContext';
 import ErrorContext from './errorContext';
 
 const AuthContext = createContext({
-  onLoginSubmit: () => { },
-  onRegisterSubmit: () => { },
-  onLogout: () => { },
-  onAccountDeletion: () => { },
-  user: undefined
+  onLoginSubmit: () => {},
+  onRegisterSubmit: () => {},
+  onLogout: () => {},
+  onAccountDeletion: () => {},
+  user: undefined,
 });
 
 export const AuthProvider = (props) => {
@@ -24,9 +29,9 @@ export const AuthProvider = (props) => {
     startLoading();
     login({
       email: data.email,
-      password: data.password
+      password: data.password,
     })
-      .then(response => {
+      .then((response) => {
         if (response.message) {
           setErrorMessage(response.message);
           return;
@@ -44,9 +49,9 @@ export const AuthProvider = (props) => {
     register({
       email: data.email,
       username: data.username,
-      password: data.password
+      password: data.password,
     })
-      .then(response => {
+      .then((response) => {
         if (response.message) {
           setErrorMessage(response.message);
           return;
@@ -81,17 +86,19 @@ export const AuthProvider = (props) => {
       .finally(stopLoading);
   };
 
-  return <AuthContext.Provider
-    value={{
-      onLoginSubmit,
-      onRegisterSubmit,
-      onLogout,
-      onAccountDeletion,
-      user
-    }}
-  >
-    {props.children}
-  </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        onLoginSubmit,
+        onRegisterSubmit,
+        onLogout,
+        onAccountDeletion,
+        user,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

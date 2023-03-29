@@ -19,22 +19,30 @@ const validateUsername = (username) => {
 
 const Register = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, submitHandler } = useForm({
-    email: '',
-    emailValid: null,
-    username: '',
-    usernameValid: null,
-    password: '',
-    passwordValid: null,
-    rePassword: '',
-    rePasswordValid: null,
-  }, authCtx.onRegisterSubmit);
+  const { values, changeHandler, submitHandler } = useForm(
+    {
+      email: '',
+      emailValid: null,
+      username: '',
+      usernameValid: null,
+      password: '',
+      passwordValid: null,
+      rePassword: '',
+      rePasswordValid: null,
+    },
+    authCtx.onRegisterSubmit
+  );
 
   const [isFormValid, setIsFormValid] = useState(false);
   const passwordsMatch = values.passwordValid === values.rePasswordValid;
 
   useEffect(() => {
-    setIsFormValid(values.emailValid && values.username && values.passwordValid && passwordsMatch);
+    setIsFormValid(
+      values.emailValid &&
+        values.username &&
+        values.passwordValid &&
+        passwordsMatch
+    );
   }, [values, passwordsMatch]);
 
   const onEmailInput = (event) => {
@@ -60,7 +68,7 @@ const Register = () => {
             type: 'text',
             onChange: onEmailInput,
             onBlur: onEmailInput,
-            value: values.email
+            value: values.email,
           }}
           error={values.emailValid}
           errorMessage={<p>Invalid email.</p>}
@@ -72,7 +80,7 @@ const Register = () => {
             type: 'text',
             onChange: onUsernameInput,
             onBlur: onUsernameInput,
-            value: values.username
+            value: values.username,
           }}
           error={values.usernameValid}
           errorMessage={<p>Invalid username.</p>}
@@ -84,7 +92,7 @@ const Register = () => {
             type: 'password',
             onChange: onPasswordInput,
             onBlur: onPasswordInput,
-            value: values.password
+            value: values.password,
           }}
           error={values.passwordValid}
           errorMessage={<PasswordErrorMessage />}
@@ -96,16 +104,20 @@ const Register = () => {
             type: 'password',
             onChange: onPasswordInput,
             onBlur: onPasswordInput,
-            value: values.rePassword
+            value: values.rePassword,
           }}
           error={passwordsMatch}
         />
-        <Button type="submit" disabled={!isFormValid}>Register</Button>
+        <Button type="submit" disabled={!isFormValid}>
+          Register
+        </Button>
       </form>
-      <p>Already have an account? <LinkTo
-        to="/login"
-        className={styles.button}
-      >Sign in.</LinkTo></p>
+      <p>
+        Already have an account?{' '}
+        <LinkTo to="/login" className={styles.button}>
+          Sign in.
+        </LinkTo>
+      </p>
     </Card>
   );
 };

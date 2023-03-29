@@ -9,7 +9,9 @@ const Driver = (props) => {
       <p className={classes.number}>{props.carNumber}</p>
       <div className={classes['details-wrapper']}>
         <p>Comments: {props.comments}</p>
-        <p>Latest comment: {date} <i className="fa-regular fa-clock"></i></p>
+        <p>
+          Latest comment: {date} <i className="fa-regular fa-clock"></i>
+        </p>
       </div>
     </li>
   );

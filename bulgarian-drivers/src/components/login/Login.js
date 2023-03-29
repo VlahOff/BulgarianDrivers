@@ -15,12 +15,15 @@ import styles from './Login.module.css';
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, submitHandler } = useForm({
-    email: '',
-    emailValid: null,
-    password: '',
-    passwordValid: null
-  }, authCtx.onLoginSubmit);
+  const { values, changeHandler, submitHandler } = useForm(
+    {
+      email: '',
+      emailValid: null,
+      password: '',
+      passwordValid: null,
+    },
+    authCtx.onLoginSubmit
+  );
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -48,7 +51,7 @@ const Login = () => {
             type: 'text',
             onChange: onEmailInput,
             onBlur: onEmailInput,
-            value: values.email
+            value: values.email,
           }}
           error={values.emailValid}
           errorMessage="Invalid email."
@@ -61,18 +64,22 @@ const Login = () => {
             type: 'password',
             onChange: onPasswordInput,
             onBlur: onPasswordInput,
-            value: values.password
+            value: values.password,
           }}
           error={values.passwordValid}
           errorMessage={<PasswordErrorMessage />}
         />
-        <Button type="submit" disabled={!isFormValid}>Login</Button>
+        <Button type="submit" disabled={!isFormValid}>
+          Login
+        </Button>
       </form>
-      <p>Don't have an account? <LinkTo
-        to="/register"
-        className={styles.button}
-      >Sign up.</LinkTo></p>
-    </Card >
+      <p>
+        Don't have an account?{' '}
+        <LinkTo to="/register" className={styles.button}>
+          Sign up.
+        </LinkTo>
+      </p>
+    </Card>
   );
 };
 

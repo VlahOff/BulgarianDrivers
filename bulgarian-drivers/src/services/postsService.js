@@ -15,7 +15,9 @@ export const getCarList = async () => {
 };
 
 export const searchCarList = async (query) => {
-  const response = await fetchApi.get(`${BASE_URL}/searchCarList?search=${query}`);
+  const response = await fetchApi.get(
+    `${BASE_URL}/searchCarList?search=${query}`
+  );
 
   return response;
 };

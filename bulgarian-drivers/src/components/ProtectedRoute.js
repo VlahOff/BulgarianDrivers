@@ -9,7 +9,7 @@ const ProtectedRoute = (props) => {
   if (!user) {
     return <Navigate to="/login" replace />;
   }
-  
+
   return props.children;
 };
 

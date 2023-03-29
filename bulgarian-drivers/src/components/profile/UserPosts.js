@@ -11,7 +11,8 @@ import Card from '../UI/Card';
 import classes from './UserPosts.module.css';
 
 const UserPosts = (props) => {
-  const { comments, loadUserComments, isEditModalOpen, isDeleteModalOpen } = useContext(PostsContext);
+  const { comments, loadUserComments, isEditModalOpen, isDeleteModalOpen } =
+    useContext(PostsContext);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -27,11 +28,9 @@ const UserPosts = (props) => {
           <h1>Your posts</h1>
         </header>
         <ul className={classes['posts-list']}>
-          {comments.map(p => <Comment
-            key={p._id}
-            user={user}
-            post={p}
-          />)}
+          {comments.map((p) => (
+            <Comment key={p._id} user={user} post={p} />
+          ))}
         </ul>
       </Card>
     </>

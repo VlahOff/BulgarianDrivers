@@ -2,8 +2,8 @@ import { createContext, useCallback, useContext, useState } from 'react';
 
 const LoadingContext = createContext({
   isLoading: false,
-  startLoading: () => { },
-  stopLoading: () => { }
+  startLoading: () => {},
+  stopLoading: () => {},
 });
 
 export const LoadingProvider = (props) => {
@@ -17,14 +17,17 @@ export const LoadingProvider = (props) => {
     setIsLoading(false);
   }, []);
 
-  return <LoadingContext.Provider
-    value={{
-      isLoading,
-      startLoading,
-      stopLoading
-    }}>
-    {props.children}
-  </LoadingContext.Provider>;
+  return (
+    <LoadingContext.Provider
+      value={{
+        isLoading,
+        startLoading,
+        stopLoading,
+      }}
+    >
+      {props.children}
+    </LoadingContext.Provider>
+  );
 };
 
 export default LoadingContext;
@@ -33,4 +36,4 @@ export const useLoadingContext = () => {
   const context = useContext(LoadingContext);
 
   return [context.startLoading, context.stopLoading];
-}; 
+};

@@ -13,18 +13,21 @@ const DeleteProfileModal = (props) => {
   const authCtx = useContext(AuthContext);
   const [password, setPassword] = useState({
     password: '',
-    passwordValid: null
+    passwordValid: null,
   });
 
   const onChangeHandler = (event) => {
-    setPassword(state => {
+    setPassword((state) => {
       return { ...state, [event.target.id]: event.target.value };
     });
   };
 
   const passwordValidation = (event) => {
-    setPassword(state => {
-      return { ...state, [event.target.id + 'Valid']: validatePassword(event.target.value) };
+    setPassword((state) => {
+      return {
+        ...state,
+        [event.target.id + 'Valid']: validatePassword(event.target.value),
+      };
     });
   };
 
@@ -35,12 +38,11 @@ const DeleteProfileModal = (props) => {
   };
 
   return (
-    <Modal
-      onClose={props.closeModal}
-      className={classes.modal}
-    >
+    <Modal onClose={props.closeModal} className={classes.modal}>
       <div className={classes['title-wrapper']}>
-        <h2 className={classes.title}>Are you sure you want to delete your profile?</h2>
+        <h2 className={classes.title}>
+          Are you sure you want to delete your profile?
+        </h2>
         <p className={classes['sub-title']}>There is no turning back.</p>
       </div>
       <div className={classes.input}>
@@ -51,7 +53,7 @@ const DeleteProfileModal = (props) => {
             type: 'password',
             onChange: onChangeHandler,
             onBlur: passwordValidation,
-            value: password.password
+            value: password.password,
           }}
           error={password.passwordValid}
         />

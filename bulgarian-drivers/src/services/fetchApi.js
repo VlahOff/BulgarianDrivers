@@ -7,7 +7,7 @@ const request = async (method, url, data) => {
 
     if (data) {
       options.headers = {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       };
       options.body = JSON.stringify(data);
     }
@@ -16,7 +16,7 @@ const request = async (method, url, data) => {
   if (userData) {
     options.headers = {
       ...options.headers,
-      'X-Authorization': userData.accessToken
+      'X-Authorization': userData.accessToken,
     };
   }
 
@@ -28,5 +28,5 @@ export const fetchApi = {
   get: request.bind(null, 'GET'),
   post: request.bind(null, 'POST'),
   put: request.bind(null, 'PUT'),
-  delete: request.bind(null, 'DELETE')
+  delete: request.bind(null, 'DELETE'),
 };

@@ -4,11 +4,11 @@ export const useForm = (initialValues, onSubmitHandler) => {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (event, validator) => {
-    setValues(state => {
+    setValues((state) => {
       return {
         ...state,
         [event.target.id]: event.target.value,
-        [event.target.id + 'Valid']: validator(event.target.value)
+        [event.target.id + 'Valid']: validator(event.target.value),
       };
     });
   };
@@ -23,6 +23,6 @@ export const useForm = (initialValues, onSubmitHandler) => {
   return {
     values,
     changeHandler,
-    submitHandler
+    submitHandler,
   };
 };

@@ -11,14 +11,12 @@ const DeleteCommentModal = (props) => {
 
   return (
     <Modal onClose={postsCtx.toggleDeleteModal}>
-      <h2 className={classes.title}>Are you sure you want to delete your comment?</h2>
+      <h2 className={classes.title}>
+        Are you sure you want to delete your comment?
+      </h2>
       <div className={classes.actions}>
-        <Button
-          onClick={postsCtx.removePost}
-        >Yes</Button>
-        <Button
-          onClick={postsCtx.toggleDeleteModal}
-        >No</Button>
+        <Button onClick={postsCtx.removePost}>Yes</Button>
+        <Button onClick={postsCtx.toggleDeleteModal}>No</Button>
       </div>
     </Modal>
   );

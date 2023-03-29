@@ -18,26 +18,10 @@ const HowItWorksSection = () => {
           alt="Step 1"
           description={<LinkTo to="/create-post">1. Make a post</LinkTo>}
         />
-        <Step
-          img={step2}
-          alt="Step 2"
-          description={'2. Enter car number'}
-        />
-        <Step
-          img={step3}
-          alt="Step 3"
-          description={'3. Add a title'}
-        />
-        <Step
-          img={step4}
-          alt="Step 4"
-          description={'4. Add a comment'}
-        />
-        <Step
-          img={step5}
-          alt="Step 5"
-          description={'5. Post it!'}
-        />
+        <Step img={step2} alt="Step 2" description={'2. Enter car number'} />
+        <Step img={step3} alt="Step 3" description={'3. Add a title'} />
+        <Step img={step4} alt="Step 4" description={'4. Add a comment'} />
+        <Step img={step5} alt="Step 5" description={'5. Post it!'} />
       </ul>
     </section>
   );

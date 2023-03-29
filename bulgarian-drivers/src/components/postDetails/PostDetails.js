@@ -24,7 +24,7 @@ const PostDetails = (props) => {
     isEditModalOpen,
     isDeleteModalOpen,
     toggleAddModal,
-    loadCommentsForDriver
+    loadCommentsForDriver,
   } = useContext(PostsContext);
 
   useEffect(() => {
@@ -39,25 +39,21 @@ const PostDetails = (props) => {
 
       <Card className={classes.card}>
         <header className={classes.header}>
-
           <LinkTo to=".." relative="path">
             <i className="fa-solid fa-chevron-left"></i> Back
           </LinkTo>
 
-          <h1 className={classes.title}>Comments about:
+          <h1 className={classes.title}>
+            Comments about:
             <span className={classes.number}> {car.carNumber}</span>
           </h1>
-          
+
           <Button onClick={toggleAddModal}>New comment</Button>
         </header>
-        
+
         <ul className={classes['posts-list']}>
-          {comments.map(c => {
-            return <Comment
-              key={c._id}
-              user={user}
-              post={c}
-            />;
+          {comments.map((c) => {
+            return <Comment key={c._id} user={user} post={c} />;
           })}
         </ul>
       </Card>

@@ -26,10 +26,12 @@ const Loading = (props) => {
     };
   });
 
-  return <>
-    {createPortal(<Backdrop />, portal)}
-    {createPortal(<Loader />, portal)}
-  </>;
+  return (
+    <>
+      {createPortal(<Backdrop />, portal)}
+      {createPortal(<Loader />, portal)}
+    </>
+  );
 };
 
-export default Loading;;
+export default Loading;

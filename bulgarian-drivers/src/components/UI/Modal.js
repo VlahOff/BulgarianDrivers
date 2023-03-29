@@ -22,7 +22,10 @@ const Modal = (props) => {
   return (
     <>
       {createPortal(<Backdrop onClose={props.onClose} />, portal)}
-      {createPortal(<Card className={classes.modal}>{props.children}</Card>, portal)}
+      {createPortal(
+        <Card className={classes.modal}>{props.children}</Card>,
+        portal
+      )}
     </>
   );
 };

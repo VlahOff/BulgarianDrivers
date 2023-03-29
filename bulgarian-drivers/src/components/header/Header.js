@@ -14,7 +14,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const onMenuOpen = (event) => {
-    setIsMenuOpen(s => !s);
+    setIsMenuOpen((s) => !s);
   };
 
   const onSelect = (event) => {
@@ -24,10 +24,13 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.navigation}>
-
         <div className={styles['logo-container']}>
           <Link to="/">
-            <img src={logo} alt="Bulgarian Drivers logo" className={styles.logo} />
+            <img
+              src={logo}
+              alt="Bulgarian Drivers logo"
+              className={styles.logo}
+            />
           </Link>
         </div>
 
@@ -39,23 +42,36 @@ const Header = () => {
             <NavLinkTo to="/">Home</NavLinkTo>
           </li>
           <li>
-            <NavLinkTo to="/drivers" className={styles.link}>Drivers</NavLinkTo>
+            <NavLinkTo to="/drivers" className={styles.link}>
+              Drivers
+            </NavLinkTo>
           </li>
-          {!authCtx.user ?
+          {!authCtx.user ? (
             <>
-              <li><NavLinkTo to="/login" className={styles.link}>Log In</NavLinkTo></li>
-              <li><NavLinkTo to="/register" className={styles.link}>Register</NavLinkTo></li>
+              <li>
+                <NavLinkTo to="/login" className={styles.link}>
+                  Log In
+                </NavLinkTo>
+              </li>
+              <li>
+                <NavLinkTo to="/register" className={styles.link}>
+                  Register
+                </NavLinkTo>
+              </li>
             </>
-            :
+          ) : (
             <>
               <li>
                 <NavLinkTo to="/profile" className={styles.link}>
-                  <span>{authCtx.user.username}</span> <i className="fa-regular fa-user"></i>
+                  <span>{authCtx.user.username}</span>{' '}
+                  <i className="fa-regular fa-user"></i>
                 </NavLinkTo>
               </li>
-              <li><Button onClick={authCtx.onLogout}>Logout</Button></li>
+              <li>
+                <Button onClick={authCtx.onLogout}>Logout</Button>
+              </li>
             </>
-          }
+          )}
           <li>
             <NavLinkTo to="/search" className={styles.link}>
               <i className="fa-solid fa-magnifying-glass"></i>
@@ -66,7 +82,7 @@ const Header = () => {
           <Hamburger color="#fff" toggled={isMenuOpen} />
         </div>
       </nav>
-    </header >
+    </header>
   );
 };
 

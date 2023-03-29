@@ -23,21 +23,23 @@ const Comment = (props) => {
         </div>
         <footer className={classes.footer}>
           <div className={classes.actions}>
-            {props.user?.userId === post.owner &&
+            {props.user?.userId === post.owner && (
               <>
-                <Button
-                  onClick={() => postsCtx.toggleEditModal(post)}
-                >Edit</Button>
-                <Button
-                  onClick={() => postsCtx.toggleDeleteModal(post)}
-                >Delete</Button>
+                <Button onClick={() => postsCtx.toggleEditModal(post)}>
+                  Edit
+                </Button>
+                <Button onClick={() => postsCtx.toggleDeleteModal(post)}>
+                  Delete
+                </Button>
               </>
-            }
+            )}
           </div>
-          <p>{date} <i className="fa-regular fa-clock"></i></p>
+          <p>
+            {date} <i className="fa-regular fa-clock"></i>
+          </p>
         </footer>
       </article>
-    </li >
+    </li>
   );
 };
 

@@ -3,8 +3,8 @@ import { createContext, useState } from 'react';
 const ErrorContext = createContext({
   message: '',
   isOpen: false,
-  toggle: () => { },
-  setErrorMessage: () => { }
+  toggle: () => {},
+  setErrorMessage: () => {},
 });
 
 export const ErrorProvider = (props) => {
@@ -12,7 +12,7 @@ export const ErrorProvider = (props) => {
   const [message, setMessage] = useState('');
 
   const toggle = () => {
-    setIsOpen(s => !s);
+    setIsOpen((s) => !s);
   };
 
   const setErrorMessage = (error) => {
@@ -61,16 +61,18 @@ export const ErrorProvider = (props) => {
     setTimeout(() => setIsOpen(false), 3000);
   };
 
-  return <ErrorContext.Provider
-    value={{
-      message,
-      isOpen,
-      toggle,
-      setErrorMessage
-    }}
-  >
-    {props.children}
-  </ErrorContext.Provider>;
+  return (
+    <ErrorContext.Provider
+      value={{
+        message,
+        isOpen,
+        toggle,
+        setErrorMessage,
+      }}
+    >
+      {props.children}
+    </ErrorContext.Provider>
+  );
 };
 
 export default ErrorContext;

@@ -22,19 +22,17 @@ const DriversList = () => {
         <LinkTo to="/create-post">Create a post</LinkTo>
       </header>
       <ul className={classes.posts}>
-        {carList.map(p => {
-          return <Link
-            key={p._id}
-            to={`/drivers/${p._id}`}
-            className={classes.link}
-          >
-            <Driver
-              className={classes.post}
-              carNumber={p.carNumber}
-              updatedOn={p.updatedOn}
-              comments={p.posts.length}
-            />
-          </Link>;
+        {carList.map((p) => {
+          return (
+            <Link key={p._id} to={`/drivers/${p._id}`} className={classes.link}>
+              <Driver
+                className={classes.post}
+                carNumber={p.carNumber}
+                updatedOn={p.updatedOn}
+                comments={p.posts.length}
+              />
+            </Link>
+          );
         })}
       </ul>
     </Card>

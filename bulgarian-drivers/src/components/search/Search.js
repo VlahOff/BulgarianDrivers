@@ -34,24 +34,26 @@ const Search = (props) => {
             id: 'search',
             type: 'text',
             onChange: onChangeHandler,
-            value: search
+            value: search,
           }}
         />
         <Button type="submit">Search</Button>
       </form>
-      {results.length !== 0 &&
+      {results.length !== 0 && (
         <ul className={classes.results}>
-          {results?.map(t => {
-            return <Link
-              to={`/drivers/${t._id}`}
-              key={t._id}
-              className={classes['result-link']}
-            >
-              <li className={classes.result}>{t.carNumber}</li>
-            </Link>;
+          {results?.map((t) => {
+            return (
+              <Link
+                to={`/drivers/${t._id}`}
+                key={t._id}
+                className={classes['result-link']}
+              >
+                <li className={classes.result}>{t.carNumber}</li>
+              </Link>
+            );
           })}
         </ul>
-      }
+      )}
     </Card>
   );
 };

@@ -22,21 +22,24 @@ const RouterOutlet = () => {
       <Route path="/drivers/:id" element={<PostDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/create-post"
+      <Route
+        path="/create-post"
         element={
           <ProtectedRoute>
             <CreatePost />
           </ProtectedRoute>
         }
       />
-      <Route path="/profile"
+      <Route
+        path="/profile"
         element={
           <ProtectedRoute>
             <Profile />
           </ProtectedRoute>
         }
       />
-      <Route path="/user-posts"
+      <Route
+        path="/user-posts"
         element={
           <ProtectedRoute>
             <UserPosts />

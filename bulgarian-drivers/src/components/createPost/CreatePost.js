@@ -21,19 +21,24 @@ const CreatePost = (props) => {
     navigate('/drivers');
   };
 
-  const { values, changeHandler, submitHandler } = useForm({
-    carNumber: '',
-    carNumberValid: null,
-    title: '',
-    titleValid: null,
-    post: '',
-    postValid: null,
-  }, onCreatePostHandler);
+  const { values, changeHandler, submitHandler } = useForm(
+    {
+      carNumber: '',
+      carNumberValid: null,
+      title: '',
+      titleValid: null,
+      post: '',
+      postValid: null,
+    },
+    onCreatePostHandler
+  );
 
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    setIsFormValid(values.carNumberValid && values.titleValid && values.postValid);
+    setIsFormValid(
+      values.carNumberValid && values.titleValid && values.postValid
+    );
   }, [values]);
 
   const onPlateNumberInput = (event) => {
@@ -61,7 +66,7 @@ const CreatePost = (props) => {
             onBlur: onPlateNumberInput,
             value: values.carNumber,
             autoFocus: true,
-            placeholder: 'CB1234MB'
+            placeholder: 'CB1234MB',
           }}
           error={values.carNumberValid}
           errorMessage="Invalid car number"
@@ -74,7 +79,7 @@ const CreatePost = (props) => {
             onChange: onTitleInput,
             onBlur: onTitleInput,
             value: values.title,
-            placeholder: 'Some title'
+            placeholder: 'Some title',
           }}
           error={values.titleValid}
           errorMessage="Input must be at least 10 characters long."
@@ -86,7 +91,7 @@ const CreatePost = (props) => {
             onChange: onPostInput,
             onBlur: onPostInput,
             value: values.post,
-            placeholder: 'Some description'
+            placeholder: 'Some description',
           }}
           error={values.postValid}
           errorMessage="Input must be at least 10 characters long."
@@ -95,7 +100,9 @@ const CreatePost = (props) => {
           className={classes.button}
           disabled={!isFormValid}
           type="submit"
-        >Post it!</Button>
+        >
+          Post it!
+        </Button>
       </form>
     </Card>
   );
