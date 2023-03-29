@@ -19,11 +19,13 @@ const Modal = (props) => {
     };
   });
 
+  const styles = `${classes.modal} ${props.className}`;
+
   return (
     <>
       {createPortal(<Backdrop onClose={props.onClose} />, portal)}
       {createPortal(
-        <Card className={classes.modal}>{props.children}</Card>,
+        <Card className={styles}>{props.children}</Card>,
         portal
       )}
     </>

@@ -1,3 +1,7 @@
+.modal {
+  width: 90%;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -22,4 +26,10 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+@media screen and (max-width: 720px) {
+  .cross {
+    font-size: 1.3rem;
+  }
 }

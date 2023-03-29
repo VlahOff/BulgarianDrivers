@@ -3,7 +3,7 @@
   max-width: 800px;
   border-radius: 4px;
   overflow: hidden;
-  background-color: #504945;
+  background-color: #928374;
 }
 
 .header {
@@ -11,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #282828;
+  background-color: #1d2021;
 }
 
 .posts-list {

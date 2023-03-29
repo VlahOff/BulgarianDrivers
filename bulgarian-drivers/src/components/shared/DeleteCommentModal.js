@@ -10,7 +10,7 @@ const DeleteCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
 
   return (
-    <Modal onClose={postsCtx.toggleDeleteModal}>
+    <Modal onClose={postsCtx.toggleDeleteModal} className={classes.modal}>
       <h2 className={classes.title}>
         Are you sure you want to delete your comment?
       </h2>

@@ -1,3 +1,7 @@
+.modal {
+  width: 90%;
+}
+
 .title {
   text-align: center;
   margin-bottom: 2rem;
@@ -20,4 +24,16 @@
 
 .actions button {
   width: 100px;
+}
+
+@media screen and (max-width: 720px) {
+  .title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .actions {
+    gap: 1rem;
+  }
 }

@@ -14,7 +14,7 @@
   width: 100%;
   resize: none;
   color: white;
-  background-color: #c0b19f;
+  background-color: #7c6f64;
   padding: 1rem 0.5rem;
   margin-bottom: 0.5rem;
   border: none;
@@ -27,4 +27,8 @@
 .input.error {
   background-color: rgba(255, 193, 186, 0.3);
   border-bottom: 2px #fb4934 solid;
+}
+
+.input::placeholder {
+  color: #cfcfcf;
 }

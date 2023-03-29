@@ -46,6 +46,10 @@
 }
 
 @media screen and (max-width:860px) {
+  .title {
+    font-size: 30px;
+  }
+
   .quotes {
     align-items: center;
     flex-direction: column;

@@ -40,6 +40,10 @@
 }
 
 @media screen and (max-width: 1136px) {
+  .title {
+    font-size: 32px;
+  }
+
   .steps {
     justify-content: center;
   }

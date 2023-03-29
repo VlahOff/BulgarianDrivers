@@ -37,7 +37,7 @@ const EditCommentModal = (props) => {
   };
 
   return (
-    <Modal onClose={postsCtx.toggleEditModal}>
+    <Modal onClose={postsCtx.toggleEditModal} className={classes.modal}>
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Edit comment</h2>

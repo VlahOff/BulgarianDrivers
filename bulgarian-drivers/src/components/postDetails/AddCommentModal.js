@@ -39,7 +39,7 @@ const AddCommentModal = (props) => {
   };
 
   return (
-    <Modal onClose={postsCtx.toggleAddModal}>
+    <Modal onClose={postsCtx.toggleAddModal} className={classes.modal}>
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Add comment</h2>

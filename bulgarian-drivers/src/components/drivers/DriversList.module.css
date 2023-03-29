@@ -10,21 +10,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #282828;
+  background-color: #1d2021;
 }
 
 .title {
   color: white;
 }
 
-.posts {
-  background-color: #928374;
-}
-
 .link {
   display: block;
   text-decoration: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #928374;
 }
 
 .link:last-child {
