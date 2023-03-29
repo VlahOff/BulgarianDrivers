@@ -3,15 +3,13 @@ import { useState } from 'react';
 export const useForm = (initialValues, onSubmitHandler) => {
   const [values, setValues] = useState(initialValues);
 
-  const changeHandler = (event) => {
+  const changeHandler = (event, validator) => {
     setValues(state => {
-      return { ...state, [event.target.id]: event.target.value };
-    });
-  };
-
-  const blurHandler = (id, value) => {
-    setValues(state => {
-      return { ...state, [id + 'Valid']: value };
+      return {
+        ...state,
+        [event.target.id]: event.target.value,
+        [event.target.id + 'Valid']: validator(event.target.value)
+      };
     });
   };
 
@@ -25,7 +23,6 @@ export const useForm = (initialValues, onSubmitHandler) => {
   return {
     values,
     changeHandler,
-    blurHandler,
     submitHandler
   };
 };

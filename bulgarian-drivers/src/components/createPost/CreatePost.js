@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
 import * as postService from '../../services/postsService';
+import { validateInput } from '../../utils/inputValidation';
 import { validateLicensePlate } from '../../utils/licensePlateValidation';
 
 import Button from '../UI/Button';
@@ -17,11 +18,10 @@ const CreatePost = (props) => {
 
   const onCreatePostHandler = async (data) => {
     await postService.createPost(data);
-
     navigate('/drivers');
   };
 
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, changeHandler, submitHandler } = useForm({
     carNumber: '',
     carNumberValid: null,
     title: '',
@@ -36,12 +36,16 @@ const CreatePost = (props) => {
     setIsFormValid(values.carNumberValid && values.titleValid && values.postValid);
   }, [values]);
 
-  const validatePlateNum = (event) => {
-    blurHandler(event.target.id, validateLicensePlate(event.target.value));
+  const onPlateNumberInput = (event) => {
+    changeHandler(event, validateLicensePlate);
   };
 
-  const isNotEmpty = (event) => {
-    blurHandler(event.target.id, event.target.value.trim().length >= 10);
+  const onTitleInput = (event) => {
+    changeHandler(event, validateInput);
+  };
+
+  const onPostInput = (event) => {
+    changeHandler(event, validateInput);
   };
 
   return (
@@ -53,36 +57,39 @@ const CreatePost = (props) => {
           input={{
             id: 'carNumber',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: validatePlateNum,
+            onChange: onPlateNumberInput,
+            onBlur: onPlateNumberInput,
             value: values.carNumber,
             autoFocus: true,
             placeholder: 'CB1234MB'
           }}
           error={values.carNumberValid}
+          errorMessage="Invalid car number"
         />
         <Input
           label={'Title'}
           input={{
             id: 'title',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: isNotEmpty,
+            onChange: onTitleInput,
+            onBlur: onTitleInput,
             value: values.title,
             placeholder: 'Some title'
           }}
           error={values.titleValid}
+          errorMessage="Input must be at least 10 characters long."
         />
         <Textarea
           label={'Post'}
           id="post"
           textarea={{
-            onChange: changeHandler,
-            onBlur: isNotEmpty,
+            onChange: onPostInput,
+            onBlur: onPostInput,
             value: values.post,
             placeholder: 'Some description'
           }}
           error={values.postValid}
+          errorMessage="Input must be at least 10 characters long."
         />
         <Button
           className={classes.button}

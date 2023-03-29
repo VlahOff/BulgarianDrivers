@@ -13,6 +13,7 @@ const Textarea = (props) => {
         cols={props.cols || 30}
         rows={props.rows || 10}
       ></textarea>
+      {props.error === false ? <>{props.errorMessage}</> : ''}
     </div>
   );
 };

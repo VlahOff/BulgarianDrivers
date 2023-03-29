@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Hamburger from 'hamburger-react';
 import AuthContext from '../../contexts/authContext';
 import Button from '../UI/Button';
 import NavLinkTo from '../UI/NavLinkTo';
 
-import Hamburger from 'hamburger-react';
 import logo from '../../assets/bg-drivers-logo-white.png';
 import styles from './Header.module.css';
 

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import AuthContext from '../../contexts/authContext';
 
+import AuthContext from '../../contexts/authContext';
 import { validatePassword } from '../../utils/passwordValidation';
 
 import Button from '../UI/Button';

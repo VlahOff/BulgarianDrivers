@@ -10,6 +10,7 @@ const Input = React.forwardRef((props, ref) => {
         <label className={styles.label} htmlFor={props.input.id}>{props.label}</label>
       }
       <input className={input} ref={ref} {...props.input} />
+      {props.error === false ? <>{props.errorMessage}</> : ''}
     </div>
   );
 });

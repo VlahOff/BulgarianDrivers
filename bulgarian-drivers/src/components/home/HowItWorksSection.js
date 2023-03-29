@@ -1,12 +1,12 @@
-import styles from './HowItWorksSection.module.css';
+import LinkTo from '../UI/LinkTo';
+import Step from './Step';
 
 import step1 from '../../assets/step-1.jpg';
 import step2 from '../../assets/step-2.jpg';
 import step3 from '../../assets/step-3.jpg';
 import step4 from '../../assets/step-4.jpg';
 import step5 from '../../assets/step-5.jpg';
-import Step from './Step';
-import LinkTo from '../UI/LinkTo';
+import styles from './HowItWorksSection.module.css';
 
 const HowItWorksSection = () => {
   return (

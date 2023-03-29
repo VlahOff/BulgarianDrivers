@@ -9,12 +9,13 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
 import LinkTo from '../UI/LinkTo';
+import PasswordErrorMessage from '../UI/PasswordErrorMessage';
 
 import styles from './Login.module.css';
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, changeHandler, submitHandler } = useForm({
     email: '',
     emailValid: null,
     password: '',
@@ -27,13 +28,12 @@ const Login = () => {
     setIsFormValid(values.emailValid && values.passwordValid);
   }, [values]);
 
-
-  const emailValidation = (event) => {
-    blurHandler(event.target.id, validateEmail(event.target.value));
+  const onEmailInput = (event) => {
+    changeHandler(event, validateEmail);
   };
 
-  const passwordValidation = (event) => {
-    blurHandler(event.target.id, validatePassword(event.target.value));
+  const onPasswordInput = (event) => {
+    changeHandler(event, validatePassword);
   };
 
   return (
@@ -46,11 +46,12 @@ const Login = () => {
           input={{
             id: 'email',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: emailValidation,
+            onChange: onEmailInput,
+            onBlur: onEmailInput,
             value: values.email
           }}
           error={values.emailValid}
+          errorMessage="Invalid email."
         />
         <Input
           className={styles.input}
@@ -58,15 +59,19 @@ const Login = () => {
           input={{
             id: 'password',
             type: 'password',
-            onChange: changeHandler,
-            onBlur: passwordValidation,
+            onChange: onPasswordInput,
+            onBlur: onPasswordInput,
             value: values.password
           }}
           error={values.passwordValid}
+          errorMessage={<PasswordErrorMessage />}
         />
         <Button type="submit" disabled={!isFormValid}>Login</Button>
       </form>
-      <p>Don't have an account? <LinkTo to="/register">Sign up.</LinkTo></p>
+      <p>Don't have an account? <LinkTo
+        to="/register"
+        className={styles.button}
+      >Sign up.</LinkTo></p>
     </Card >
   );
 };

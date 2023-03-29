@@ -21,6 +21,10 @@
   margin-bottom: 2rem;
 }
 
+.button {
+  background-color: #282828;
+}
+
 @media screen and (max-width: 720px) {
   .card {
     margin: 60px auto;

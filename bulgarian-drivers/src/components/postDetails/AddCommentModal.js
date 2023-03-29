@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
+
 import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
+import { validateInput } from '../../utils/inputValidation';
 
 import Button from '../UI/Button';
 import Input from '../UI/Input';
@@ -12,7 +14,7 @@ import classes from './AddCommentModal.module.css';
 const AddCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
 
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, changeHandler, submitHandler } = useForm({
     title: '',
     titleValid: null,
     post: '',
@@ -25,8 +27,12 @@ const AddCommentModal = (props) => {
     setIsFormValid(values.titleValid && values.postValid);
   }, [values]);
 
-  const isNotEmpty = (event) => {
-    blurHandler(event.target.id, event.target.value.trim().length >= 10);
+  const onTitleInput = (event) => {
+    changeHandler(event, validateInput);
+  };
+
+  const onCommentInput = (event) => {
+    changeHandler(event, validateInput);
   };
 
   return (
@@ -44,23 +50,25 @@ const AddCommentModal = (props) => {
           input={{
             id: 'title',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: isNotEmpty,
+            onChange: onTitleInput,
+            onBlur: onTitleInput,
             value: values.title,
             placeholder: 'Some title'
           }}
           error={values.titleValid}
+          errorMessage="Input must be at least 10 characters long."
         />
         <Textarea
           label="Post"
           id="post"
           textarea={{
-            onChange: changeHandler,
-            onBlur: isNotEmpty,
+            onChange: onCommentInput,
+            onBlur: onCommentInput,
             value: values.post,
             placeholder: 'Some description'
           }}
           error={values.postValid}
+          errorMessage="Input must be at least 10 characters long."
         />
         <Button
           disabled={!isFormValid}

@@ -9,12 +9,17 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
 import LinkTo from '../UI/LinkTo';
+import PasswordErrorMessage from '../UI/PasswordErrorMessage';
 
 import styles from './Register.module.css';
 
+const validateUsername = (username) => {
+  return username.trim().length >= 3 && username.trim().length <= 30;
+};
+
 const Register = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, changeHandler, submitHandler } = useForm({
     email: '',
     emailValid: null,
     username: '',
@@ -29,20 +34,19 @@ const Register = () => {
   const passwordsMatch = values.passwordValid === values.rePasswordValid;
 
   useEffect(() => {
-    setIsFormValid(values.emailValid && values.passwordValid && passwordsMatch);
+    setIsFormValid(values.emailValid && values.username && values.passwordValid && passwordsMatch);
   }, [values, passwordsMatch]);
 
-  const emailValidation = (event) => {
-    blurHandler(event.target.id, validateEmail(event.target.value));
+  const onEmailInput = (event) => {
+    changeHandler(event, validateEmail);
   };
 
-  const usernameValidation = (event) => {
-    const username = event.target.value;
-    blurHandler(event.target.id, username.trim().length >= 3 && username.trim().length <= 30);
+  const onUsernameInput = (event) => {
+    changeHandler(event, validateUsername);
   };
 
-  const passwordValidation = (event) => {
-    blurHandler(event.target.id, validatePassword(event.target.value));
+  const onPasswordInput = (event) => {
+    changeHandler(event, validatePassword);
   };
 
   return (
@@ -50,52 +54,58 @@ const Register = () => {
       <h2 className={styles.title}>Register</h2>
       <form className={styles.form} onSubmit={submitHandler}>
         <Input
-          error={values.emailValid}
           label={'E-mail'}
           input={{
             id: 'email',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: emailValidation,
+            onChange: onEmailInput,
+            onBlur: onEmailInput,
             value: values.email
           }}
+          error={values.emailValid}
+          errorMessage={<p>Invalid email.</p>}
         />
         <Input
-          error={values.usernameValid}
           label={'Username'}
           input={{
             id: 'username',
             type: 'text',
-            onChange: changeHandler,
-            onBlur: usernameValidation,
+            onChange: onUsernameInput,
+            onBlur: onUsernameInput,
             value: values.username
           }}
+          error={values.usernameValid}
+          errorMessage={<p>Invalid username.</p>}
         />
         <Input
-          error={values.passwordValid}
           label={'Password'}
           input={{
             id: 'password',
             type: 'password',
-            onChange: changeHandler,
-            onBlur: passwordValidation,
+            onChange: onPasswordInput,
+            onBlur: onPasswordInput,
             value: values.password
           }}
+          error={values.passwordValid}
+          errorMessage={<PasswordErrorMessage />}
         />
         <Input
-          error={passwordsMatch}
           label={'Repeat Password'}
           input={{
             id: 'rePassword',
             type: 'password',
-            onChange: changeHandler,
-            onBlur: passwordValidation,
+            onChange: onPasswordInput,
+            onBlur: onPasswordInput,
             value: values.rePassword
           }}
+          error={passwordsMatch}
         />
         <Button type="submit" disabled={!isFormValid}>Register</Button>
       </form>
-      <p>Already have an account? <LinkTo to="/login">Sign in.</LinkTo></p>
+      <p>Already have an account? <LinkTo
+        to="/login"
+        className={styles.button}
+      >Sign in.</LinkTo></p>
     </Card>
   );
 };

@@ -1,10 +1,10 @@
-import styles from './Card.module.css';
+import classes from './Card.module.css';
 
 const Card = (props) => {
-  const classes = `${styles.card} ${props.className}`;
+  const styles = `${classes.card} ${props.className}`;
 
   return (
-    <section className={classes}>{props.children}</section>
+    <section className={styles}>{props.children}</section>
   );
 };
 
