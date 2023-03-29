@@ -1,4 +1,8 @@
-const { Schema, Types: { ObjectId }, model } = require('mongoose');
+const {
+  Schema,
+  Types: { ObjectId },
+  model,
+} = require('mongoose');
 
 const postSchema = new Schema({
   carNumber: { type: String, required: true },
@@ -9,7 +13,7 @@ const postSchema = new Schema({
   // rating: { type: Number, required: true },
   createdOn: { type: Date, default: Date.now },
   updatedOn: { type: Date, default: Date.now },
-  owner: { type: ObjectId, ref: 'User' }
+  owner: { type: ObjectId, ref: 'User' },
 });
 
 const Post = model('Post', postSchema);

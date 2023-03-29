@@ -1,5 +1,14 @@
 const { isUser } = require('../middlewares/guards');
-const { createPost, getCarList, getPosts, getCar, editPost, deletePost, searchCarList, getUserPosts } = require('../services/postsService');
+const {
+  createPost,
+  getCarList,
+  getPosts,
+  getCar,
+  editPost,
+  deletePost,
+  searchCarList,
+  getUserPosts,
+} = require('../services/postsService');
 const errorParser = require('../utils/errorParser');
 
 const postController = require('express').Router();
@@ -13,7 +22,7 @@ postController.get('/car', async (req, res) => {
     res.status(200).json(car);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -25,7 +34,7 @@ postController.get('/carList', async (req, res) => {
     res.status(200).json(list);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -39,7 +48,7 @@ postController.get('/searchCarList', async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -52,7 +61,7 @@ postController.get('/userPosts', isUser(), async (req, res) => {
     res.status(200).json(userPosts);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -64,7 +73,7 @@ postController.get('/posts', async (req, res) => {
     res.status(200).json(posts);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -85,12 +94,18 @@ postController.post('/posts', isUser(), async (req, res) => {
       throw new Error('POST_TOO_SHORT');
     }
 
-    const postData = await createPost(carNumber, title, post, req.user.username, req.user.userId);
+    const postData = await createPost(
+      carNumber,
+      title,
+      post,
+      req.user.username,
+      req.user.userId
+    );
 
     res.status(200).json(postData);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -116,7 +131,7 @@ postController.put('/posts', isUser(), async (req, res) => {
     res.status(200).json(editedPost);
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });
@@ -134,7 +149,7 @@ postController.delete('/posts', isUser(), async (req, res) => {
     res.status(200).json({ message: 'Done' });
   } catch (error) {
     res.status(400).json({
-      message: errorParser(error)
+      message: errorParser(error),
     });
   }
 });

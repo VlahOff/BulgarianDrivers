@@ -14,19 +14,25 @@ async function getCarList() {
 }
 
 async function searchCarList(query) {
-  const result = await Car.find({ 'carNumber': { '$regex': query, '$options': 'i' } });
+  const result = await Car.find({
+    carNumber: { $regex: query, $options: 'i' },
+  });
 
   return result;
 }
 
 async function getUserPosts(userId) {
-  const result = await Post.find({ owner: userId }).sort({ updatedOn: -1 }).lean();
+  const result = await Post.find({ owner: userId })
+    .sort({ updatedOn: -1 })
+    .lean();
 
   return result;
 }
 
 async function getPosts(carId) {
-  const posts = await Post.find({ carId: carId }).sort({ updatedOn: -1 }).lean();
+  const posts = await Post.find({ carId: carId })
+    .sort({ updatedOn: -1 })
+    .lean();
 
   return posts;
 }
@@ -44,7 +50,7 @@ async function createPost(carNumber, title, post, username, userId) {
     title: title,
     post: post,
     username: username,
-    owner: userId
+    owner: userId,
   });
 
   car.updatedOn = Date.now();
@@ -72,8 +78,7 @@ async function deletePost(postId) {
   const post = await Post.findByIdAndRemove(postId);
   const car = await Car.findOne({ carNumber: post.carNumber });
 
-  car.posts = car.posts
-    .filter(p => p.toString() !== post._id.toString());
+  car.posts = car.posts.filter((p) => p.toString() !== post._id.toString());
 
   car.save();
   return post;
@@ -87,5 +92,5 @@ module.exports = {
   getPosts,
   createPost,
   editPost,
-  deletePost
+  deletePost,
 };
