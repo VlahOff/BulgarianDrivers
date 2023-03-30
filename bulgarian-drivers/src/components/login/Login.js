@@ -67,7 +67,7 @@ const Login = () => {
             value: values.password,
           }}
           error={values.passwordValid}
-          errorMessage={<PasswordErrorMessage />}
+          errorMessage="Invalid password."
         />
         <Button type="submit" disabled={!isFormValid}>
           Login
