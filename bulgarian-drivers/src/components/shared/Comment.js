@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import PostsContext from '../../contexts/postsContext';
 import { transformDate } from '../../utils/dateTransformer';
 
-import Button from '../UI/Button';
+import Button from '../UI/Button/Button';
 import classes from './Comment.module.css';
 
 const Comment = (props) => {

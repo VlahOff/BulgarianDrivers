@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import Card from './Card';
+import Card from '../Card/Card';
 import classes from './Modal.module.css';
 
 const Backdrop = (props) => {
@@ -24,10 +24,7 @@ const Modal = (props) => {
   return (
     <>
       {createPortal(<Backdrop onClose={props.onClose} />, portal)}
-      {createPortal(
-        <Card className={styles}>{props.children}</Card>,
-        portal
-      )}
+      {createPortal(<Card className={styles}>{props.children}</Card>, portal)}
     </>
   );
 };

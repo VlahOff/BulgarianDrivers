@@ -3,9 +3,9 @@ import { useContext, useState } from 'react';
 import AuthContext from '../../contexts/authContext';
 import { validatePassword } from '../../utils/passwordValidation';
 
-import Button from '../UI/Button';
-import Input from '../UI/Input';
-import Modal from '../UI/Modal';
+import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
+import Modal from '../UI/Modal/Modal';
 
 import classes from './DeleteProfileModal.module.css';
 

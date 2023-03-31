@@ -6,7 +6,7 @@ import PostsContext from '../../contexts/postsContext';
 import Comment from '../shared/Comment';
 import DeleteCommentModal from '../shared/DeleteCommentModal';
 import EditCommentModal from '../shared/EditCommentModal';
-import Card from '../UI/Card';
+import Card from '../UI/Card/Card';
 
 import classes from './UserPosts.module.css';
 

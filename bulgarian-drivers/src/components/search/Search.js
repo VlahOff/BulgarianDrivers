@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { searchCarList } from '../../services/postsService';
 
-import Button from '../UI/Button';
-import Card from '../UI/Card';
-import Input from '../UI/Input';
+import Button from '../UI/Button/Button';
+import Card from '../UI/Card/Card';
+import Input from '../UI/Input/Input';
 
 import classes from './Search.module.css';
 

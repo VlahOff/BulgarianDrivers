@@ -4,10 +4,10 @@ import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
 import { validateInput } from '../../utils/inputValidation';
 
-import Button from '../UI/Button';
-import Input from '../UI/Input';
-import Modal from '../UI/Modal';
-import Textarea from '../UI/Textarea';
+import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
+import Modal from '../UI/Modal/Modal';
+import Textarea from '../UI/Textarea/Textarea';
 
 import classes from './EditCommentModal.module.css';
 

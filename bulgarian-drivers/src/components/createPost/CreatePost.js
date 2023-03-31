@@ -6,10 +6,10 @@ import * as postService from '../../services/postsService';
 import { validateInput } from '../../utils/inputValidation';
 import { validateLicensePlate } from '../../utils/licensePlateValidation';
 
-import Button from '../UI/Button';
-import Card from '../UI/Card';
-import Input from '../UI/Input';
-import Textarea from '../UI/Textarea';
+import Button from '../UI/Button/Button';
+import Card from '../UI/Card/Card';
+import Input from '../UI/Input/Input';
+import Textarea from '../UI/Textarea/Textarea';
 
 import classes from './CreatePost.module.css';
 

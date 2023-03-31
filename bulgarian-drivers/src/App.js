@@ -5,8 +5,8 @@ import LoadingContext from './contexts/loadingContext';
 import RouterOutlet from './RouterOutlet';
 
 import Header from './components/header/Header';
-import ErrorBanner from './components/UI/ErrorBanner';
-import Loading from './components/UI/Loading';
+import ErrorBanner from './components/UI/ErrorBanner/ErrorBanner';
+import Loading from './components/UI/Loading/Loading';
 
 import classes from './App.module.css';
 

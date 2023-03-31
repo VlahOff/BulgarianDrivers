@@ -5,11 +5,11 @@ import { useForm } from '../../hooks/useForm';
 import { validateEmail } from '../../utils/emailValidation';
 import { validatePassword } from '../../utils/passwordValidation';
 
-import Button from '../UI/Button';
-import Card from '../UI/Card';
-import Input from '../UI/Input';
-import LinkTo from '../UI/LinkTo';
-import PasswordErrorMessage from '../UI/PasswordErrorMessage';
+import Button from '../UI/Button/Button';
+import Card from '../UI/Card/Card';
+import Input from '../UI/Input/Input';
+import LinkTo from '../UI/Links/LinkTo';
+import PasswordErrorMessage from '../UI/PasswordError/PasswordErrorMessage';
 
 import styles from './Register.module.css';
 

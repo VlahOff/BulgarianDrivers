@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import PostsContext from '../../contexts/postsContext';
-import Card from '../UI/Card';
-import LinkTo from '../UI/LinkTo';
+import Card from '../UI/Card/Card';
+import LinkTo from '../UI/Links/LinkTo';
 import Driver from './Driver';
 
 import classes from './DriversList.module.css';

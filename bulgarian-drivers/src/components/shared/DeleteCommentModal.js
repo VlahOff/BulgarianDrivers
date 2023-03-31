@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
 import PostsContext from '../../contexts/postsContext';
-import Button from '../UI/Button';
-import Modal from '../UI/Modal';
+import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 
 import classes from './DeleteCommentModal.module.css';
 

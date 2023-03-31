@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import Button from '../UI/Button';
-import Card from '../UI/Card';
-import LinkTo from '../UI/LinkTo';
+import Button from '../UI/Button/Button';
+import Card from '../UI/Card/Card';
+import LinkTo from '../UI/Links/LinkTo';
 import DeleteProfileModal from './DeleteProfileModal';
 
 import classes from './Profile.module.css';

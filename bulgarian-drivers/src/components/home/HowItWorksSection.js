@@ -1,4 +1,4 @@
-import LinkTo from '../UI/LinkTo';
+import LinkTo from '../UI/Links/LinkTo';
 import Step from './Step';
 
 import step1 from '../../assets/step-1.jpg';
