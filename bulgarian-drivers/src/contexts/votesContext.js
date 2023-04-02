@@ -1,6 +1,8 @@
 import { createContext, useCallback, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as voteService from '../services/votesService';
+import { useAuthContext } from './authContext';
 import ErrorContext from './errorContext';
 
 const VotesContext = createContext({
@@ -12,7 +14,11 @@ const VotesContext = createContext({
 });
 
 export const VotesProvider = (props) => {
+  const navigate = useNavigate();
+
   const { setErrorMessage } = useContext(ErrorContext);
+  const { user } = useAuthContext();
+
   const [votes, setVotes] = useState([]);
 
   const getVotesForDriversComments = useCallback((carId) => {
@@ -26,6 +32,10 @@ export const VotesProvider = (props) => {
   };
 
   const upvoteComment = (commentId) => {
+    if (!user) {
+      return navigate('/login');
+    }
+
     voteService.upVoteComment(commentId)
       .then(vote => {
         setVotes(state => {
@@ -36,6 +46,10 @@ export const VotesProvider = (props) => {
   };
 
   const downvoteComment = (commentId) => {
+    if (!user) {
+      return navigate('/login');
+    }
+
     voteService.downVoteComment(commentId)
       .then(vote => {
         setVotes(state => {
