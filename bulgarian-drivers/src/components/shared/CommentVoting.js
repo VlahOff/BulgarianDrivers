@@ -19,10 +19,10 @@ const CommentVoting = (props) => {
     downvoteComment(props.commentId);
   };
 
-  const hasUserVotedUp = vote?.usersVotedUp?.includes(authCtx.user.userId);
+  const hasUserVotedUp = vote?.usersVotedUp?.includes(authCtx.user?.userId);
   const stylesUp = `${classes.arrow} ${hasUserVotedUp ? classes.active : ''}`;
 
-  const hasUserVotedDown = vote?.usersVotedDown?.includes(authCtx.user.userId);
+  const hasUserVotedDown = vote?.usersVotedDown?.includes(authCtx.user?.userId);
   const stylesDown = `${classes.arrow} ${hasUserVotedDown ? classes.active : ''}`;
 
   return (
@@ -30,7 +30,7 @@ const CommentVoting = (props) => {
       <button onClick={onUpVote}>
         <i className={`${stylesUp} fa-solid fa-arrow-up`}></i>
       </button>
-      <p className={classes.votes}>{vote?.votes}</p>
+      <p className={classes.votes}>{vote?.votes || 0}</p>
       <button onClick={onDownVote}>
         <i className={`${stylesDown} fa-solid fa-arrow-down`}></i>
       </button>

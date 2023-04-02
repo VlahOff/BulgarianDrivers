@@ -23,13 +23,16 @@ const Comment = (props) => {
       />
 
       <article className={classes.post}>
+
         <header className={classes['post-header']}>
           <h3 className={classes.title}>{post.title}</h3>
-          <p>{post.username}</p>
+          <p>u/{post.username}</p>
         </header>
+
         <div className={classes['comment-wrapper']}>
           <p>{post.post}</p>
         </div>
+
         <footer className={classes.footer}>
           <div className={classes.actions}>
             {props.user?.userId === post.owner && (
@@ -47,6 +50,7 @@ const Comment = (props) => {
             {date} <i className="fa-regular fa-clock"></i>
           </p>
         </footer>
+
       </article>
     </li>
   );

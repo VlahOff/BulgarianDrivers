@@ -10,20 +10,15 @@
 
 .post {
   flex-grow: 1;
-  flex-shrink: 6;
+  flex-shrink: 5;
 }
 
 .post-header {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   border-bottom: 1px solid white;
   padding-bottom: 0.5rem;
-}
-
-.title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .comment-wrapper {
@@ -46,4 +41,15 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+@media screen and (max-width: 550px) {
+  .post-header {
+    gap: 0.3rem;
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
 }

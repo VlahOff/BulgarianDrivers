@@ -53,7 +53,7 @@ export const ErrorProvider = (props) => {
         break;
 
       default:
-        message = 'An error has occurred!';
+        message = error.message;
         break;
     }
     setMessage(message);
