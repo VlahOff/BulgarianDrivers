@@ -115,6 +115,7 @@ postController.put('/posts', isUser(), async (req, res) => {
     const postId = req.query.postId;
     const title = req.body.title;
     const post = req.body.post;
+    const userId = req.user.userId;
 
     if (!postId.trim()) {
       throw new Error('NO_POST_ID');
@@ -126,7 +127,7 @@ postController.put('/posts', isUser(), async (req, res) => {
       throw new Error('POST_TOO_SHORT');
     }
 
-    const editedPost = await editPost(title, post, postId);
+    const editedPost = await editPost(title, post, postId, userId);
 
     res.status(200).json(editedPost);
   } catch (error) {
@@ -144,7 +145,7 @@ postController.delete('/posts', isUser(), async (req, res) => {
       throw new Error('NO_POST_ID');
     }
 
-    await deletePost(postId);
+    await deletePost(postId, req.user.userId);
 
     res.status(200).json({ message: 'Done' });
   } catch (error) {

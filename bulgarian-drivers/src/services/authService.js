@@ -11,9 +11,9 @@ export const register = async (data) => {
 };
 
 export const logout = async () => {
-  fetchApi.get(`${BASE_URL}/logout`);
+  return fetchApi.get(`${BASE_URL}/logout`);
 };
 
 export const deleteAccount = async (data) => {
-  fetchApi.post(`${BASE_URL}/deleteAccount`, data);
+  return fetchApi.post(`${BASE_URL}/deleteAccount`, data);
 };

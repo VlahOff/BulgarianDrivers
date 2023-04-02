@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import AuthContext from '../../contexts/authContext';
 import PostsContext from '../../contexts/postsContext';
+import VotesContext from '../../contexts/votesContext';
 
 import Comment from '../shared/Comment';
 import DeleteCommentModal from '../shared/DeleteCommentModal';
@@ -17,6 +18,7 @@ import classes from './PostDetails.module.css';
 const PostDetails = (props) => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const { getVotesForDriversComments } = useContext(VotesContext);
   const {
     car,
     comments,
@@ -29,7 +31,8 @@ const PostDetails = (props) => {
 
   useEffect(() => {
     loadCommentsForDriver(id);
-  }, [id, loadCommentsForDriver]);
+    getVotesForDriversComments(id);
+  }, [id, loadCommentsForDriver, getVotesForDriversComments]);
 
   return (
     <>

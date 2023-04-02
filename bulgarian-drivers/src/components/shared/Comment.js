@@ -3,17 +3,26 @@ import { useContext } from 'react';
 import PostsContext from '../../contexts/postsContext';
 import { transformDate } from '../../utils/dateTransformer';
 
+import CommentVoting from './CommentVoting';
 import Button from '../UI/Button/Button';
+
 import classes from './Comment.module.css';
 
 const Comment = (props) => {
   const postsCtx = useContext(PostsContext);
+
   const post = props.post;
   const date = transformDate(post.updatedOn);
 
   return (
-    <li className={classes.post}>
-      <article>
+    <li className={classes['post-item']}>
+
+      <CommentVoting
+        carId={post.carId}
+        commentId={post._id}
+      />
+
+      <article className={classes.post}>
         <header className={classes['post-header']}>
           <h3 className={classes.title}>{post.title}</h3>
           <p>{post.username}</p>

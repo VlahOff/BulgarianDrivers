@@ -2,20 +2,15 @@ import { createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import {
-  deleteAccount,
-  login,
-  logout,
-  register,
-} from '../services/authService';
-import { useLoadingContext } from './loadingContext';
+import * as authService from '../services/authService';
 import ErrorContext from './errorContext';
+import { useLoadingContext } from './loadingContext';
 
 const AuthContext = createContext({
-  onLoginSubmit: () => {},
-  onRegisterSubmit: () => {},
-  onLogout: () => {},
-  onAccountDeletion: () => {},
+  onLoginSubmit: () => { },
+  onRegisterSubmit: () => { },
+  onLogout: () => { },
+  onAccountDeletion: () => { },
   user: undefined,
 });
 
@@ -27,7 +22,7 @@ export const AuthProvider = (props) => {
 
   const onLoginSubmit = async (data) => {
     startLoading();
-    login({
+    authService.login({
       email: data.email,
       password: data.password,
     })
@@ -46,7 +41,7 @@ export const AuthProvider = (props) => {
 
   const onRegisterSubmit = async (data) => {
     startLoading();
-    register({
+    authService.register({
       email: data.email,
       username: data.username,
       password: data.password,
@@ -66,7 +61,7 @@ export const AuthProvider = (props) => {
 
   const onLogout = async () => {
     startLoading();
-    logout()
+    authService.logout()
       .then(() => {
         setUser(undefined);
         navigate('/');
@@ -77,7 +72,7 @@ export const AuthProvider = (props) => {
 
   const onAccountDeletion = async (password) => {
     startLoading();
-    deleteAccount({ password: password })
+    authService.deleteAccount({ password: password })
       .then(() => {
         setUser(undefined);
         navigate('/');
@@ -102,3 +97,9 @@ export const AuthProvider = (props) => {
 };
 
 export default AuthContext;
+
+export const useAuthContext = () => {
+  const ctx = useContext(AuthContext);
+
+  return ctx;
+};

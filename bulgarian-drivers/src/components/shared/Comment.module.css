@@ -1,8 +1,16 @@
-.post {
+.post-item {
   border-radius: 4px;
   background-color: #665c54;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.post {
+  flex-grow: 1;
+  flex-shrink: 6;
 }
 
 .post-header {
@@ -13,7 +21,6 @@
 }
 
 .title {
-  width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -23,9 +30,11 @@
   padding: 1rem 0;
 }
 
-.footer{
+.footer {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   align-items: center;
   border-top: 1px solid white;
   padding-top: 0.5rem;

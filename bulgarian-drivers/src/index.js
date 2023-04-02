@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/authContext';
 import { ErrorProvider } from './contexts/errorContext';
 import { LoadingProvider } from './contexts/loadingContext';
 import { PostsProvider } from './contexts/postsContext';
+import { VotesProvider } from './contexts/votesContext';
 
 import './index.css';
 
@@ -18,7 +19,9 @@ root.render(
         <ErrorProvider>
           <AuthProvider>
             <PostsProvider>
-              <App />
+              <VotesProvider>
+                <App />
+              </VotesProvider>
             </PostsProvider>
           </AuthProvider>
         </ErrorProvider>

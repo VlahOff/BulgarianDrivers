@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const Car = require('../models/Car');
+const Vote = require('../models/Vote');
 
 async function getCar(carId) {
   const car = await Car.findById(carId).lean();
@@ -52,6 +53,10 @@ async function createPost(carNumber, title, post, username, userId) {
     username: username,
     owner: userId,
   });
+  await Vote.create({
+    driverId: car._id,
+    commentId: postData._id
+  });
 
   car.updatedOn = Date.now();
   car.posts.push(postData._id);
@@ -59,8 +64,11 @@ async function createPost(carNumber, title, post, username, userId) {
   return postData;
 }
 
-async function editPost(title, post, postId) {
+async function editPost(title, post, postId, userId) {
   const postDb = await Post.findById({ _id: postId });
+  if (userId !== postDb.owner.toString()) {
+    throw new Error('NOT_THE_OWNER');
+  }
   const carDb = await Car.findById({ _id: postDb.carId });
 
   carDb.updatedOn = Date.now();
@@ -74,8 +82,13 @@ async function editPost(title, post, postId) {
   return postDb;
 }
 
-async function deletePost(postId) {
-  const post = await Post.findByIdAndRemove(postId);
+async function deletePost(postId, userId) {
+  const post = await Post.findById({ _id: postId });
+  if (userId !== post.owner.toString()) {
+    throw new Error('NOT_THE_OWNER');
+  }
+
+  post.deleteOne({ _id: postId });
   const car = await Car.findOne({ carNumber: post.carNumber });
 
   car.posts = car.posts.filter((p) => p.toString() !== post._id.toString());

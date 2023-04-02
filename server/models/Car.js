@@ -6,7 +6,7 @@ const {
 
 const carSchema = new Schema({
   carNumber: { type: String, required: true, unique: true },
-  posts: { type: [ObjectId], required: true },
+  posts: { type: [ObjectId], ref: 'Post' },
   createdOn: { type: Date, default: Date.now },
   updatedOn: { type: Date, default: Date.now },
 });

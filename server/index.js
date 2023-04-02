@@ -7,6 +7,7 @@ const tokenParser = require('./middlewares/tokenParser');
 const { isUser } = require('./middlewares/guards');
 const cors = require('./middlewares/cors');
 const postController = require('./controllers/postController');
+const voteController = require('./controllers/voteController');
 
 const EXPRESS_PORT = process.env.EXPRESS_PORT;
 async function start() {
@@ -23,6 +24,7 @@ async function start() {
   });
 
   app.use('/api', postController);
+  app.use('/votes', voteController);
 
   connectToDB.then(() => {
     app.listen(EXPRESS_PORT, () =>
