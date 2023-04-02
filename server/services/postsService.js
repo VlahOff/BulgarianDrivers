@@ -89,6 +89,7 @@ async function deletePost(postId, userId) {
   }
 
   post.deleteOne({ _id: postId });
+  await Vote.findOneAndRemove({ commentId: postId });
   const car = await Car.findOne({ carNumber: post.carNumber });
 
   car.posts = car.posts.filter((p) => p.toString() !== post._id.toString());

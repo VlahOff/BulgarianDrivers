@@ -4,7 +4,6 @@ const express = require('express');
 const dbConfig = require('./configs/database');
 
 const tokenParser = require('./middlewares/tokenParser');
-const { isUser } = require('./middlewares/guards');
 const cors = require('./middlewares/cors');
 const postController = require('./controllers/postController');
 const voteController = require('./controllers/voteController');
@@ -24,7 +23,7 @@ async function start() {
   });
 
   app.use('/api', postController);
-  app.use('/votes', voteController);
+  app.use('/api/votes', voteController);
 
   connectToDB.then(() => {
     app.listen(EXPRESS_PORT, () =>
