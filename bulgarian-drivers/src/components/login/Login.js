@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import AuthContext from '../../contexts/authContext';
 import { useForm } from '../../hooks/useForm';
@@ -14,8 +14,7 @@ import styles from './Login.module.css';
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, submitHandler } = useForm(
-    {
+  const { values, isFormValid, changeHandler, submitHandler } = useForm({
       email: '',
       emailValid: null,
       password: '',
@@ -23,12 +22,6 @@ const Login = () => {
     },
     authCtx.onLoginSubmit
   );
-
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    setIsFormValid(values.emailValid && values.passwordValid);
-  }, [values]);
 
   const onEmailInput = (event) => {
     changeHandler(event, validateEmail);

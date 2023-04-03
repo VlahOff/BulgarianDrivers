@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useAuthContext } from '../../contexts/authContext';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import LinkTo from '../UI/Links/LinkTo';
@@ -9,6 +10,7 @@ import classes from './Profile.module.css';
 
 const Profile = (props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { user } = useAuthContext();
 
   const toggleDeleteModal = () => {
     setIsDeleteModalOpen((s) => !s);
@@ -21,8 +23,8 @@ const Profile = (props) => {
       )}
       <Card className={classes.card}>
         <div className={classes['user-data']}>
-          <h2 className={classes.username}>Welcome kurcho!</h2>
-          <p className={classes.email}>dimitarvlahov24@icloud.com</p>
+          <h2 className={classes.username}>Welcome {user.username}!</h2>
+          <p className={classes.email}>{user.email}</p>
         </div>
         <div className={classes['actions-bg']}>
           <div className={classes.actions}>

@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import AuthContext from '../../contexts/authContext';
 import { validatePassword } from '../../utils/passwordValidation';
+import { useForm } from '../../hooks/useForm';
 
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
@@ -11,57 +12,46 @@ import classes from './DeleteProfileModal.module.css';
 
 const DeleteProfileModal = (props) => {
   const authCtx = useContext(AuthContext);
-  const [password, setPassword] = useState({
+  const { values, isFormValid, changeHandler, submitHandler } = useForm({
     password: '',
     passwordValid: null,
-  });
+  }, deleteAccount);
 
-  const onChangeHandler = (event) => {
-    setPassword((state) => {
-      return { ...state, [event.target.id]: event.target.value };
-    });
+  const onPasswordChange = (event) => {
+    changeHandler(event, validatePassword);
   };
 
-  const passwordValidation = (event) => {
-    setPassword((state) => {
-      return {
-        ...state,
-        [event.target.id + 'Valid']: validatePassword(event.target.value),
-      };
-    });
-  };
-
-  const deleteAccount = async () => {
-    if (password.passwordValid) {
-      authCtx.onAccountDeletion(password.password);
-    }
+  function deleteAccount() {
+    authCtx.onAccountDeletion(values.password);
   };
 
   return (
     <Modal onClose={props.closeModal} className={classes.modal}>
-      <div className={classes['title-wrapper']}>
-        <h2 className={classes.title}>
-          Are you sure you want to delete your profile?
-        </h2>
-        <p className={classes['sub-title']}>There is no turning back.</p>
-      </div>
-      <div className={classes.input}>
-        <Input
-          label={'Password'}
-          input={{
-            id: 'password',
-            type: 'password',
-            onChange: onChangeHandler,
-            onBlur: passwordValidation,
-            value: password.password,
-          }}
-          error={password.passwordValid}
-        />
-      </div>
-      <div className={classes.actions}>
-        <Button onClick={deleteAccount}>Yes</Button>
-        <Button onClick={props.closeModal}>No</Button>
-      </div>
+      <form onSubmit={submitHandler}>
+        <div className={classes['title-wrapper']}>
+          <h2 className={classes.title}>
+            Are you sure you want to delete your profile?
+          </h2>
+          <p className={classes['sub-title']}>There is no turning back.</p>
+        </div>
+        <div className={classes.input}>
+          <Input
+            label={'Password'}
+            input={{
+              id: 'password',
+              type: 'password',
+              onChange: onPasswordChange,
+              onBlur: onPasswordChange,
+              value: values.password,
+            }}
+            error={values.passwordValid}
+          />
+        </div>
+        <div className={classes.actions}>
+          <Button disabled={!isFormValid} type="submit">Yes</Button>
+          <Button onClick={props.closeModal}>No</Button>
+        </div>
+      </form>
     </Modal>
   );
 };

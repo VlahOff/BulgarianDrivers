@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
@@ -14,8 +14,7 @@ import classes from './AddCommentModal.module.css';
 const AddCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
 
-  const { values, changeHandler, submitHandler } = useForm(
-    {
+  const { values, isFormValid, changeHandler, submitHandler } = useForm({
       title: '',
       titleValid: null,
       post: '',
@@ -23,12 +22,6 @@ const AddCommentModal = (props) => {
     },
     postsCtx.addNewPost
   );
-
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    setIsFormValid(values.titleValid && values.postValid);
-  }, [values]);
 
   const onTitleInput = (event) => {
     changeHandler(event, validateInput);

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
@@ -16,13 +15,7 @@ import classes from './CreatePost.module.css';
 const CreatePost = (props) => {
   const navigate = useNavigate();
 
-  const onCreatePostHandler = async (data) => {
-    await postService.createPost(data);
-    navigate('/drivers');
-  };
-
-  const { values, changeHandler, submitHandler } = useForm(
-    {
+  const { values, isFormValid, changeHandler, submitHandler } = useForm({
       carNumber: '',
       carNumberValid: null,
       title: '',
@@ -33,13 +26,10 @@ const CreatePost = (props) => {
     onCreatePostHandler
   );
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    setIsFormValid(
-      values.carNumberValid && values.titleValid && values.postValid
-    );
-  }, [values]);
+  async function onCreatePostHandler(data) {
+    await postService.createPost(data);
+    navigate('/drivers');
+  };
 
   const onPlateNumberInput = (event) => {
     changeHandler(event, validateLicensePlate);
