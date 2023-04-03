@@ -8,6 +8,12 @@ export const getVotes = async (carId) => {
   return response;
 };
 
+export const getUserVotes = async () => {
+  const response = await fetchApi.get(`${BASE_URL}/votes/userVotes`);
+
+  return response;
+};
+
 export const upVoteComment = async (commentId) => {
   const response = await fetchApi.get(`${BASE_URL}/votes/upVote?commentId=${commentId}`);
 

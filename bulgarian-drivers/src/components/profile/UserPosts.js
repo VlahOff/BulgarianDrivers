@@ -9,15 +9,21 @@ import EditCommentModal from '../shared/EditCommentModal';
 import Card from '../UI/Card/Card';
 
 import classes from './UserPosts.module.css';
+import VotesContext from '../../contexts/votesContext';
 
 const UserPosts = (props) => {
-  const { comments, loadUserComments, isEditModalOpen, isDeleteModalOpen } =
-    useContext(PostsContext);
+  const { comments,
+    loadUserComments,
+    isEditModalOpen,
+    isDeleteModalOpen
+  } = useContext(PostsContext);
+  const { getUserVotes } = useContext(VotesContext);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
     loadUserComments();
-  }, [loadUserComments]);
+    getUserVotes();
+  }, [loadUserComments, getUserVotes]);
 
   return (
     <>
@@ -31,6 +37,7 @@ const UserPosts = (props) => {
           {comments.map((p) => (
             <Comment key={p._id} user={user} post={p} />
           ))}
+          {!comments.length && <p className={classes['error-message']}>You haven`t posted yet!</p>}
         </ul>
       </Card>
     </>

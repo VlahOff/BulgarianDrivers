@@ -20,3 +20,8 @@
   flex-direction: column;
   gap: 1.3rem;
 }
+
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+}

@@ -9,6 +9,7 @@ const VotesContext = createContext({
   votes: [],
   getVotesForDriversComments: (carId) => { },
   getVotesForComment: (commentId) => { },
+  getUserVotes: () => { },
   upvoteComment: (commentId) => { },
   downvoteComment: (commentId) => { }
 });
@@ -30,6 +31,12 @@ export const VotesProvider = (props) => {
   const getVotesForComment = (commentId) => {
     return votes.find(c => c.commentId === commentId);
   };
+
+  const getUserVotes = useCallback(() => {
+    voteService.getUserVotes()
+      .then(setVotes)
+      .catch(setErrorMessage);
+  }, [setErrorMessage]);
 
   const upvoteComment = (commentId) => {
     if (!user) {
@@ -65,6 +72,7 @@ export const VotesProvider = (props) => {
         votes,
         getVotesForDriversComments,
         getVotesForComment,
+        getUserVotes,
         upvoteComment,
         downvoteComment
       }}

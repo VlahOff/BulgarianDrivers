@@ -1,5 +1,5 @@
 const { isUser } = require('../middlewares/guards');
-const { getVotes, upVote, downVote } = require('../services/voteService');
+const { getVotes, upVote, downVote, getUserVotes } = require('../services/voteService');
 const errorParser = require('../utils/errorParser');
 
 const voteController = require('express').Router();
@@ -13,6 +13,18 @@ voteController.get('/', async (req, res) => {
     }
 
     const votes = await getVotes(carId);
+    res.status(200).json(votes);
+  } catch (error) {
+    res.status(400).json({
+      message: errorParser(error),
+    });
+  }
+});
+
+voteController.get('/userVotes', isUser(), async (req, res) => {
+  try {
+    const votes = await getUserVotes(req.user.userId);
+
     res.status(200).json(votes);
   } catch (error) {
     res.status(400).json({
