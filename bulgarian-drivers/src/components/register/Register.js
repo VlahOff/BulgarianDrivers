@@ -39,9 +39,9 @@ const Register = () => {
   useEffect(() => {
     setIsFormValid(
       values.emailValid &&
-        values.username &&
-        values.passwordValid &&
-        passwordsMatch
+      values.username &&
+      values.passwordValid &&
+      passwordsMatch
     );
   }, [values, passwordsMatch]);
 
@@ -107,6 +107,7 @@ const Register = () => {
             value: values.rePassword,
           }}
           error={passwordsMatch}
+          errorMessage="Passwords don`t match."
         />
         <Button type="submit" disabled={!isFormValid}>
           Register

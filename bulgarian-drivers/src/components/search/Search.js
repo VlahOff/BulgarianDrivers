@@ -12,6 +12,7 @@ import classes from './Search.module.css';
 const Search = (props) => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const onChangeHandler = (event) => {
     setSearch(event.target.value);
@@ -19,9 +20,20 @@ const Search = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setErrorMsg('');
+    setResults([]);
+
+    if (search.trim() === '') {
+      setErrorMsg('Please enter car number.');
+      return;
+    }
 
     const result = await searchCarList(search);
     setResults(result);
+
+    if (result.length === 0) {
+      setErrorMsg('No posts found.');
+    }
     setSearch('');
   };
 
@@ -54,6 +66,7 @@ const Search = (props) => {
           })}
         </ul>
       )}
+      {errorMsg && <p className={classes['error-message']}>{errorMsg}</p>}
     </Card>
   );
 };

@@ -58,6 +58,9 @@ const PostDetails = (props) => {
           {comments.map((c) => {
             return <Comment key={c._id} user={user} post={c} />;
           })}
+          {comments.length === 0 &&
+            <p className={classes['alert-message']}>No comments about this driver.</p>
+          }
         </ul>
       </Card>
     </>
