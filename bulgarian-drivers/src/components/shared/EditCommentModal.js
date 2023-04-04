@@ -13,21 +13,21 @@ import classes from './EditCommentModal.module.css';
 
 const EditCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
-  const { values, isFormValid, changeHandler, submitHandler } = useForm({
-      title: postsCtx.selectedPost.title,
-      titleValid: true,
-      post: postsCtx.selectedPost.post,
-      postValid: true,
-    },
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+    title: postsCtx.selectedPost.title,
+    titleValid: true,
+    post: postsCtx.selectedPost.post,
+    postValid: true,
+  },
     postsCtx.editPost
   );
 
-  const onTitleInput = (event) => {
-    changeHandler(event, validateInput);
+  const onTitleBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
-  const onCommentInput = (event) => {
-    changeHandler(event, validateInput);
+  const onCommentBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
   return (
@@ -35,8 +35,7 @@ const EditCommentModal = (props) => {
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Edit comment</h2>
-        <i
-          className={`${classes.cross} fa-solid fa-xmark`}
+        <i className={`${classes.cross} fa-solid fa-xmark`}
           onClick={postsCtx.toggleEditModal}
         ></i>
       </header>
@@ -46,8 +45,8 @@ const EditCommentModal = (props) => {
           input={{
             id: 'title',
             type: 'text',
-            onChange: onTitleInput,
-            onBlur: onTitleInput,
+            onChange: changeHandler,
+            onBlur: onTitleBlur,
             value: values.title,
             placeholder: 'Some title',
           }}
@@ -58,17 +57,15 @@ const EditCommentModal = (props) => {
           label="Post"
           id="post"
           textarea={{
-            onChange: onCommentInput,
-            onBlur: onCommentInput,
+            onChange: changeHandler,
+            onBlur: onCommentBlur,
             value: values.post,
             placeholder: 'Some description',
           }}
           error={values.postValid}
           errorMessage="Input must be at least 10 characters long."
         />
-        <Button disabled={!isFormValid} type="submit">
-          Edit
-        </Button>
+        <Button type="submit">Edit</Button>
       </form>
     </Modal>
   );

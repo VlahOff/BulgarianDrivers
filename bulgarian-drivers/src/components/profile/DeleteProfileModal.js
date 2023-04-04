@@ -12,13 +12,13 @@ import classes from './DeleteProfileModal.module.css';
 
 const DeleteProfileModal = (props) => {
   const authCtx = useContext(AuthContext);
-  const { values, isFormValid, changeHandler, submitHandler } = useForm({
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
     password: '',
     passwordValid: null,
   }, deleteAccount);
 
-  const onPasswordChange = (event) => {
-    changeHandler(event, validatePassword);
+  const onPasswordBlur = (event) => {
+    blurHandler(event, validatePassword);
   };
 
   function deleteAccount() {
@@ -40,15 +40,15 @@ const DeleteProfileModal = (props) => {
             input={{
               id: 'password',
               type: 'password',
-              onChange: onPasswordChange,
-              onBlur: onPasswordChange,
+              onChange: changeHandler,
+              onBlur: onPasswordBlur,
               value: values.password,
             }}
             error={values.passwordValid}
           />
         </div>
         <div className={classes.actions}>
-          <Button disabled={!isFormValid} type="submit">Yes</Button>
+          <Button type="submit">Yes</Button>
           <Button onClick={props.closeModal}>No</Button>
         </div>
       </form>

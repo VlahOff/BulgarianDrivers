@@ -14,21 +14,21 @@ import styles from './Login.module.css';
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
-  const { values, isFormValid, changeHandler, submitHandler } = useForm({
-      email: '',
-      emailValid: null,
-      password: '',
-      passwordValid: null,
-    },
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+    email: '',
+    emailValid: null,
+    password: '',
+    passwordValid: null,
+  },
     authCtx.onLoginSubmit
   );
 
-  const onEmailInput = (event) => {
-    changeHandler(event, validateEmail);
+  const onEmailBlur = (event) => {
+    blurHandler(event, validateEmail);
   };
 
-  const onPasswordInput = (event) => {
-    changeHandler(event, validatePassword);
+  const onPasswordBlur = (event) => {
+    blurHandler(event, validatePassword);
   };
 
   return (
@@ -41,8 +41,8 @@ const Login = () => {
           input={{
             id: 'email',
             type: 'text',
-            onChange: onEmailInput,
-            onBlur: onEmailInput,
+            onChange: changeHandler,
+            onBlur: onEmailBlur,
             value: values.email,
           }}
           error={values.emailValid}
@@ -54,23 +54,19 @@ const Login = () => {
           input={{
             id: 'password',
             type: 'password',
-            onChange: onPasswordInput,
-            onBlur: onPasswordInput,
+            onChange: changeHandler,
+            onBlur: onPasswordBlur,
             value: values.password,
           }}
           error={values.passwordValid}
           errorMessage="Invalid password."
         />
-        <Button type="submit" disabled={!isFormValid}>
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </form>
-      <p>
-        Don't have an account?{' '}
-        <LinkTo to="/register" className={styles.button}>
-          Sign up.
-        </LinkTo>
-      </p>
+      <div className={styles['no-account']}>
+        <p>Don't have an account?</p>
+        <LinkTo to="/register" className={styles.button}>Sign up.</LinkTo>
+      </div>
     </Card>
   );
 };

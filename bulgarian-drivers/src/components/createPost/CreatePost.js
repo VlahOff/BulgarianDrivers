@@ -15,14 +15,14 @@ import classes from './CreatePost.module.css';
 const CreatePost = (props) => {
   const navigate = useNavigate();
 
-  const { values, isFormValid, changeHandler, submitHandler } = useForm({
-      carNumber: '',
-      carNumberValid: null,
-      title: '',
-      titleValid: null,
-      post: '',
-      postValid: null,
-    },
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+    carNumber: '',
+    carNumberValid: null,
+    title: '',
+    titleValid: null,
+    post: '',
+    postValid: null,
+  },
     onCreatePostHandler
   );
 
@@ -31,16 +31,16 @@ const CreatePost = (props) => {
     navigate('/drivers');
   };
 
-  const onPlateNumberInput = (event) => {
-    changeHandler(event, validateLicensePlate);
+  const onPlateNumberBlur = (event) => {
+    blurHandler(event, validateLicensePlate);
   };
 
-  const onTitleInput = (event) => {
-    changeHandler(event, validateInput);
+  const onTitleBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
-  const onPostInput = (event) => {
-    changeHandler(event, validateInput);
+  const onPostBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
   return (
@@ -52,8 +52,8 @@ const CreatePost = (props) => {
           input={{
             id: 'carNumber',
             type: 'text',
-            onChange: onPlateNumberInput,
-            onBlur: onPlateNumberInput,
+            onChange: changeHandler,
+            onBlur: onPlateNumberBlur,
             value: values.carNumber,
             autoFocus: true,
             placeholder: 'CB1234MB',
@@ -66,8 +66,8 @@ const CreatePost = (props) => {
           input={{
             id: 'title',
             type: 'text',
-            onChange: onTitleInput,
-            onBlur: onTitleInput,
+            onChange: changeHandler,
+            onBlur: onTitleBlur,
             value: values.title,
             placeholder: 'Some title',
           }}
@@ -78,21 +78,15 @@ const CreatePost = (props) => {
           label={'Post'}
           id="post"
           textarea={{
-            onChange: onPostInput,
-            onBlur: onPostInput,
+            onChange: changeHandler,
+            onBlur: onPostBlur,
             value: values.post,
             placeholder: 'Some description',
           }}
           error={values.postValid}
           errorMessage="Input must be at least 10 characters long."
         />
-        <Button
-          className={classes.button}
-          disabled={!isFormValid}
-          type="submit"
-        >
-          Post it!
-        </Button>
+        <Button className={classes.button} type="submit">Post</Button>
       </form>
     </Card>
   );

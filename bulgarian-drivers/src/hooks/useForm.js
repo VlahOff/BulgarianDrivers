@@ -12,23 +12,43 @@ export const useForm = (initialValues, onSubmitHandler) => {
         .every(v => v === true);
 
       setIsFormValid(isValidValues);
-    }, 200);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [values]);
 
-  const changeHandler = (event, validator) => {
+  const changeHandler = (event) => {
     setValues((state) => {
       return {
         ...state,
         [event.target.id]: event.target.value,
+      };
+    });
+  };
+
+  const blurHandler = (event, validator) => {
+    setValues((state) => {
+      return {
+        ...state,
         [event.target.id + 'Valid']: validator(event.target.value),
+      };
+    });
+  };
+
+  const doPasswordMatch = (event) => {
+    setValues((state) => {
+      return {
+        ...state,
+        [event.target.id + 'Valid']: values?.password === values[event.target.id],
       };
     });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if (!isFormValid) {
+      return;
+    }
 
     onSubmitHandler(values);
     setValues(initialValues);
@@ -36,8 +56,9 @@ export const useForm = (initialValues, onSubmitHandler) => {
 
   return {
     values,
-    isFormValid,
     changeHandler,
+    blurHandler,
+    doPasswordMatch,
     submitHandler,
   };
 };

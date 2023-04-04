@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import AuthContext from '../../contexts/authContext';
 import { useForm } from '../../hooks/useForm';
@@ -19,42 +19,29 @@ const validateUsername = (username) => {
 
 const Register = () => {
   const authCtx = useContext(AuthContext);
-  const { values, changeHandler, submitHandler } = useForm(
-    {
-      email: '',
-      emailValid: null,
-      username: '',
-      usernameValid: null,
-      password: '',
-      passwordValid: null,
-      rePassword: '',
-      rePasswordValid: null,
-    },
+  const { values, changeHandler, blurHandler, doPasswordMatch, submitHandler } = useForm({
+    email: '',
+    emailValid: null,
+    username: '',
+    usernameValid: null,
+    password: '',
+    passwordValid: null,
+    rePassword: '',
+    rePasswordValid: null,
+  },
     authCtx.onRegisterSubmit
   );
 
-  const [isFormValid, setIsFormValid] = useState(false);
-  const passwordsMatch = values.passwordValid === values.rePasswordValid;
-
-  useEffect(() => {
-    setIsFormValid(
-      values.emailValid &&
-      values.username &&
-      values.passwordValid &&
-      passwordsMatch
-    );
-  }, [values, passwordsMatch]);
-
-  const onEmailInput = (event) => {
-    changeHandler(event, validateEmail);
+  const onEmailBlur = (event) => {
+    blurHandler(event, validateEmail);
   };
 
-  const onUsernameInput = (event) => {
-    changeHandler(event, validateUsername);
+  const onUsernameBlur = (event) => {
+    blurHandler(event, validateUsername);
   };
 
-  const onPasswordInput = (event) => {
-    changeHandler(event, validatePassword);
+  const onPasswordBlur = (event) => {
+    blurHandler(event, validatePassword);
   };
 
   return (
@@ -66,8 +53,8 @@ const Register = () => {
           input={{
             id: 'email',
             type: 'text',
-            onChange: onEmailInput,
-            onBlur: onEmailInput,
+            onChange: changeHandler,
+            onBlur: onEmailBlur,
             value: values.email,
           }}
           error={values.emailValid}
@@ -78,8 +65,8 @@ const Register = () => {
           input={{
             id: 'username',
             type: 'text',
-            onChange: onUsernameInput,
-            onBlur: onUsernameInput,
+            onChange: changeHandler,
+            onBlur: onUsernameBlur,
             value: values.username,
           }}
           error={values.usernameValid}
@@ -90,8 +77,8 @@ const Register = () => {
           input={{
             id: 'password',
             type: 'password',
-            onChange: onPasswordInput,
-            onBlur: onPasswordInput,
+            onChange: changeHandler,
+            onBlur: onPasswordBlur,
             value: values.password,
           }}
           error={values.passwordValid}
@@ -102,23 +89,19 @@ const Register = () => {
           input={{
             id: 'rePassword',
             type: 'password',
-            onChange: onPasswordInput,
-            onBlur: onPasswordInput,
+            onChange: changeHandler,
+            onBlur: doPasswordMatch,
             value: values.rePassword,
           }}
-          error={passwordsMatch}
+          error={values.rePasswordValid}
           errorMessage="Passwords don`t match."
         />
-        <Button type="submit" disabled={!isFormValid}>
-          Register
-        </Button>
+        <Button type="submit">Register</Button>
       </form>
-      <p>
-        Already have an account?{' '}
-        <LinkTo to="/login" className={styles.button}>
-          Sign in.
-        </LinkTo>
-      </p>
+      <div className={styles['already-user']}>
+        <p>Already have an account?</p>
+        <LinkTo to="/login" className={styles.button}>Sign in</LinkTo>
+      </div>
     </Card>
   );
 };

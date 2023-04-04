@@ -14,21 +14,21 @@ import classes from './AddCommentModal.module.css';
 const AddCommentModal = (props) => {
   const postsCtx = useContext(PostsContext);
 
-  const { values, isFormValid, changeHandler, submitHandler } = useForm({
-      title: '',
-      titleValid: null,
-      post: '',
-      postValid: null,
-    },
+  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+    title: '',
+    titleValid: null,
+    post: '',
+    postValid: null,
+  },
     postsCtx.addNewPost
   );
 
-  const onTitleInput = (event) => {
-    changeHandler(event, validateInput);
+  const onTitleBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
-  const onCommentInput = (event) => {
-    changeHandler(event, validateInput);
+  const onCommentBlur = (event) => {
+    blurHandler(event, validateInput);
   };
 
   return (
@@ -47,8 +47,8 @@ const AddCommentModal = (props) => {
           input={{
             id: 'title',
             type: 'text',
-            onChange: onTitleInput,
-            onBlur: onTitleInput,
+            onChange: changeHandler,
+            onBlur: onTitleBlur,
             value: values.title,
             placeholder: 'Some title',
           }}
@@ -59,17 +59,15 @@ const AddCommentModal = (props) => {
           label="Post"
           id="post"
           textarea={{
-            onChange: onCommentInput,
-            onBlur: onCommentInput,
+            onChange: changeHandler,
+            onBlur: onCommentBlur,
             value: values.post,
             placeholder: 'Some description',
           }}
           error={values.postValid}
           errorMessage="Input must be at least 10 characters long."
         />
-        <Button disabled={!isFormValid} type="submit">
-          Add
-        </Button>
+        <Button type="submit">Post</Button>
       </form>
     </Modal>
   );

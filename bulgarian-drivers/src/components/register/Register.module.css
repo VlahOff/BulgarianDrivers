@@ -25,6 +25,12 @@
   background-color: #282828;
 }
 
+.already-user{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 @media screen and (max-width: 720px) {
   .card {
     margin: 30px auto;
