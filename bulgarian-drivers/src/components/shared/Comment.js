@@ -30,7 +30,7 @@ const Comment = (props) => {
         </header>
 
         <div className={classes['comment-wrapper']}>
-          <p>{post.post}</p>
+          <p className={classes.comment}>{post.post}</p>
         </div>
 
         <footer className={classes.footer}>
