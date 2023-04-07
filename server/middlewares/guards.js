@@ -5,7 +5,7 @@ function isCorrectOrigin() {
     if (corsWhiteList.indexOf(req.headers.origin)) {
       next();
     } else {
-      res.status(401).json({ message: 'NO_USER' });
+      res.status(401).json({ message: 'INCORRECT ORIGIN' });
     }
   };
 }
