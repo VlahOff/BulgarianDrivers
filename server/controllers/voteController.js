@@ -1,4 +1,4 @@
-const { isUser } = require('../middlewares/guards');
+const { isAuthenticated } = require('../middlewares/guards');
 const { getVotes, upVote, downVote, getUserVotes } = require('../services/voteService');
 const errorParser = require('../utils/errorParser');
 
@@ -21,7 +21,7 @@ voteController.get('/', async (req, res) => {
   }
 });
 
-voteController.get('/userVotes', isUser(), async (req, res) => {
+voteController.get('/userVotes', isAuthenticated(), async (req, res) => {
   try {
     const votes = await getUserVotes(req.user.userId);
 
@@ -33,7 +33,7 @@ voteController.get('/userVotes', isUser(), async (req, res) => {
   }
 });
 
-voteController.get('/upVote', isUser(), async (req, res) => {
+voteController.get('/upVote', isAuthenticated(), async (req, res) => {
   try {
     const commentId = req.query.commentId;
 
@@ -50,7 +50,7 @@ voteController.get('/upVote', isUser(), async (req, res) => {
   }
 });
 
-voteController.get('/downVote', isUser(), async (req, res) => {
+voteController.get('/downVote', isAuthenticated(), async (req, res) => {
   try {
     const commentId = req.query.commentId;
 

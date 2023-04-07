@@ -1,4 +1,4 @@
-const { isUser } = require('../middlewares/guards');
+const { isAuthenticated } = require('../middlewares/guards');
 const {
   createPost,
   getCarList,
@@ -53,7 +53,7 @@ postController.get('/searchCarList', async (req, res) => {
   }
 });
 
-postController.get('/userPosts', isUser(), async (req, res) => {
+postController.get('/userPosts', isAuthenticated(), async (req, res) => {
   try {
     const userId = req.user.userId;
     const userPosts = await getUserPosts(userId);
@@ -78,7 +78,7 @@ postController.get('/posts', async (req, res) => {
   }
 });
 
-postController.post('/posts', isUser(), async (req, res) => {
+postController.post('/posts', isAuthenticated(), async (req, res) => {
   try {
     const carNumber = req.body.carNumber;
     const title = req.body.title;
@@ -110,7 +110,7 @@ postController.post('/posts', isUser(), async (req, res) => {
   }
 });
 
-postController.put('/posts', isUser(), async (req, res) => {
+postController.put('/posts', isAuthenticated(), async (req, res) => {
   try {
     const postId = req.query.postId;
     const title = req.body.title;
@@ -137,7 +137,7 @@ postController.put('/posts', isUser(), async (req, res) => {
   }
 });
 
-postController.delete('/posts', isUser(), async (req, res) => {
+postController.delete('/posts', isAuthenticated(), async (req, res) => {
   try {
     const postId = req.query.postId;
 
