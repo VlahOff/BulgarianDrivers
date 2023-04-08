@@ -27,11 +27,12 @@ async function start() {
   app.use('/api', postController);
   app.use('/api/votes', voteController);
 
-  connectToDB.then(() => {
-    app.listen(EXPRESS_PORT, () =>
-      console.log('App listening on port: ' + EXPRESS_PORT)
-    );
-  });
+  connectToDB
+    .then(() => {
+      app.listen(EXPRESS_PORT, () =>
+        console.log('App listening on port: ' + EXPRESS_PORT)
+      );
+    });
 }
 
 start();

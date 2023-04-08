@@ -2,7 +2,6 @@ const { corsWhiteList } = require('../corsWhiteList');
 
 function isCorrectOrigin() {
   return (req, res, next) => {
-    console.log(req.headers.origin);
     if (corsWhiteList.indexOf(req.headers.origin) !== -1) {
       next();
     } else {
