@@ -48,7 +48,7 @@ const DeleteProfileModal = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit">Yes</Button>
+          <Button type="submit" disabled={!values.passwordValid}>Yes</Button>
           <Button onClick={props.closeModal}>No</Button>
         </div>
       </form>

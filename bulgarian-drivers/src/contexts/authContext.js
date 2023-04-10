@@ -73,7 +73,12 @@ export const AuthProvider = (props) => {
   const onAccountDeletion = async (password) => {
     startLoading();
     authService.deleteAccount({ password: password })
-      .then(() => {
+      .then((res) => {
+        if (res.message !== 'Done') {
+          setErrorMessage(res.message);
+          return;
+        }
+
         setUser(undefined);
         navigate('/');
       })
