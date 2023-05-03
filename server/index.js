@@ -16,7 +16,7 @@ async function start() {
   app.use(cors());
   app.use(express.json());
   app.use(tokenParser());
-  app.use(isCorrectOrigin());
+  // app.use(isCorrectOrigin());
 
   const connectToDB = dbConfig();
 

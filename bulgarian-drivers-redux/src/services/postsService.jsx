@@ -1,6 +1,6 @@
 import { fetchApi } from './fetchApi';
 
-const BASE_URL = process.env.REACT_APP_APP_BACKEND;
+const BASE_URL = import.meta.env.VITE_APP_BACKEND;
 
 export const getCar = async (carId) => {
   const response = await fetchApi.get(`${BASE_URL}/car?carId=${carId}`);
