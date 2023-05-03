@@ -1,0 +1,22 @@
+.btn {
+  text-align: center;
+  background-color: #D65D0E;
+  color: white;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: .5s, color .10s;
+  -webkit-transition: .5s, color .10s;
+  -moz-transition: .5s, color .10s;
+}
+
+.btn:hover {
+  background-color: #FE8019;
+  transition: background-color linear 300ms;
+  box-shadow: 0 8px 8px 0 #88000025, 0 8px 8px 0 #00000004;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: #504945;
+}

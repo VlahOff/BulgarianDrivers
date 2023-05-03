@@ -1,0 +1,27 @@
+.card {
+  margin: 120px auto;
+  max-width: 800px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #928374;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1d2021;
+}
+
+.posts-list {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+}

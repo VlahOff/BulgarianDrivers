@@ -1,0 +1,28 @@
+.title-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.input {
+  margin-bottom: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.actions button:first-child {
+  background-color: crimson;
+}
+
+.actions button:last-child {
+  background-color: #282828;
+}
+
+.actions button {
+  width: 100px;
+}

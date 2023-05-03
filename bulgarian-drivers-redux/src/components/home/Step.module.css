@@ -1,0 +1,37 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  width: 230px;
+  height: 300px;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 2px solid #928374;
+}
+
+.step .description {
+  width: 180px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media screen and (max-width:1290px) {
+  .step {
+    width: 200px;
+    height: 200px;
+  }
+
+  .img {
+    width: 120px;
+    height: 120px;
+  }
+}

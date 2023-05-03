@@ -1,0 +1,75 @@
+.card {
+  margin: 120px auto;
+  max-width: 500px;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.form div {
+  flex-grow: 10;
+}
+
+.results {
+  border-radius: 4px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.result-link {
+  text-decoration: none;
+  color: white;
+}
+
+.result {
+  background-color: #3c3836;
+  padding: 0.5rem;
+  text-align: center;
+  transition: background-color linear 200ms;
+  border-bottom: 1px solid #555;
+}
+
+.result:last-child {
+  border: none;
+}
+
+.result:hover {
+  background-color: #fe8019;
+}
+
+.error-message{
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media screen and (max-width: 500px) {
+  .form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
