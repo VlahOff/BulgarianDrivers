@@ -4,6 +4,8 @@ const initialState = {
   car: null,
   carList: [],
   comments: [],
+  searchResults: [],
+  searchErrorMessage: '',
   selectedPost: {},
   isAddModalShown: false,
   isEditModalShown: false,
@@ -44,6 +46,12 @@ const postsSlice = createSlice({
     },
     toggleDeleteModal(state) {
       state.isDeleteModalShown = !state.isDeleteModalShown;
+    },
+    setSearchResults(state, action) {
+      state.searchResults = action.payload;
+    },
+    setSearchError(state, action) {
+      state.searchErrorMessage = action.payload;
     }
   }
 });

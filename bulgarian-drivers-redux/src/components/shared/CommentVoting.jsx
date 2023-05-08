@@ -6,8 +6,8 @@ import classes from './CommentVoting.module.css';
 const CommentVoting = (props) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
-  const votes = useSelector(state => state.votes.votes);
-  const vote = votes.find(v => v.commentId === props.commentId);
+  const vote = useSelector(state => state.votes.votes)
+    .find(v => v.commentId === props.commentId);
 
   const onUpVote = () => {
     dispatch(upvoteComment(props.commentId));

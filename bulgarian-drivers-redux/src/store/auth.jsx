@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: undefined
+  user: undefined,
+  isProfileDeleteModalOpen: false,
 };
 
 const authSlice = createSlice({
@@ -10,6 +11,9 @@ const authSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.user = action.payload;
+    },
+    toggleProfileDeleteModal(state) {
+      state.isProfileDeleteModalOpen = !state.isProfileDeleteModalOpen;
     }
   }
 });

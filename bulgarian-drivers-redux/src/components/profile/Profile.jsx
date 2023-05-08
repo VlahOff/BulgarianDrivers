@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { authActions } from '../../store/auth';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import LinkTo from '../UI/Links/LinkTo';
@@ -9,16 +9,17 @@ import DeleteProfileModal from './DeleteProfileModal';
 import classes from './Profile.module.css';
 
 const Profile = () => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isProfileDeleteModalOpen = useSelector(state => state.auth.isProfileDeleteModalOpen);
   const user = useSelector(state => state.auth.user);
 
   const toggleDeleteModal = () => {
-    setIsDeleteModalOpen((s) => !s);
+    dispatch(authActions.toggleProfileDeleteModal());
   };
 
   return (
     <>
-      {isDeleteModalOpen && (
+      {isProfileDeleteModalOpen && (
         <DeleteProfileModal closeModal={toggleDeleteModal} />
       )}
       <Card className={classes.card}>

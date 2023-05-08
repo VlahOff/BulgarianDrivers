@@ -107,3 +107,20 @@ export const deletePost = () => {
       });
   };
 };
+
+export const searchCarList = (query) => {
+  return (dispatch) => {
+    dispatch(uiActions.startLoading());
+    postService.searchCarList(query)
+      .then(res => {
+        if (res.length === 0) {
+          dispatch(postsActions.setSearchError('No posts found.'));
+          dispatch(postsActions.setSearchResults([]));
+          return;
+        }
+        dispatch(postsActions.setSearchResults(res));
+      })
+      .catch(err => dispatch(setErrorMessage(err)))
+      .finally(() => dispatch(uiActions.stopLoading()));
+  };
+};

@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { searchCarList } from '../../services/postsService';
-
+import { searchCarList } from '../../store/posts-actions';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import Input from '../UI/Input/Input';
@@ -10,9 +10,9 @@ import Input from '../UI/Input/Input';
 import classes from './Search.module.css';
 
 const Search = (props) => {
+  const dispatch = useDispatch();
+  const { searchResults, searchErrorMessage } = useSelector(state => state.posts);
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState([]);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const onChangeHandler = (event) => {
     setSearch(event.target.value);
@@ -20,19 +20,9 @@ const Search = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setErrorMsg('');
-    setResults([]);
 
-    if (search.trim() === '') {
-      setErrorMsg('Please enter car number.');
-      return;
-    }
-
-    const result = await searchCarList(search);
-    setResults(result);
-
-    if (result.length === 0) {
-      setErrorMsg('No posts found.');
+    if (!search.trim === '') {
+      dispatch(searchCarList(search));
     }
     setSearch('');
   };
@@ -51,9 +41,9 @@ const Search = (props) => {
         />
         <Button type="submit">Search</Button>
       </form>
-      {results.length !== 0 && (
+      {searchResults.length !== 0 && (
         <ul className={classes.results}>
-          {results?.map((t) => {
+          {searchResults?.map((t) => {
             return (
               <Link
                 to={`/drivers/${t._id}`}
@@ -66,7 +56,7 @@ const Search = (props) => {
           })}
         </ul>
       )}
-      {errorMsg && <p className={classes['error-message']}>{errorMsg}</p>}
+      {searchErrorMessage && <p className={classes['error-message']}>{searchErrorMessage}</p>}
     </Card>
   );
 };
