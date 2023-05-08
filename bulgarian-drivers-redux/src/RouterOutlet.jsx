@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import { isUserLogged } from './store/auth-actions';
 
 import PageNotFound from './components/404page/PageNotFound';
 import CreatePost from './components/createPost/CreatePost';
@@ -8,11 +11,16 @@ import Login from './components/login/Login';
 import PostDetails from './components/postDetails/PostDetails';
 import Profile from './components/profile/Profile';
 import UserPosts from './components/profile/UserPosts';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
 import Register from './components/register/Register';
 import Search from './components/search/Search';
 
 const RouterOutlet = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(isUserLogged());
+  }, []);
+
   return (
     <Routes>
       <Route path="*" element={<PageNotFound />} />

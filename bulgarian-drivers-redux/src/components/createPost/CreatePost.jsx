@@ -1,7 +1,8 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
-import * as postService from '../../services/postsService';
+import { createNewPost } from '../../store/posts-actions';
 import { validateInput } from '../../utils/inputValidation';
 import { validateLicensePlate } from '../../utils/licensePlateValidation';
 
@@ -12,24 +13,18 @@ import Textarea from '../UI/Textarea/Textarea';
 
 import classes from './CreatePost.module.css';
 
-const CreatePost = (props) => {
+const CreatePost = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, isFormValid, changeHandler, blurHandler } = useForm({
     carNumber: '',
     carNumberValid: null,
     title: '',
     titleValid: null,
     post: '',
     postValid: null,
-  },
-    onCreatePostHandler
-  );
-
-  async function onCreatePostHandler(data) {
-    await postService.createPost(data);
-    navigate('/drivers');
-  };
+  });
 
   const onPlateNumberBlur = (event) => {
     blurHandler(event, validateLicensePlate);
@@ -43,10 +38,17 @@ const CreatePost = (props) => {
     blurHandler(event, validateInput);
   };
 
+  const onCreatePostHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(createNewPost(values, navigate));
+    }
+  };
+
   return (
     <Card className={classes.card}>
       <h2 className={classes.title}>Create post</h2>
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={onCreatePostHandler}>
         <Input
           label={'Car number'}
           input={{

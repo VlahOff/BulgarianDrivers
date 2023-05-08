@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 
-import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
+import { postsActions } from '../../store/posts';
+import { createNewPostForDriver } from '../../store/posts-actions';
 import { validateInput } from '../../utils/inputValidation';
 
 import Button from '../UI/Button/Button';
@@ -12,16 +13,14 @@ import Textarea from '../UI/Textarea/Textarea';
 import classes from './AddCommentModal.module.css';
 
 const AddCommentModal = (props) => {
-  const postsCtx = useContext(PostsContext);
+  const dispatch = useDispatch();
 
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const { values, isFormValid, changeHandler, blurHandler, submitHandler } = useForm({
     title: '',
     titleValid: null,
     post: '',
     postValid: null,
-  },
-    postsCtx.addNewPost
-  );
+  });
 
   const onTitleBlur = (event) => {
     blurHandler(event, validateInput);
@@ -31,17 +30,28 @@ const AddCommentModal = (props) => {
     blurHandler(event, validateInput);
   };
 
+  const toggleModalHandler = () => {
+    dispatch(postsActions.toggleAddModal());
+  };
+
+  const commentSubmitHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(createNewPostForDriver(values));
+    }
+  };
+
   return (
-    <Modal onClose={postsCtx.toggleAddModal} className={classes.modal}>
+    <Modal onClose={toggleModalHandler} className={classes.modal}>
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Add comment</h2>
         <i
           className={`${classes.cross} fa-solid fa-xmark`}
-          onClick={postsCtx.toggleAddModal}
+          onClick={toggleModalHandler}
         ></i>
       </header>
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={commentSubmitHandler}>
         <Input
           label="Title"
           input={{

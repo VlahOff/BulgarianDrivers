@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../contexts/authContext';
 import { useForm } from '../../hooks/useForm';
+import { onLoginSubmit } from '../../store/auth-actions';
 import { validateEmail } from '../../utils/emailValidation';
 import { validatePassword } from '../../utils/passwordValidation';
 
@@ -13,15 +14,14 @@ import LinkTo from '../UI/Links/LinkTo';
 import styles from './Login.module.css';
 
 const Login = () => {
-  const authCtx = useContext(AuthContext);
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { values, isFormValid, changeHandler, blurHandler } = useForm({
     email: '',
     emailValid: null,
     password: '',
     passwordValid: null,
-  },
-    authCtx.onLoginSubmit
-  );
+  });
 
   const onEmailBlur = (event) => {
     blurHandler(event, validateEmail);
@@ -31,10 +31,17 @@ const Login = () => {
     blurHandler(event, validatePassword);
   };
 
+  const loginHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(onLoginSubmit(values, navigate));
+    }
+  };
+
   return (
     <Card className={styles.card}>
       <h2 className={styles.title}>Login</h2>
-      <form className={styles.form} onSubmit={submitHandler}>
+      <form className={styles.form} onSubmit={loginHandler}>
         <Input
           className={styles.input}
           label={'E-mail'}
@@ -64,7 +71,7 @@ const Login = () => {
         <Button type="submit">Login</Button>
       </form>
       <div className={styles['no-account']}>
-        <p>Don't have an account?</p>
+        <p>Don&apos;t have an account?</p>
         <LinkTo to="/register" className={styles.button}>Sign up.</LinkTo>
       </div>
     </Card>

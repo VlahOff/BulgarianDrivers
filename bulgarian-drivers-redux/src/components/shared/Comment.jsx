@@ -1,46 +1,55 @@
-import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 
-import PostsContext from '../../contexts/postsContext';
+import { postsActions } from '../../store/posts';
 import { transformDate } from '../../utils/dateTransformer';
 
-import CommentVoting from './CommentVoting';
 import Button from '../UI/Button/Button';
+import CommentVoting from './CommentVoting';
 
 import classes from './Comment.module.css';
 
 const Comment = (props) => {
-  const postsCtx = useContext(PostsContext);
+  const dispatch = useDispatch();
+  const comment = props.post;
+  const date = transformDate(comment.updatedOn);
 
-  const post = props.post;
-  const date = transformDate(post.updatedOn);
+  const onEditClick = () => {
+    dispatch(postsActions.selectComment(comment));
+    dispatch(postsActions.toggleEditModal());
+  };
+
+  const onDeleteClick = () => {
+    dispatch(postsActions.selectComment(comment));
+    dispatch(postsActions.toggleDeleteModal());
+  };
 
   return (
     <li className={classes['post-item']}>
 
       <CommentVoting
-        carId={post.carId}
-        commentId={post._id}
+        carId={comment.carId}
+        commentId={comment._id}
       />
 
       <article className={classes.post}>
 
         <header className={classes['post-header']}>
-          <h3 className={classes.title}>{post.title}</h3>
-          <p>u/{post.username}</p>
+          <h3 className={classes.title}>{comment.title}</h3>
+          <p>u/{comment.username}</p>
         </header>
 
         <div className={classes['comment-wrapper']}>
-          <p className={classes.comment}>{post.post}</p>
+          <p className={classes.comment}>{comment.post}</p>
         </div>
 
         <footer className={classes.footer}>
           <div className={classes.actions}>
-            {props.user?.userId === post.owner && (
+            {props.user?.userId === comment.owner && (
               <>
-                <Button onClick={() => postsCtx.toggleEditModal(post)}>
+                <Button onClick={onEditClick}>
                   Edit
                 </Button>
-                <Button onClick={() => postsCtx.toggleDeleteModal(post)}>
+                <Button onClick={onDeleteClick}>
                   Delete
                 </Button>
               </>

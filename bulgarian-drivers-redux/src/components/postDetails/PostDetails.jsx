@@ -1,44 +1,44 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import AuthContext from '../../contexts/authContext';
-import PostsContext from '../../contexts/postsContext';
-import VotesContext from '../../contexts/votesContext';
-
-import Comment from '../shared/Comment';
-import DeleteCommentModal from '../shared/DeleteCommentModal';
-import EditCommentModal from '../shared/EditCommentModal';
+import { postsActions } from '../../store/posts';
+import { getCommentsForCar } from '../../store/posts-actions';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import LinkTo from '../UI/Links/LinkTo';
+import Comment from '../shared/Comment';
+import DeleteCommentModal from '../shared/DeleteCommentModal';
+import EditCommentModal from '../shared/EditCommentModal';
 import AddCommentModal from './AddCommentModal';
 
 import classes from './PostDetails.module.css';
 
-const PostDetails = (props) => {
+const PostDetails = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
-  const { getVotesForDriversComments } = useContext(VotesContext);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
   const {
     car,
     comments,
-    isAddModalOpen,
-    isEditModalOpen,
-    isDeleteModalOpen,
-    toggleAddModal,
-    loadCommentsForDriver,
-  } = useContext(PostsContext);
+    isAddModalShown,
+    isEditModalShown,
+    isDeleteModalShown,
+  } = useSelector(state => state.posts);
 
   useEffect(() => {
-    loadCommentsForDriver(id);
-    getVotesForDriversComments(id);
-  }, [id, loadCommentsForDriver, getVotesForDriversComments]);
+    dispatch(getCommentsForCar(id));
+  }, [dispatch, id]);
+
+  const onNewCommentHandler = () => {
+    dispatch(postsActions.toggleAddModal());
+  };
 
   return (
     <>
-      {isAddModalOpen && <AddCommentModal />}
-      {isEditModalOpen && <EditCommentModal />}
-      {isDeleteModalOpen && <DeleteCommentModal />}
+      {isAddModalShown && <AddCommentModal />}
+      {isEditModalShown && <EditCommentModal />}
+      {isDeleteModalShown && <DeleteCommentModal />}
 
       <Card className={classes.card}>
         <header className={classes.header}>
@@ -48,10 +48,10 @@ const PostDetails = (props) => {
 
           <h1 className={classes.title}>
             Comments about:
-            <span className={classes.number}> {car.carNumber}</span>
+            <span className={classes.number}> {car?.carNumber}</span>
           </h1>
 
-          <Button onClick={toggleAddModal}>New comment</Button>
+          <Button onClick={onNewCommentHandler}>New comment</Button>
         </header>
 
         <ul className={classes['posts-list']}>

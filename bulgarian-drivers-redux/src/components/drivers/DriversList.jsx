@@ -1,7 +1,9 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import PostsContext from '../../contexts/postsContext';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getCarList } from '../../store/posts-actions';
 import Card from '../UI/Card/Card';
 import LinkTo from '../UI/Links/LinkTo';
 import Driver from './Driver';
@@ -9,11 +11,12 @@ import Driver from './Driver';
 import classes from './DriversList.module.css';
 
 const DriversList = () => {
-  const { carList, loadCarList } = useContext(PostsContext);
+  const dispatch = useDispatch();
+  const carList = useSelector(state => state.posts.carList);
 
   useEffect(() => {
-    loadCarList();
-  }, [loadCarList]);
+    dispatch(getCarList());
+  }, [dispatch]);
 
   return (
     <Card className={classes.card}>

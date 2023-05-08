@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import PostsContext from '../../contexts/postsContext';
 import { useForm } from '../../hooks/useForm';
+import { postsActions } from '../../store/posts';
+import { editPost } from '../../store/posts-actions';
 import { validateInput } from '../../utils/inputValidation';
 
 import Button from '../UI/Button/Button';
@@ -12,15 +13,15 @@ import Textarea from '../UI/Textarea/Textarea';
 import classes from './EditCommentModal.module.css';
 
 const EditCommentModal = (props) => {
-  const postsCtx = useContext(PostsContext);
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
-    title: postsCtx.selectedPost.title,
+  const dispatch = useDispatch();
+  const selectedPost = useSelector(state => state.posts.selectedPost);
+
+  const { values, isFormValid, changeHandler, blurHandler } = useForm({
+    title: selectedPost.title,
     titleValid: true,
-    post: postsCtx.selectedPost.post,
+    post: selectedPost.post,
     postValid: true,
-  },
-    postsCtx.editPost
-  );
+  });
 
   const onTitleBlur = (event) => {
     blurHandler(event, validateInput);
@@ -30,16 +31,27 @@ const EditCommentModal = (props) => {
     blurHandler(event, validateInput);
   };
 
+  const toggleEditModal = () => {
+    dispatch(postsActions.toggleEditModal());
+  };
+
+  const onEditHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(editPost(values));
+    }
+  };
+
   return (
-    <Modal onClose={postsCtx.toggleEditModal} className={classes.modal}>
+    <Modal onClose={toggleEditModal} className={classes.modal}>
       <header className={classes.header}>
         <div className={classes.cross}></div>
         <h2 className={classes.title}>Edit comment</h2>
         <i className={`${classes.cross} fa-solid fa-xmark`}
-          onClick={postsCtx.toggleEditModal}
+          onClick={toggleEditModal}
         ></i>
       </header>
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={onEditHandler}>
         <Input
           label="Title"
           input={{

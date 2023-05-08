@@ -1,28 +1,26 @@
-import { useContext } from 'react';
-
-import { useAuthContext } from '../../contexts/authContext';
-import VotesContext from '../../contexts/votesContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { downvoteComment, upvoteComment } from '../../store/votes-actions';
 
 import classes from './CommentVoting.module.css';
 
 const CommentVoting = (props) => {
-  const { getVotesForComment, upvoteComment, downvoteComment } = useContext(VotesContext);
-  const authCtx = useAuthContext();
-
-  const vote = getVotesForComment(props.commentId);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+  const votes = useSelector(state => state.votes.votes);
+  const vote = votes.find(v => v.commentId === props.commentId);
 
   const onUpVote = () => {
-    upvoteComment(props.commentId);
+    dispatch(upvoteComment(props.commentId));
   };
 
   const onDownVote = () => {
-    downvoteComment(props.commentId);
+    dispatch(downvoteComment(props.commentId));
   };
 
-  const hasUserVotedUp = vote?.usersVotedUp?.includes(authCtx.user?.userId);
+  const hasUserVotedUp = vote?.usersVotedUp?.includes(user?.userId);
   const stylesUp = `${classes.arrow} ${hasUserVotedUp ? classes.active : ''}`;
 
-  const hasUserVotedDown = vote?.usersVotedDown?.includes(authCtx.user?.userId);
+  const hasUserVotedDown = vote?.usersVotedDown?.includes(user?.userId);
   const stylesDown = `${classes.arrow} ${hasUserVotedDown ? classes.active : ''}`;
 
   return (

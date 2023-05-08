@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../contexts/authContext';
 import { useForm } from '../../hooks/useForm';
+import { onRegisterSubmit } from '../../store/auth-actions';
 import { validateEmail } from '../../utils/emailValidation';
 import { validatePassword } from '../../utils/passwordValidation';
+import { validateUsername } from '../../utils/usernameValidation';
 
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
@@ -13,13 +15,10 @@ import PasswordErrorMessage from '../UI/PasswordError/PasswordErrorMessage';
 
 import styles from './Register.module.css';
 
-const validateUsername = (username) => {
-  return username.trim().length >= 3 && username.trim().length <= 30;
-};
-
 const Register = () => {
-  const authCtx = useContext(AuthContext);
-  const { values, changeHandler, blurHandler, doPasswordMatch, submitHandler } = useForm({
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { values, isFormValid, changeHandler, blurHandler, doPasswordMatch } = useForm({
     email: '',
     emailValid: null,
     username: '',
@@ -28,9 +27,7 @@ const Register = () => {
     passwordValid: null,
     rePassword: '',
     rePasswordValid: null,
-  },
-    authCtx.onRegisterSubmit
-  );
+  });
 
   const onEmailBlur = (event) => {
     blurHandler(event, validateEmail);
@@ -44,10 +41,17 @@ const Register = () => {
     blurHandler(event, validatePassword);
   };
 
+  const registerHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(onRegisterSubmit(values, navigate));
+    }
+  };
+
   return (
     <Card className={styles.card}>
       <h2 className={styles.title}>Register</h2>
-      <form className={styles.form} onSubmit={submitHandler}>
+      <form className={styles.form} onSubmit={registerHandler}>
         <Input
           label={'E-mail'}
           input={{

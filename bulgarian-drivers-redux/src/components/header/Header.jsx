@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { onLogout } from '../../store/auth-actions';
 import Hamburger from 'hamburger-react';
-import AuthContext from '../../contexts/authContext';
 import Button from '../UI/Button/Button';
 import NavLinkTo from '../UI/Links/NavLinkTo';
 
@@ -10,15 +11,21 @@ import logo from '../../assets/bg-drivers-logo-white.png';
 import styles from './Header.module.css';
 
 const Header = () => {
-  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const onMenuOpen = (event) => {
+  const onMenuOpen = () => {
     setIsMenuOpen((s) => !s);
   };
 
-  const onSelect = (event) => {
+  const onSelect = () => {
     setIsMenuOpen(false);
+  };
+
+  const onLogoutHandler = () => {
+    dispatch(onLogout(navigate));
   };
 
   return (
@@ -46,7 +53,7 @@ const Header = () => {
               Drivers
             </NavLinkTo>
           </li>
-          {!authCtx.user ? (
+          {!user ? (
             <>
               <li>
                 <NavLinkTo to="/login" className={styles.link}>
@@ -63,12 +70,12 @@ const Header = () => {
             <>
               <li>
                 <NavLinkTo to="/profile" className={styles.link}>
-                  <span>{authCtx.user.username}</span>{' '}
+                  <span>{user.username}</span>{' '}
                   <i className="fa-regular fa-user"></i>
                 </NavLinkTo>
               </li>
               <li>
-                <Button onClick={authCtx.onLogout}>Logout</Button>
+                <Button onClick={onLogoutHandler}>Logout</Button>
               </li>
             </>
           )}

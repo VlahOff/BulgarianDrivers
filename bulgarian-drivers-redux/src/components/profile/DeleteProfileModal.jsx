@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../contexts/authContext';
-import { validatePassword } from '../../utils/passwordValidation';
 import { useForm } from '../../hooks/useForm';
+import { onAccountDeletion } from '../../store/auth-actions';
+import { validatePassword } from '../../utils/passwordValidation';
 
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
@@ -11,23 +12,27 @@ import Modal from '../UI/Modal/Modal';
 import classes from './DeleteProfileModal.module.css';
 
 const DeleteProfileModal = (props) => {
-  const authCtx = useContext(AuthContext);
-  const { values, changeHandler, blurHandler, submitHandler } = useForm({
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { values, isFormValid, changeHandler, blurHandler } = useForm({
     password: '',
     passwordValid: null,
-  }, deleteAccount);
+  });
 
   const onPasswordBlur = (event) => {
     blurHandler(event, validatePassword);
   };
 
-  function deleteAccount() {
-    authCtx.onAccountDeletion(values.password);
+  const onAccountDeletionSubmitHandler = (event) => {
+    event.preventDefault();
+    if (isFormValid) {
+      dispatch(onAccountDeletion(values.password, navigate));
+    }
   };
 
   return (
     <Modal onClose={props.closeModal} className={classes.modal}>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={onAccountDeletionSubmitHandler}>
         <div className={classes['title-wrapper']}>
           <h2 className={classes.title}>
             Are you sure you want to delete your profile?
