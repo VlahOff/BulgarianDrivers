@@ -23,8 +23,8 @@ const Profile = () => {
       )}
       <Card className={classes.card}>
         <div className={classes['user-data']}>
-          <h2 className={classes.username}>Welcome {user.username}!</h2>
-          <p className={classes.email}>{user.email}</p>
+          <h2 className={classes.username}>Welcome {user?.username}!</h2>
+          <p className={classes.email}>{user?.email}</p>
         </div>
         <div className={classes['actions-bg']}>
           <div className={classes.actions}>
