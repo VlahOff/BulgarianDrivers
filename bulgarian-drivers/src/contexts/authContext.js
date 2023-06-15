@@ -7,10 +7,10 @@ import ErrorContext from './errorContext';
 import { useLoadingContext } from './loadingContext';
 
 const AuthContext = createContext({
-  onLoginSubmit: () => { },
-  onRegisterSubmit: () => { },
-  onLogout: () => { },
-  onAccountDeletion: () => { },
+  onLoginSubmit: () => {},
+  onRegisterSubmit: () => {},
+  onLogout: () => {},
+  onAccountDeletion: () => {},
   user: undefined,
 });
 
@@ -22,13 +22,14 @@ export const AuthProvider = (props) => {
 
   const onLoginSubmit = async (data) => {
     startLoading();
-    authService.login({
-      email: data.email,
-      password: data.password,
-    })
+    authService
+      .login({
+        email: data.email,
+        password: data.password,
+      })
       .then((response) => {
-        if (response.message) {
-          setErrorMessage(response.message);
+        if (response.errorMessage) {
+          setErrorMessage(response.errorMessage);
           return;
         }
 
@@ -41,19 +42,20 @@ export const AuthProvider = (props) => {
 
   const onRegisterSubmit = async (data) => {
     startLoading();
-    authService.register({
-      email: data.email,
-      username: data.username,
-      password: data.password,
-    })
+    authService
+      .register({
+        email: data.email,
+        username: data.username,
+        password: data.password,
+      })
       .then((response) => {
-        if (response.message) {
-          setErrorMessage(response.message);
+        if (response.errorMessage) {
+          setErrorMessage(response.errorMessage);
           return;
         }
 
-        setUser(response);
-        navigate('/');
+        setErrorMessage(response.message);
+        navigate('/login');
       })
       .catch(setErrorMessage)
       .finally(stopLoading);
@@ -61,8 +63,14 @@ export const AuthProvider = (props) => {
 
   const onLogout = async () => {
     startLoading();
-    authService.logout()
-      .then(() => {
+    authService
+      .logout()
+      .then((response) => {
+        if (response.errorMessage) {
+          setErrorMessage(response.errorMessage);
+          return;
+        }
+
         setUser(undefined);
         navigate('/');
       })
@@ -72,14 +80,16 @@ export const AuthProvider = (props) => {
 
   const onAccountDeletion = async (password) => {
     startLoading();
-    authService.deleteAccount({ password: password })
+    authService
+      .deleteAccount({ password: password })
       .then((res) => {
-        if (res.message !== 'Done') {
-          setErrorMessage(res.message);
+        if (res.errorMessage) {
+          setErrorMessage(res.errorMessage);
           return;
         }
-
+        
         setUser(undefined);
+        setErrorMessage(res.message);
         navigate('/');
       })
       .catch(setErrorMessage)

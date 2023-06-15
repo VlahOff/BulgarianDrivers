@@ -5,17 +5,29 @@ export const setErrorMessage = (error) => {
     const parseErrorMessage = (error) => {
       let message = '';
       switch (error) {
+        case 'SUCCESSFULLY_REGISTERED':
+          message = 'We\'ve sent you an email, please verify your account. The email may end up in spam.';
+          break;
+        case 'ACCOUNT_NOT_VERIFIED':
+          message = 'Please verify your account to continue, we\'ve sent you an email.';
+          break;
+        case 'PASSWORD_CHANGED':
+          message = 'Password changed successfully.';
+          break;
+        case 'ACCOUNT_DELETED_SUCCESSFULLY':
+          message = 'Your account has been removed successfully.';
+          break;
+        case 'EMAIL_PASSWORD_RESET_SENT':
+          message = 'Email was sent.';
+          break;
+        case 'TICKET_EXPIRED':
+          message = 'Reset password ticket has expired, send a new request.';
+          break;
         case 'EMAIL_TAKEN':
           message = 'This email is taken.';
           break;
         case 'USERNAME_TAKEN':
           message = 'This username is taken.';
-          break;
-        case 'INVALID_EMAIL':
-          message = 'This emails is invalid';
-          break;
-        case 'USERNAME_INVALID_LENGTH':
-          message = 'Username length must be between 3 and 30 characters long.';
           break;
         case 'INVALID_CREDENTIALS':
           message = 'Invalid email or password.';
