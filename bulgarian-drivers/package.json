@@ -38,6 +38,9 @@
     ]
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "singleAttributePerLine": true,
+    "useTabs": true
   }
 }

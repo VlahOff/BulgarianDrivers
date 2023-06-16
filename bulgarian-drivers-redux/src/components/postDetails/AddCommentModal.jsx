@@ -12,75 +12,82 @@ import Textarea from '../UI/Textarea/Textarea';
 
 import classes from './AddCommentModal.module.css';
 
-const AddCommentModal = (props) => {
-  const dispatch = useDispatch();
+const AddCommentModal = props => {
+	const dispatch = useDispatch();
 
-  const { values, isFormValid, changeHandler, blurHandler, submitHandler } = useForm({
-    title: '',
-    titleValid: null,
-    post: '',
-    postValid: null,
-  });
+	const { values, isFormValid, changeHandler, blurHandler, submitHandler } =
+		useForm({
+			title: '',
+			titleValid: null,
+			post: '',
+			postValid: null,
+		});
 
-  const onTitleBlur = (event) => {
-    blurHandler(event, validateInput);
-  };
+	const onTitleBlur = event => {
+		blurHandler(event, validateInput);
+	};
 
-  const onCommentBlur = (event) => {
-    blurHandler(event, validateInput);
-  };
+	const onCommentBlur = event => {
+		blurHandler(event, validateInput);
+	};
 
-  const toggleModalHandler = () => {
-    dispatch(postsActions.toggleAddModal());
-  };
+	const toggleModalHandler = () => {
+		dispatch(postsActions.toggleAddModal());
+	};
 
-  const commentSubmitHandler = (event) => {
-    event.preventDefault();
-    if (isFormValid) {
-      dispatch(createNewPostForDriver(values));
-    }
-  };
+	const commentSubmitHandler = event => {
+		event.preventDefault();
+		if (isFormValid) {
+			dispatch(createNewPostForDriver(values));
+		}
+	};
 
-  return (
-    <Modal onClose={toggleModalHandler} className={classes.modal}>
-      <header className={classes.header}>
-        <div className={classes.cross}></div>
-        <h2 className={classes.title}>Add comment</h2>
-        <i
-          className={`${classes.cross} fa-solid fa-xmark`}
-          onClick={toggleModalHandler}
-        ></i>
-      </header>
-      <form className={classes.form} onSubmit={commentSubmitHandler}>
-        <Input
-          label="Title"
-          input={{
-            id: 'title',
-            type: 'text',
-            onChange: changeHandler,
-            onBlur: onTitleBlur,
-            value: values.title,
-            placeholder: 'Some title',
-          }}
-          error={values.titleValid}
-          errorMessage="Input must be at least 10 characters long."
-        />
-        <Textarea
-          label="Post"
-          id="post"
-          textarea={{
-            onChange: changeHandler,
-            onBlur: onCommentBlur,
-            value: values.post,
-            placeholder: 'Some description',
-          }}
-          error={values.postValid}
-          errorMessage="Input must be at least 10 characters long."
-        />
-        <Button type="submit">Post</Button>
-      </form>
-    </Modal>
-  );
+	return (
+		<Modal
+			onClose={toggleModalHandler}
+			className={classes.modal}
+		>
+			<header className={classes.header}>
+				<div className={classes.cross}></div>
+				<h2 className={classes.title}>Add comment</h2>
+				<i
+					className={`${classes.cross} fa-solid fa-xmark`}
+					onClick={toggleModalHandler}
+				></i>
+			</header>
+			<form
+				className={classes.form}
+				onSubmit={commentSubmitHandler}
+			>
+				<Input
+					label="Title"
+					input={{
+						id: 'title',
+						type: 'text',
+						onChange: changeHandler,
+						onBlur: onTitleBlur,
+						value: values.title,
+						placeholder: 'Some title',
+					}}
+					error={values.titleValid}
+					errorMessage="Input must be at least 10 characters long."
+				/>
+				<Textarea
+					label="Post"
+					id="post"
+					textarea={{
+						onChange: changeHandler,
+						onBlur: onCommentBlur,
+						value: values.post,
+						placeholder: 'Some description',
+					}}
+					error={values.postValid}
+					errorMessage="Input must be at least 10 characters long."
+				/>
+				<Button type="submit">Post</Button>
+			</form>
+		</Modal>
+	);
 };
 
 export default AddCommentModal;

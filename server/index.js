@@ -10,27 +10,26 @@ const voteController = require('./controllers/voteController');
 
 const EXPRESS_PORT = process.env.EXPRESS_PORT;
 async function start() {
-  const app = express();
+	const app = express();
 
-  app.use(cors());
-  app.use(express.json());
-  app.use(tokenParser());
+	app.use(cors());
+	app.use(express.json());
+	app.use(tokenParser());
 
-  const connectToDB = dbConfig();
+	const connectToDB = dbConfig();
 
-  app.get('/', (req, res) => {
-    res.status(200).send('It works!');
-  });
+	app.get('/', (req, res) => {
+		res.status(200).send('It works!');
+	});
 
-  app.use('/api', postController);
-  app.use('/api/votes', voteController);
+	app.use('/api', postController);
+	app.use('/api/votes', voteController);
 
-  connectToDB
-    .then(() => {
-      app.listen(EXPRESS_PORT, () =>
-        console.log('App listening on port: ' + EXPRESS_PORT)
-      );
-    });
+	connectToDB.then(() => {
+		app.listen(EXPRESS_PORT, () =>
+			console.log('App listening on port: ' + EXPRESS_PORT)
+		);
+	});
 }
 
 start();

@@ -10,28 +10,28 @@ import { isUserLogged } from './store/auth-actions';
 import classes from './App.module.css';
 
 function App() {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.ui.isLoading);
-  const errorMessage = useSelector(state => state.ui.errorMessage);
+	const dispatch = useDispatch();
+	const isLoading = useSelector(state => state.ui.isLoading);
+	const errorMessage = useSelector(state => state.ui.errorMessage);
 
-  useEffect(() => {
-    dispatch(isUserLogged());
-  }, []);
+	useEffect(() => {
+		dispatch(isUserLogged());
+	}, []);
 
-  return (
-    <>
-      {isLoading && <Loading />}
-      {errorMessage &&
-        <div className={classes['error-wrapper']}>
-          <ErrorBanner error={errorMessage} />
-        </div>
-      }
-      <Header />
-      <main>
-        <RouterOutlet />
-      </main>
-    </>
-  );
+	return (
+		<>
+			{isLoading && <Loading />}
+			{errorMessage && (
+				<div className={classes['error-wrapper']}>
+					<ErrorBanner error={errorMessage} />
+				</div>
+			)}
+			<Header />
+			<main>
+				<RouterOutlet />
+			</main>
+		</>
+	);
 }
 
 export default App;

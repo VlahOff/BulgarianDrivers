@@ -11,21 +11,21 @@ import Loading from './components/UI/Loading/Loading';
 import classes from './App.module.css';
 
 function App() {
-  const errorCtx = useContext(ErrorContext);
-  const loadingCtx = useContext(LoadingContext);
+	const errorCtx = useContext(ErrorContext);
+	const loadingCtx = useContext(LoadingContext);
 
-  return (
-    <>
-      {loadingCtx.isLoading && <Loading />}
-      <div className={classes['error-wrapper']}>
-        {errorCtx.isOpen && <ErrorBanner error={errorCtx.message} />}
-      </div>
-      <Header />
-      <main>
-        <RouterOutlet />
-      </main>
-    </>
-  );
+	return (
+		<>
+			{loadingCtx.isLoading && <Loading />}
+			<div className={classes['error-wrapper']}>
+				{errorCtx.isOpen && <ErrorBanner error={errorCtx.message} />}
+			</div>
+			<Header />
+			<main>
+				<RouterOutlet />
+			</main>
+		</>
+	);
 }
 
 export default App;

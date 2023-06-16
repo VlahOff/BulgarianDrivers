@@ -13,41 +13,62 @@ import Register from './components/register/Register';
 import Search from './components/search/Search';
 
 const RouterOutlet = () => {
-  return (
-    <Routes>
-      <Route path="*" element={<PageNotFound />} />
-      <Route path="/" element={<HomePage />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="/drivers" element={<DriversList />} />
-      <Route path="/drivers/:id" element={<PostDetails />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route
-        path="/create-post"
-        element={
-          <ProtectedRoute>
-            <CreatePost />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/user-posts"
-        element={
-          <ProtectedRoute>
-            <UserPosts />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route
+				path="*"
+				element={<PageNotFound />}
+			/>
+			<Route
+				path="/"
+				element={<HomePage />}
+			/>
+			<Route
+				path="/search"
+				element={<Search />}
+			/>
+			<Route
+				path="/drivers"
+				element={<DriversList />}
+			/>
+			<Route
+				path="/drivers/:id"
+				element={<PostDetails />}
+			/>
+			<Route
+				path="/login"
+				element={<Login />}
+			/>
+			<Route
+				path="/register"
+				element={<Register />}
+			/>
+			<Route
+				path="/create-post"
+				element={
+					<ProtectedRoute>
+						<CreatePost />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/profile"
+				element={
+					<ProtectedRoute>
+						<Profile />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/user-posts"
+				element={
+					<ProtectedRoute>
+						<UserPosts />
+					</ProtectedRoute>
+				}
+			/>
+		</Routes>
+	);
 };
 
 export default RouterOutlet;

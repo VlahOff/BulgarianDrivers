@@ -15,56 +15,67 @@ import AddCommentModal from './AddCommentModal';
 
 import classes from './PostDetails.module.css';
 
-const PostDetails = (props) => {
-  const { id } = useParams();
-  const { user } = useContext(AuthContext);
-  const { getVotesForDriversComments } = useContext(VotesContext);
-  const {
-    car,
-    comments,
-    isAddModalOpen,
-    isEditModalOpen,
-    isDeleteModalOpen,
-    toggleAddModal,
-    loadCommentsForDriver,
-  } = useContext(PostsContext);
+const PostDetails = props => {
+	const { id } = useParams();
+	const { user } = useContext(AuthContext);
+	const { getVotesForDriversComments } = useContext(VotesContext);
+	const {
+		car,
+		comments,
+		isAddModalOpen,
+		isEditModalOpen,
+		isDeleteModalOpen,
+		toggleAddModal,
+		loadCommentsForDriver,
+	} = useContext(PostsContext);
 
-  useEffect(() => {
-    loadCommentsForDriver(id);
-    getVotesForDriversComments(id);
-  }, [id, loadCommentsForDriver, getVotesForDriversComments]);
+	useEffect(() => {
+		loadCommentsForDriver(id);
+		getVotesForDriversComments(id);
+	}, [id, loadCommentsForDriver, getVotesForDriversComments]);
 
-  return (
-    <>
-      {isAddModalOpen && <AddCommentModal />}
-      {isEditModalOpen && <EditCommentModal />}
-      {isDeleteModalOpen && <DeleteCommentModal />}
+	return (
+		<>
+			{isAddModalOpen && <AddCommentModal />}
+			{isEditModalOpen && <EditCommentModal />}
+			{isDeleteModalOpen && <DeleteCommentModal />}
 
-      <Card className={classes.card}>
-        <header className={classes.header}>
-          <LinkTo to=".." relative="path">
-            <i className="fa-solid fa-chevron-left"></i> Back
-          </LinkTo>
+			<Card className={classes.card}>
+				<header className={classes.header}>
+					<LinkTo
+						to=".."
+						relative="path"
+					>
+						<i className="fa-solid fa-chevron-left"></i> Back
+					</LinkTo>
 
-          <h1 className={classes.title}>
-            Comments about:
-            <span className={classes.number}> {car.carNumber}</span>
-          </h1>
+					<h1 className={classes.title}>
+						Comments about:
+						<span className={classes.number}> {car.carNumber}</span>
+					</h1>
 
-          <Button onClick={toggleAddModal}>New comment</Button>
-        </header>
+					<Button onClick={toggleAddModal}>New comment</Button>
+				</header>
 
-        <ul className={classes['posts-list']}>
-          {comments.map((c) => {
-            return <Comment key={c._id} user={user} post={c} />;
-          })}
-          {comments.length === 0 &&
-            <p className={classes['alert-message']}>No comments about this driver.</p>
-          }
-        </ul>
-      </Card>
-    </>
-  );
+				<ul className={classes['posts-list']}>
+					{comments.map(c => {
+						return (
+							<Comment
+								key={c._id}
+								user={user}
+								post={c}
+							/>
+						);
+					})}
+					{comments.length === 0 && (
+						<p className={classes['alert-message']}>
+							No comments about this driver.
+						</p>
+					)}
+				</ul>
+			</Card>
+		</>
+	);
 };
 
 export default PostDetails;
