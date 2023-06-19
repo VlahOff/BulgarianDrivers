@@ -41,7 +41,9 @@ export const onRegisterSubmit = (data, navigate) => {
 					return;
 				}
 
-				dispatch(setErrorMessage(res.message));
+				// dispatch(setErrorMessage(res.message));
+				dispatch(authActions.setUser(res));
+				localStorage.setItem('userData', JSON.stringify(res));
 				navigate('/login');
 			})
 			.catch(err => dispatch(setErrorMessage(err)))

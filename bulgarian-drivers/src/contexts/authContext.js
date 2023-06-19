@@ -54,7 +54,8 @@ export const AuthProvider = props => {
 					return;
 				}
 
-				setErrorMessage(response.message);
+				// setErrorMessage(response.message);
+				setUser(response);
 				navigate('/login');
 			})
 			.catch(setErrorMessage)
