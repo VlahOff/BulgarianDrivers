@@ -1,10 +1,10 @@
 require('dotenv').config();
-
 const express = require('express');
 const dbConfig = require('./configs/database');
 
 const tokenParser = require('./middlewares/tokenParser');
 const cors = require('./middlewares/cors');
+
 const postController = require('./controllers/postController');
 const voteController = require('./controllers/voteController');
 
