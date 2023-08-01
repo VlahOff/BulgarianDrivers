@@ -1,9 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const corsConfig = require('./configs/corsConfig');
 const dbConfig = require('./configs/database');
 
 const tokenParser = require('./middlewares/tokenParser');
-const cors = require('./middlewares/cors');
 
 const postController = require('./controllers/postController');
 const voteController = require('./controllers/voteController');
@@ -12,7 +13,7 @@ const EXPRESS_PORT = process.env.EXPRESS_PORT;
 async function start() {
 	const app = express();
 
-	app.use(cors());
+	app.use(cors(corsConfig));
 	app.use(express.json());
 	app.use(tokenParser());
 
