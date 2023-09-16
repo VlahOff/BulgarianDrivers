@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import RouterOutlet from './RouterOutlet';
-import ErrorBanner from './components/UI/ErrorBanner/ErrorBanner';
-import Loading from './components/UI/Loading/Loading';
+import ErrorBanner from './components/UI/errorBanner/ErrorBanner';
+import Loading from './components/UI/loading/Loading';
 import Header from './components/header/Header';
 import { isUserLogged } from './store/auth-actions';
 

@@ -1,8 +1,10 @@
 import * as postService from '../services/postsService';
+import * as votesService from '../services/votesService';
 import store from './index';
 import { postsActions } from './posts';
 import { uiActions } from './ui';
 import { setErrorMessage } from './ui-actions';
+import { voteActions } from './votes';
 import { getVotesForDriversComments } from './votes-actions';
 
 export const getCarList = () => {
@@ -33,9 +35,11 @@ export const getCommentsForCar = driverId => {
 export const getUserComments = () => {
 	return dispatch => {
 		dispatch(uiActions.startLoading());
-		postService
-			.getUserPosts()
-			.then(res => dispatch(postsActions.setComments(res)))
+		Promise.all([postService.getUserPosts(), votesService.getUserVotes()])
+			.then(res => {
+				dispatch(postsActions.setComments(res[0]));
+				dispatch(voteActions.setVotes(res[1]));
+			})
 			.catch(err => dispatch(setErrorMessage(err)))
 			.finally(() => dispatch(uiActions.stopLoading()));
 	};
@@ -123,6 +127,7 @@ export const searchCarList = query => {
 					return;
 				}
 				dispatch(postsActions.setSearchResults(res));
+				dispatch(postsActions.setSearchError(''));
 			})
 			.catch(err => dispatch(setErrorMessage(err)))
 			.finally(() => dispatch(uiActions.stopLoading()));

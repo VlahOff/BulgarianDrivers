@@ -1,16 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 
 import ProtectedRoute from './ProtectedRoute';
-import PageNotFound from './components/404page/PageNotFound';
-import CreatePost from './components/createPost/CreatePost';
-import DriversList from './components/drivers/DriversList';
-import HomePage from './components/home/HomePage';
-import Login from './components/login/Login';
-import PostDetails from './components/postDetails/PostDetails';
-import Profile from './components/profile/Profile';
-import UserPosts from './components/profile/UserPosts';
-import Register from './components/register/Register';
-import Search from './components/search/Search';
+import CreatePost from './pages/createPost/CreatePost';
+import DriverDetails from './pages/driverDetails/DriverDetails';
+import DriversList from './pages/driversList/DriversList';
+import HomePage from './pages/home/HomePage';
+import Login from './pages/login/Login';
+import PageNotFound from './pages/pageNotFound/PageNotFound';
+import Profile from './pages/profile/Profile';
+import Register from './pages/register/Register';
+import Search from './pages/search/Search';
+import UserPosts from './pages/userPosts/UserPosts';
 
 const RouterOutlet = () => {
 	return (
@@ -33,7 +33,7 @@ const RouterOutlet = () => {
 			/>
 			<Route
 				path="/drivers/:id"
-				element={<PostDetails />}
+				element={<DriverDetails />}
 			/>
 			<Route
 				path="/login"

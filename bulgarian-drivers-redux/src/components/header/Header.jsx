@@ -1,11 +1,11 @@
+import Hamburger from 'hamburger-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { onLogout } from '../../store/auth-actions';
-import Hamburger from 'hamburger-react';
-import Button from '../UI/Button/Button';
-import NavLinkTo from '../UI/Links/NavLinkTo';
+import Button from '../UI/button/Button';
+import NavLinkTo from '../UI/links/NavLinkTo';
 
 import logo from '../../assets/bg-drivers-logo-white.png';
 import styles from './Header.module.css';
