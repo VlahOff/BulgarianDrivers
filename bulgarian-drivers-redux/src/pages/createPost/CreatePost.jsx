@@ -16,7 +16,7 @@ const CreatePost = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { values, isFormValid, changeHandler, blurHandler } = useForm({
+	const { values, isFormValid, changeHandler } = useForm({
 		carNumber: '',
 		carNumberValid: null,
 		title: '',
@@ -24,18 +24,6 @@ const CreatePost = () => {
 		post: '',
 		postValid: null,
 	});
-
-	const onPlateNumberBlur = event => {
-		blurHandler(event, validateLicensePlate);
-	};
-
-	const onTitleBlur = event => {
-		blurHandler(event, validateInput);
-	};
-
-	const onPostBlur = event => {
-		blurHandler(event, validateInput);
-	};
 
 	const onCreatePostHandler = event => {
 		event.preventDefault();
@@ -56,8 +44,7 @@ const CreatePost = () => {
 					input={{
 						id: 'carNumber',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onPlateNumberBlur,
+						onChange: e => changeHandler(e, validateLicensePlate),
 						value: values.carNumber,
 						autoFocus: true,
 						placeholder: 'CB1234MB',
@@ -70,8 +57,7 @@ const CreatePost = () => {
 					input={{
 						id: 'title',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onTitleBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.title,
 						placeholder: 'Some title',
 					}}
@@ -82,8 +68,7 @@ const CreatePost = () => {
 					label={'Post'}
 					id="post"
 					textarea={{
-						onChange: changeHandler,
-						onBlur: onPostBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.post,
 						placeholder: 'Some description',
 					}}

@@ -15,20 +15,13 @@ import styles from './Login.module.css';
 const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { values, isFormValid, changeHandler, blurHandler } = useForm({
+	
+	const { values, isFormValid, changeHandler } = useForm({
 		email: '',
 		emailValid: null,
 		password: '',
 		passwordValid: null,
 	});
-
-	const onEmailBlur = event => {
-		blurHandler(event, validateEmail);
-	};
-
-	const onPasswordBlur = event => {
-		blurHandler(event, validatePassword);
-	};
 
 	const loginHandler = event => {
 		event.preventDefault();
@@ -50,11 +43,10 @@ const Login = () => {
 					input={{
 						id: 'email',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onEmailBlur,
-						value: values.email,
+						onChange: e => changeHandler(e, validateEmail),
+						value: values?.email,
 					}}
-					error={values.emailValid}
+					error={values?.emailValid}
 					errorMessage="Invalid email."
 				/>
 				<Input
@@ -63,11 +55,10 @@ const Login = () => {
 					input={{
 						id: 'password',
 						type: 'password',
-						onChange: changeHandler,
-						onBlur: onPasswordBlur,
-						value: values.password,
+						onChange: e => changeHandler(e, validatePassword),
+						value: values?.password,
 					}}
-					error={values.passwordValid}
+					error={values?.passwordValid}
 					errorMessage="Invalid password."
 				/>
 				<Button type="submit">Login</Button>

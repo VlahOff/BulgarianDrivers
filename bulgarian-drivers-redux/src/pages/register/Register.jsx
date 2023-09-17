@@ -17,29 +17,16 @@ import styles from './Register.module.css';
 const Register = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { values, isFormValid, changeHandler, blurHandler, doPasswordMatch } =
-		useForm({
-			email: '',
-			emailValid: null,
-			username: '',
-			usernameValid: null,
-			password: '',
-			passwordValid: null,
-			rePassword: '',
-			rePasswordValid: null,
-		});
-
-	const onEmailBlur = event => {
-		blurHandler(event, validateEmail);
-	};
-
-	const onUsernameBlur = event => {
-		blurHandler(event, validateUsername);
-	};
-
-	const onPasswordBlur = event => {
-		blurHandler(event, validatePassword);
-	};
+	const { values, isFormValid, changeHandler, doPasswordMatch } = useForm({
+		email: '',
+		emailValid: null,
+		username: '',
+		usernameValid: null,
+		password: '',
+		passwordValid: null,
+		rePassword: '',
+		rePasswordValid: null,
+	});
 
 	const registerHandler = event => {
 		event.preventDefault();
@@ -60,8 +47,7 @@ const Register = () => {
 					input={{
 						id: 'email',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onEmailBlur,
+						onChange: e => changeHandler(e, validateEmail),
 						value: values.email,
 					}}
 					error={values.emailValid}
@@ -72,8 +58,7 @@ const Register = () => {
 					input={{
 						id: 'username',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onUsernameBlur,
+						onChange: e => changeHandler(e, validateUsername),
 						value: values.username,
 					}}
 					error={values.usernameValid}
@@ -84,8 +69,7 @@ const Register = () => {
 					input={{
 						id: 'password',
 						type: 'password',
-						onChange: changeHandler,
-						onBlur: onPasswordBlur,
+						onChange: e => changeHandler(e, validatePassword),
 						value: values.password,
 					}}
 					error={values.passwordValid}
@@ -96,8 +80,7 @@ const Register = () => {
 					input={{
 						id: 'rePassword',
 						type: 'password',
-						onChange: changeHandler,
-						onBlur: doPasswordMatch,
+						onChange: e => changeHandler(e, doPasswordMatch),
 						value: values.rePassword,
 					}}
 					error={values.rePasswordValid}

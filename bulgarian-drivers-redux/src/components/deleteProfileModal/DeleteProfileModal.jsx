@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { onAccountDeletion } from '../../store/auth-actions';
 import { validatePassword } from '../../utils/passwordValidation';
-
 import Button from '../UI/button/Button';
 import Input from '../UI/input/Input';
 import Modal from '../UI/modal/Modal';
@@ -14,14 +13,11 @@ import classes from './DeleteProfileModal.module.css';
 const DeleteProfileModal = props => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { values, isFormValid, changeHandler, blurHandler } = useForm({
+
+	const { values, isFormValid, changeHandler } = useForm({
 		password: '',
 		passwordValid: null,
 	});
-
-	const onPasswordBlur = event => {
-		blurHandler(event, validatePassword);
-	};
 
 	const onAccountDeletionSubmitHandler = event => {
 		event.preventDefault();
@@ -48,8 +44,7 @@ const DeleteProfileModal = props => {
 						input={{
 							id: 'password',
 							type: 'password',
-							onChange: changeHandler,
-							onBlur: onPasswordBlur,
+							onChange: e => changeHandler(e, validatePassword),
 							value: values.password,
 						}}
 						error={values.passwordValid}

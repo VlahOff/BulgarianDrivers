@@ -4,7 +4,6 @@ import { useForm } from '../../hooks/useForm';
 import { postsActions } from '../../store/posts';
 import { createNewPostForDriver } from '../../store/posts-actions';
 import { validateInput } from '../../utils/inputValidation';
-
 import Button from '../UI/button/Button';
 import Input from '../UI/input/Input';
 import Modal from '../UI/modal/Modal';
@@ -15,21 +14,12 @@ import classes from './AddCommentModal.module.css';
 const AddCommentModal = props => {
 	const dispatch = useDispatch();
 
-	const { values, isFormValid, changeHandler, blurHandler, submitHandler } =
-		useForm({
-			title: '',
-			titleValid: null,
-			post: '',
-			postValid: null,
-		});
-
-	const onTitleBlur = event => {
-		blurHandler(event, validateInput);
-	};
-
-	const onCommentBlur = event => {
-		blurHandler(event, validateInput);
-	};
+	const { values, isFormValid, changeHandler } = useForm({
+		title: '',
+		titleValid: null,
+		post: '',
+		postValid: null,
+	});
 
 	const toggleModalHandler = () => {
 		dispatch(postsActions.toggleAddModal());
@@ -64,8 +54,7 @@ const AddCommentModal = props => {
 					input={{
 						id: 'title',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onTitleBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.title,
 						placeholder: 'Some title',
 					}}
@@ -76,8 +65,7 @@ const AddCommentModal = props => {
 					label="Post"
 					id="post"
 					textarea={{
-						onChange: changeHandler,
-						onBlur: onCommentBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.post,
 						placeholder: 'Some description',
 					}}

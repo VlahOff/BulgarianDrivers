@@ -15,20 +15,12 @@ const EditCommentModal = props => {
 	const dispatch = useDispatch();
 	const selectedPost = useSelector(state => state.posts.selectedPost);
 
-	const { values, isFormValid, changeHandler, blurHandler } = useForm({
+	const { values, isFormValid, changeHandler } = useForm({
 		title: selectedPost.title,
 		titleValid: true,
 		post: selectedPost.post,
 		postValid: true,
 	});
-
-	const onTitleBlur = event => {
-		blurHandler(event, validateInput);
-	};
-
-	const onCommentBlur = event => {
-		blurHandler(event, validateInput);
-	};
 
 	const toggleEditModal = () => {
 		dispatch(postsActions.toggleEditModal());
@@ -63,8 +55,7 @@ const EditCommentModal = props => {
 					input={{
 						id: 'title',
 						type: 'text',
-						onChange: changeHandler,
-						onBlur: onTitleBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.title,
 						placeholder: 'Some title',
 					}}
@@ -75,8 +66,7 @@ const EditCommentModal = props => {
 					label="Post"
 					id="post"
 					textarea={{
-						onChange: changeHandler,
-						onBlur: onCommentBlur,
+						onChange: e => changeHandler(e, validateInput),
 						value: values.post,
 						placeholder: 'Some description',
 					}}
